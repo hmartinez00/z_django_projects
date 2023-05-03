@@ -164,3 +164,24 @@ Por supuesto, aquí te muestro los pasos a seguir para agregar una nueva vista q
 8. Iniciar el servidor para ver la nueva vista en el navegador.
 
 Espero que estos pasos te sean útiles. Si tienes alguna otra pregunta, no dudes en preguntarme.
+
+
+AGREGAR NUEVA APLICACION:
+
+Si deseas agregar una nueva aplicación a un proyecto Django, estos son los pasos que debes seguir:
+
+1. Ejecuta el comando `python manage.py startapp nombre_de_la_aplicacion` para crear el directorio de la nueva aplicación con su estructura inicial.
+
+2. Agrega la nueva aplicación a la lista `INSTALLED_APPS` del archivo `settings.py` del proyecto.
+
+3. Define las rutas (URLs) de la nueva aplicación en su archivo `urls.py` en la aplicación.
+
+4. Define las vistas de la nueva aplicación en su archivo `views.py`.
+
+5. Define las plantillas HTML en el directorio `templates` de la nueva aplicación.
+
+6. Actualiza las migraciones y aplica los cambios a la base de datos mediante los comandos `python manage.py makemigrations` y `python manage.py migrate`.
+
+7. Agrega lógica a las vistas y plantillas HTML de la nueva aplicación según sea necesario.
+
+8. Testea la nueva aplicación y asegúrate de que todo funcione correctamente.
