@@ -38,10 +38,10 @@ pattern = re.compile(r'INSTALLED_APPS\s*=\s*\[(?P<apps>.*)\]', re.DOTALL)
 match = pattern.search(content)
 if match:
     apps = match.group('apps').strip()
-    new_apps = f"'{nueva_app}',\n    " + apps
-    content = pattern.sub(f'INSTALLED_APPS = [{new_apps}]', content)
+    # new_apps = f"'{nueva_app}',\n    " + apps
+    # content = pattern.sub(f'INSTALLED_APPS = [{new_apps}]', content)
 
-print(content)
+print(apps)
 
 # with open(os.path.join(settings.BASE_DIR, proyecto, 'settings.py'), 'w') as f:
 #     f.writelines(content)
