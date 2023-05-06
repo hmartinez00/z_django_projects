@@ -1,28 +1,36 @@
-1. django-admin startproject proyecto
+# Ciclo de creacion de un proyecto con Django 4
 
-2. cd .\proyecto
+## 1. Creando el proyecto
 
-    probar cambio: python .\manage.py runserver
-    Detener servidor.
+* 1.1 
+django-admin startproject mysite
+* 1.2 
+cd .\mysite
+> probar cambio: 
+* 1.3 
+python .\manage.py runserver
+> Detener servidor.
 
-3. Crear la base de datos para crear la tabla "auth_user".
+## 2. Crear la base de datos para crear la tabla "auth_user".
 
-    3.1 python .\manage.py migrate
+* 2.1 
+python .\manage.py migrate
+* 2.2 
+python .\manage.py createsuperuser
+* 2.3 Introducir los datos solicitados: probar cambio
+* 2.4 
+python .\manage.py runserver
 
-    3.2 python .\manage.py createsuperuser
+* 2.5 Acceder a: 
+http://127.0.0.1:8000/admin/
+> Detener servidor.
 
-    3.3 Introducir los datos solicitados:
+4. ## Creacion de una App:
 
-    3.4 probar cambio: python .\manage.py runserver
+* 4.1
+python .\manage.py startapp polls
 
-    Acceder a: http://127.0.0.1:8000/admin/
-    Detener servidor.
-
-4. Creacion de una App:
-
-    4.1 python .\manage.py startapp aplicacion
-
-    4.2 Actualizacion settings.py
+* 4.2 Actualizacion settings.py
 
     ```python
     INSTALLED_APPS = [
@@ -32,25 +40,25 @@
         'django.contrib.sessions',
         'django.contrib.messages',
         'django.contrib.staticfiles',
-        'aplicacion',
+        'polls',
     ]
     ```
 
-    4.3 Actualizacion:
+* 4.3 Actualizacion:
 
-        proyecto/urls.py
+    proyecto/urls.py
 
-        ```python
-        from django.contrib import admin
-        from django.urls import path, include
+    ```python
+    from django.contrib import admin
+    from django.urls import path, include
 
-        urlpatterns = [
-            path('admin/', admin.site.urls),
-            path('aplicacion/', include('aplicacion.urls')),
-        ]
-        ```
+    urlpatterns = [
+        path('admin/', admin.site.urls),
+        path('polls/', include('polls.urls')),
+    ]
+    ```
 
-        Creacion: proyecto/aplicacion/urls.py
+    Creacion: proyecto/polls/urls.py
 
     ```python
     from django.urls import path
@@ -61,8 +69,8 @@
     ]
     ```
        
-    4.4 Actualizacion:
-        proyecto/aplicacion/views.py
+* 4.4 Actualizacion:
+proyecto/polls/views.py
 
     ```python
     from django.shortcuts import render
@@ -72,10 +80,13 @@
     ```
 
 
-5. Creacion: proyecto/template
+## 5. Crear directorio template
+Creacion: proyecto/template
+
+## 6. Actualizacion de ajustes, modelos, panel administrativo
 Actualizacion proyecto/settings.py
 
-    TEMPLATES: DIRS
+* 6.1 TEMPLATES: DIRS
 
     ```python
     #...
@@ -84,7 +95,7 @@ Actualizacion proyecto/settings.py
     TEMPLATES = [
         {
             'BACKEND': 'django.template.backends.django.DjangoTemplates',
-            'DIRS': [os.path.join(BASE_DIR, 'aplicacion', 'templates')],
+            'DIRS': [os.path.join(BASE_DIR, 'polls', 'templates')],
             'APP_DIRS': True,
             'OPTIONS': {
                 'context_processors': [
@@ -98,7 +109,7 @@ Actualizacion proyecto/settings.py
     ]
     ```
 
-    DATABASES
+* 6.2 DATABASES
 
     ```python
 
@@ -114,22 +125,23 @@ Actualizacion proyecto/settings.py
     }
     ```
 
-    LANGUAGE_CODE
+* 6.3 LANGUAGE_CODE
 
     ```python
     LANGUAGE_CODE = 'es-eu'
     ```
 
-    probar cambio: python .\manage.py runserver
-    Detener servidor.
+* 6.4 probar cambio: 
+python .\manage.py runserver
+
+> Detener servidor.
+
+* 6.5 Actualizacion:
+    proyecto/polls/models.py
+    proyecto/polls/admin.py
 
 
-4.5 Actualizacion:
-    proyecto/aplicacion/models.py
-    proyecto/aplicacion/admin.py
-
-
-python .\manage.py makemigrations aplicacion
+python .\manage.py makemigrations polls
 
 
 
