@@ -15,7 +15,7 @@
         [
             "scripts/new_project.py",
             "scripts/create_superuser.py",
-            "scripts/settings_modify.py",
+            "scripts/new_app.py",
             "scripts/run_server.py",
             "scripts/git_update.py",
             "scripts/test.py"
