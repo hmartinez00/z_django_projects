@@ -5,7 +5,7 @@ import django
 
 def create_superuser(directorio, proyecto):
     # Ruta absoluta del directorio del proyecto
-    PROJECT_DIR = directorio + '/' + proyecto
+    PROJECT_DIR = os.path.abspath(directorio + '/' + proyecto)
 
     # Agregar la ruta del proyecto al path de python
     sys.path.append(PROJECT_DIR)
