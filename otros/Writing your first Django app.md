@@ -1,17 +1,17 @@
 # Escribiendo tu primera aplicación Django, parte 1
 
-## Creating a project
+## Crear el proyecto
 
 django-admin startproject mysite
 cd .\mysite
 
-### The development server
+### Activar el servidor
 python .\manage.py runserver
 
-### Creating the Polls app
+### Crear la app
 py manage.py startapp polls
 
-### Write your first view
+### Escribir la primera vista
 
 * Abrir `polls/views.py` y colocar este codigo:
 
@@ -47,7 +47,7 @@ py manage.py startapp polls
     ]
     ```
 
-Con este paso haz incorporado todaslas vistas de la aplicacion "polls".
+Con este paso haz incorporado todas las vistas de la aplicacion "polls".
 
 * Probar los cambios:
 py manage.py runserver

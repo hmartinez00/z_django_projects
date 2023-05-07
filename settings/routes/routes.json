@@ -1,0 +1,14 @@
+{
+    "exec": [
+        [
+            "Crear nuevo proyecto",
+            "Agregar nueva aplicacion",
+            "prueba"
+        ],
+        [
+            "new_project.py",
+            "settings_modify.py",
+            "test.py"
+        ]
+    ]
+}
