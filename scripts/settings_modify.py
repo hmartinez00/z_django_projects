@@ -1,31 +1,18 @@
 import os
-
-# ruta del archivo settings.py
-ruta_settings = os.path.join('proyecto_prueba/proyecto_prueba', 'settings.py')
-
-# definimos la aplicación a agregar
-nueva_aplicacion = "aplicacion"
-
-# leemos el archivo settings.py
-with open(ruta_settings, 'r') as archivo:
-    lineas = archivo.readlines()
-
-# buscamos la posición de INSTALLED_APPS
-posicion = None
-for i in range(len(lineas)):
-    if 'INSTALLED_APPS' in lineas[i]:
-        posicion = i
-        break
-
-# agregamos la nueva aplicación en la posición deseada
-if posicion is not None:
-    lineas[posicion] = lineas[posicion].rstrip()[:-1] + "[\n\t'" + nueva_aplicacion + "'," + lineas[posicion][-1]
-else:
-    print('No se encontró la lista INSTALLED_APPS en el archivo settings.py')
+from General_Utilities.option_list import option_list
+from modules.settings_modify import settings_modify
+from modules.dir_sel import dir_sel
 
 
-# escribimos las líneas actualizadas en el archivo
-with open(ruta_settings, 'w') as archivo:
-    archivo.writelines(lineas)
+key = 'resources'
+res = dir_sel(key, 1)
+print(res)
 
-print('La aplicación se ha agregado correctamente a INSTALLED_APPS.')
+opciones = os.listdir()
+app_name = option_list(opciones)
+print(app_name)
+
+os.chdir('..')
+directorio = os.path.abspath(res[0] + '/' + res[1])
+
+settings_modify(app_name, directorio)

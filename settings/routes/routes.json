@@ -7,8 +7,9 @@
         [
             "Crear nuevo proyecto",
             "Crear Superusuario",
-            "Agregar nueva aplicacion",
+            "Instalar nueva aplicacion",
             "Correr Servidor",
+            "Hacer autocommit",
             "prueba"
         ],
         [
@@ -16,6 +17,7 @@
             "scripts/create_superuser.py",
             "scripts/settings_modify.py",
             "scripts/run_server.py",
+            "scripts/git_update.py",
             "scripts/test.py"
         ]
     ]

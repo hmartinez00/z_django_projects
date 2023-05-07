@@ -1,5 +1,6 @@
 import os
 from General_Utilities.control_rutas import setting_routes
+from modules.settings_modify import settings_modify
 
 
 key = 'resources'
@@ -23,3 +24,5 @@ print(os.getcwd())
 # Create Django app
 os.system(f"python manage.py startapp {app_name}")
 os.system("python .\manage.py migrate")
+
+settings_modify(app_name)

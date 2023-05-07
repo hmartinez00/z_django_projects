@@ -1,18 +1,10 @@
 import os
-from General_Utilities.option_list import option_list
-from General_Utilities.control_rutas import setting_routes
+from modules.dir_sel import dir_sel
 
 key = 'resources'
+res = dir_sel(key, 1)
 
-directory = setting_routes(key)[1]
-directorio = os.path.abspath(directory)
-os.chdir(directorio)
-opciones = os.listdir()
-project = option_list(opciones)
-
-directorio = os.path.abspath(directory + '/' + project)
-os.chdir(directorio)
-print(os.getcwd())
+print(res)
 
 # Correr el servidor
 os.system('python .\manage.py runserver')
