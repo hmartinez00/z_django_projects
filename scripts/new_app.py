@@ -4,17 +4,9 @@ from modules.dir_sel import dir_sel
 
 
 key = 'resources'
-res = dir_sel(key, 1)
-print(res[0])
+res = dir_sel(key, 0)
 
+project_name = res[1]
 app_name = 'aplicacion'
 
-# Create Django app
-os.system(f"python manage.py startapp {app_name}")
-os.system("python .\manage.py migrate")
-
-os.chdir('..')
-directorio = os.path.abspath(res[0] + '/' + res[1])
-
-print(directorio)
-add_app(app_name, directorio)
+add_app(project_name, app_name)

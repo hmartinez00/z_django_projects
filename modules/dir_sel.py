@@ -16,4 +16,6 @@ def dir_sel(key,num):
     os.chdir(directorio)
     res = [os.getcwd(), project]
 
+    os.chdir(directory)
+
     return res

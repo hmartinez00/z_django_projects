@@ -2,9 +2,9 @@ import os
 from modules.dir_sel import dir_sel
 
 key = 'resources'
-res = dir_sel(key, 1)
+res = dir_sel(key, 0)
 
-print(res)
+os.chdir(res[0])
 
 # Correr el servidor
 os.system('python .\manage.py runserver')

@@ -1,23 +1,24 @@
 import os
-from modules.dir_sel import dir_sel
-from modules.insert_list import add_string, insert_list
+from General_Utilities.control_rutas import setting_routes
+from modules.insert_list import insert_list, add_string
 
 
 key = 'resources'
-res = dir_sel(key, 1)
-directorio = os.path.abspath(res[0] + '/' + res[1])
+res = setting_routes(key)[0]
 
-nueva_aplicacion = 'aplicacion'
+project_name = 'proyecto_prueba'
+app_name = 'aplicacion'
 
+# Create el listado de directorios
+o_directorio = os.path.abspath(res + '/' + project_name)
+p_directorio = os.path.abspath(o_directorio + '/' + project_name)
 ruta_settings = [
-        os.path.join(directorio, 'settings.py'),
-        os.path.join(directorio, 'urls.py')
-    ]
+        os.path.join(p_directorio, 'settings.py'),
+    ] 
 
-print(ruta_settings)
-
-print(ruta_settings[1])
-
-pivot_string = 'urlpatterns ='
-element = f"path('{nueva_aplicacion}/', include('{nueva_aplicacion}.urls'))"
-insert_list(ruta_settings[1], pivot_string, element)
+# Instalando la direccion de los templates
+print(f'Instalando la direccion de los templates')
+print(ruta_settings[0])
+pivot_string = "'DIRS': []"
+element = f"[os.path.join(BASE_DIR, '{app_name}', 'templates')],"
+add_string(ruta_settings[0], pivot_string, element)

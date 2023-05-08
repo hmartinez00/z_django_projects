@@ -1,10 +1,10 @@
 import os
 import subprocess
-from modules.insert_list import add_string, insert_list
 from General_Utilities.control_rutas import setting_routes
+from modules.modifile import *
 
 
-def add_app(project_name, app_name):
+def add_app2(project_name, app_name):
 
     key = 'resources'
     res = setting_routes(key)[0]
@@ -31,16 +31,19 @@ def add_app(project_name, app_name):
     # Agregamos la aplicacion
     print(f'Instalando en {project_name}/settings.py')
     print(ruta_settings[0])
-    pivot_string = 'INSTALLED_APPS'
-    element = app_name
-    insert_list(ruta_settings[0], pivot_string, element)
+    file_path = ruta_settings[0]
+    pivot_substring = 'INSTALLED_APPS'
+    new_substring = "[\n\t'" + app_name + "',"
+    append_substring_to_line(file_path, pivot_substring, new_substring)
 
     # Instalando la direccion de los templates
     print(f'Instalando la direccion de los templates')
     print(ruta_settings[0])
-    pivot_string = "'DIRS': "
-    element = f"os.path.join(BASE_DIR, '{app_name}', 'templates')"
-    insert_list(ruta_settings[0], pivot_string, element)
+    file_path = ruta_settings[0]
+    pivot_substring = "'DIRS': "
+    old_substring = '[]'
+    new_substring = '[\n]'
+    replace_substring_in_line(file_path, pivot_substring, old_substring, new_substring)
 
     # Actualizamos urls.py del proyecto
     print(f'Modificando {project_name}/urls.py')
