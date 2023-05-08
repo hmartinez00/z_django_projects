@@ -6,16 +6,16 @@
     "exec": [
         [
             "Crear nuevo proyecto",
+            "Crear nueva aplicacion",
             "Crear Superusuario",
-            "Instalar nueva aplicacion",
             "Correr Servidor",
             "Hacer autocommit",
             "prueba"
         ],
         [
             "scripts/new_project.py",
-            "scripts/create_superuser.py",
             "scripts/new_app.py",
+            "scripts/create_superuser.py",
             "scripts/run_server.py",
             "scripts/git_update.py",
             "scripts/test.py"

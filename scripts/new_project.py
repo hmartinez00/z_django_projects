@@ -1,6 +1,5 @@
 import os
 from General_Utilities.control_rutas import setting_routes
-from modules.settings_modify import settings_modify
 
 
 key = 'resources'

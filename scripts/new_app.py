@@ -1,6 +1,5 @@
 import os
-from General_Utilities.option_list import option_list
-from modules.settings_modify import settings_modify
+from modules.add_app import add_app
 from modules.dir_sel import dir_sel
 
 
@@ -18,4 +17,4 @@ os.chdir('..')
 directorio = os.path.abspath(res[0] + '/' + res[1])
 
 print(directorio)
-settings_modify(app_name, directorio)
+add_app(app_name, directorio)
