@@ -1,13 +1,11 @@
 import os
 from General_Utilities.control_rutas import setting_routes
 
-
-key = 'resources'
-directory = setting_routes(key)[0]
-
 project_name = 'proyecto_prueba'
 
-directorio = os.path.abspath(directory)
+key = 'resources'
+directorio = setting_routes(key)[0]
+
 os.chdir(directorio)
 print(os.getcwd())
 

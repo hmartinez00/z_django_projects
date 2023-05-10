@@ -4,6 +4,16 @@ import os
 def find_pivot_substring(file_path, pivot_substring):
     """
     Busca la posición de la substring de pivoteo en el archivo.
+
+    Args:
+        file_path (str): Ruta del archivo.
+        pivot_substring (str): Subcadena a buscar.
+
+    Returns:
+        int: El número de línea en el que se encontró la subcadena de pivoteo.
+
+    Raises:
+        ValueError: Si la subcadena de pivoteo no se encuentra en el archivo.
     """
     with open(file_path, 'r') as f:
         for i, line in enumerate(f):
@@ -15,6 +25,13 @@ def find_pivot_substring(file_path, pivot_substring):
 def replace_file_content(file_path, new_content):
     """
     Reemplaza todo el contenido del archivo con un nuevo contenido.
+
+    Args:
+        file_path (str): Ruta del archivo.
+        new_content (str): Contenido nuevo que reemplazará al contenido existente.
+
+    Returns:
+        None
     """
     with open(file_path, 'w') as f:
         f.write(new_content)
@@ -23,18 +40,39 @@ def replace_file_content(file_path, new_content):
 def replace_substring_in_line(file_path, pivot_substring, old_substring, new_substring):
     """
     Reemplaza una subcadena en la línea donde se encuentra la substring de pivoteo.
+
+    Args:
+        file_path (str): Ruta del archivo.
+        pivot_substring (str): Subcadena que indica en qué línea se realizará el reemplazo.
+        old_substring (str): Subcadena que se reemplazará.
+        new_substring (str): Nueva subcadena que reemplazará a la antigua.
+
+    Returns:
+        str: Si la antigua subcadena no se encuentra en la línea, se retorna "No se puede hacer la sustitución".
     """
     pivot_line = find_pivot_substring(file_path, pivot_substring)
     with open(file_path, 'r') as f:
         lines = f.readlines()
-    lines[pivot_line] = lines[pivot_line].replace(old_substring, new_substring)
-    with open(file_path, 'w') as f:
-        f.writelines(lines)
-
+    line = lines[pivot_line]
+    if old_substring not in line:
+        return 'No se puede hacer la sustitución'
+    if new_substring not in line:
+        line = line.replace(old_substring, new_substring)
+        lines[pivot_line] = line
+        with open(file_path, 'w') as f:
+            f.writelines(lines)
 
 def append_substring_to_line(file_path, pivot_substring, new_substring):
     """
     Añade una subcadena en la línea donde se encuentra la substring de pivoteo.
+
+    Args:
+        file_path (str): Ruta del archivo.
+        pivot_substring (str): Subcadena que indica en qué línea se realizará la adición.
+        new_substring (str): Nueva subcadena que se agregará a la línea.
+
+    Returns:
+        None
     """
     pivot_line = find_pivot_substring(file_path, pivot_substring)
     with open(file_path, 'r') as f:
@@ -44,6 +82,19 @@ def append_substring_to_line(file_path, pivot_substring, new_substring):
         f.writelines(lines)
 
 def add_substring_to_line(filepath, line_num, substring):
+    """
+    Agrega una subcadena a una línea específica de un archivo de texto.
+
+    Args:
+        filepath (str): Ruta del archivo de texto.
+        line_num (int): Número de línea a la que se agregará la subcadena.
+        substring (str): Subcadena que se agregará a la línea.
+
+    Returns:
+        - True si la subcadena se agregó correctamente a la línea especificada.
+        - False si el número de línea está fuera del rango de líneas del archivo.
+    """
+
     with open(filepath, 'r') as f:
         lines = f.readlines()
 
@@ -69,6 +120,20 @@ def add_substring_to_line(filepath, line_num, substring):
             return True
 
 def import_module_to_file(file_path, module_name):
+    """
+    Esta función importa un módulo en un archivo Python si aún no ha sido importado.
+    Busca en el archivo si ya hay una importación del módulo especificado y, si es así,
+    no hace nada. Si no se encuentra ninguna importación, la función agrega una nueva línea
+    de importación en la posición adecuada en el archivo.
+
+    Args:
+        file_path (str): La ruta del archivo donde se importará el módulo.
+        module_name (str): El nombre del módulo que se importará.
+
+    Returns:
+        None
+    """
+
     # Check if module already imported
     with open(file_path, 'r') as f:
         lines = f.readlines()
