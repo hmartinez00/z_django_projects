@@ -1,10 +1,8 @@
 import os
 import sys
 import django
-from General_Utilities.option_list import option_list
 from General_Utilities.control_rutas import setting_routes
 from modules.django_rootes import *
-
 
 
 key = 'resources'

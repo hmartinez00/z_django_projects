@@ -8,22 +8,17 @@ key = 'resources'
 path = setting_routes(key)[0]
 
 projects_list = get_django_projects(path)
+print(projects_list)
 project_path = select_django_project(projects_list)
-project_name = os.path.basename(project_path)
+print(project_path)
 
-print(project_name)
+apps_list = get_django_apps(project_path)
+print(apps_list)
+app_path = select_django_apps(apps_list)
+print(app_path)
 
-# project_path = select_django_project(projects_list)
-# print(project_path)
-# app_list = get_django_apps(project_path)
-# print(app_list)
-# # app_name = option_list(app_list)
-# # print(get_project_and_app_py_files(project_path, app_name))
+files_list = get_py_files(app_path)
+print(files_list)
 
-# apps_routes = []
-# for i in app_list:
-#     apps_routes.append(
-#         os.path.join(project_path, i)
-#     )
-
-# print(apps_routes)
+file = find_substring_in_list(files_list, 'settings.py')
+print(file)

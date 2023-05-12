@@ -39,9 +39,24 @@ def get_django_apps(project_path):
             if dir != 'migrations' and dir != '__pycache__':
                 init_file = os.path.join(root, dir, '__init__.py')
                 if os.path.exists(init_file):
-                    django_apps.append(dir)
+                    app_path = os.path.abspath(os.path.join(root, dir))
+                    django_apps.append(app_path)
     return django_apps
 
+
+def select_django_apps(apps_list):
+    """
+    Recibe una lista de proyectos de Django y permite seleccionar uno de ellos
+    para listar las aplicaciones y los archivos .py.
+    """
+    print("Seleccione un proyecto de Django para listar sus aplicaciones:")
+    for i, app in enumerate(apps_list):
+        print(f"{i + 1}. {os.path.basename(app)}")
+    while True:
+        selection = input("Seleccione el número del proyecto: ")
+        if selection.isdigit() and int(selection) in range(1, len(apps_list) + 1):
+            return apps_list[int(selection) - 1]
+        print("Selección inválida. Intente de nuevo.")
 
 
 def get_py_files(path):
@@ -57,20 +72,13 @@ def get_py_files(path):
     return py_files
 
 
-def get_project_and_app_py_files(project_path, app_name=None):
+def find_substring_in_list(string_list, substring):
     """
-    Recibe la ruta del proyecto de Django y el nombre opcional de una aplicación
-    y retorna una lista de todos los archivos .py encontrados en la carpeta del
-    proyecto y en la carpeta de la aplicación.
+    Busca la presencia de una subcadena en una lista de strings y retorna el
+    primer elemento de la lista que contiene la subcadena o None si no la encuentra.
     """
-    app_files = []
-    if app_name:
-        app_path = None
-        # buscar la carpeta de la aplicación en todas las subcarpetas de project_path
-        for root, dirs, files in os.walk(project_path):
-            if app_name in dirs:
-                app_path = os.path.join(root, app_name)
-                break
-        if app_path:
-            app_files = get_py_files(app_path)
-    return app_files
+    for s in string_list:
+        if substring in s:
+            return s
+    return None
+
