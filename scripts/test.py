@@ -12,13 +12,27 @@ print(projects_list)
 project_path = select_django_project(projects_list)
 print(project_path)
 
-apps_list = get_django_apps(project_path)
-print(apps_list)
-app_path = select_django_apps(apps_list)
-print(app_path)
+app_name = 'aplicacion'
 
-files_list = get_py_files(app_path)
-print(files_list)
-
-file = find_substring_in_list(files_list, 'settings.py')
-print(file)
+# Creamos la carpeta de templates
+print(f'Creando {app_name}/template/index.html')
+urls_path = os.path.join(project_path, app_name, 'template')
+os.mkdir(urls_path)
+content = '''<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>index</title>
+</head>
+<body>
+    <h1>Inicio</h1>
+    
+</body>
+</html>
+'''
+urls_path = os.path.join(project_path, app_name, 'template', 'index.html')
+if not os.path.isfile(urls_path):
+    with open(urls_path, "w") as f:
+        f.write(content)

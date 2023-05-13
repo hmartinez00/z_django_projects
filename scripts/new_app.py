@@ -1,8 +1,8 @@
 import os
 import subprocess
-from General_Utilities.control_rutas import setting_routes
-from modules.modifile import *
 from modules.django_rootes import *
+from modules.modifile import *
+from General_Utilities.control_rutas import setting_routes
 
 
 app_name = 'aplicacion'
@@ -58,7 +58,7 @@ pivot_substring = 'from django.urls import path'
 old_substring = pivot_substring
 new_substring = 'from django.urls import path, include'
 replace_substring_in_line(file_path, pivot_substring, old_substring, new_substring)
-element = f"path('{app_name}', include('{app_name}.urls'))"
+element = f"path('{app_name}/', include('{app_name}.urls'))"
 pivot_substring = 'urlpatterns = '
 new_substring = "[\n\t" + element + ","
 append_substring_to_line(file_path, pivot_substring, new_substring)
@@ -80,3 +80,8 @@ urlpatterns = [
 if not os.path.isfile(urls_path):
     with open(urls_path, "w") as f:
         f.write(content)
+
+# Creamos la carpeta de templates
+ruta = os.path.join(project_path, app_name, 'templates')
+os.mkdir(ruta)
+

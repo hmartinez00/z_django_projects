@@ -1,12 +1,13 @@
 {
     "resources": [
-        "C:/Users/Hector/Documents/0 - A Repositorios GitHub/z_django_projects/",
-        "C:/Users/admin/Documents/0 - A Repositorios GitHub/z_django_projects/"
+        "C:/Users/admin/Documents/0 - A Repositorios GitHub/z_django_projects/",
+        "C:/Users/Hector/Documents/0 - A Repositorios GitHub/z_django_projects/"
     ],
     "exec": [
         [
             "Crear nuevo proyecto",
             "Crear nueva aplicacion",
+            "Crear nueva vista",
             "Crear Superusuario",
             "Correr Servidor",
             "Hacer autocommit",
@@ -15,6 +16,7 @@
         [
             "scripts/new_project.py",
             "scripts/new_app.py",
+            "scripts/new_view.py",
             "scripts/create_superuser.py",
             "scripts/run_server.py",
             "scripts/git_update.py",
