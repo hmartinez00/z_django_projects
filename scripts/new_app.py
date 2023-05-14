@@ -5,7 +5,7 @@ from modules.modifile import *
 from General_Utilities.control_rutas import setting_routes
 
 
-app_name = 'aplicacion'
+app_name = 'ap2'
 
 key = 'resources'
 path = setting_routes(key)[0]
@@ -80,8 +80,4 @@ urlpatterns = [
 if not os.path.isfile(urls_path):
     with open(urls_path, "w") as f:
         f.write(content)
-
-# Creamos la carpeta de templates
-ruta = os.path.join(project_path, app_name, 'templates')
-os.mkdir(ruta)
 

@@ -1,38 +1,35 @@
-from General_Utilities.control_rutas import setting_routes
-from General_Utilities.option_list import option_list
-from modules.django_rootes import *
 import os
+import subprocess
+from modules.django_rootes import *
+from modules.modifile import *
+from General_Utilities.control_rutas import setting_routes
 
+
+view_name = 'index'
 
 key = 'resources'
 path = setting_routes(key)[0]
 
 projects_list = get_django_projects(path)
-print(projects_list)
 project_path = select_django_project(projects_list)
-print(project_path)
+apps_list = get_django_apps(project_path)
+app_path = select_django_apps(apps_list)
+app_name = os.path.basename(app_path)
+files_list = get_py_files(app_path)
 
-app_name = 'aplicacion'
+# Create el listado de directorios
+ruta_settings = [
+        find_substring_in_list(files_list, 'views.py'),
+        find_substring_in_list(files_list, 'urls.py'),
+    ]
 
-# Creamos la carpeta de templates
-print(f'Creando {app_name}/template/index.html')
-urls_path = os.path.join(project_path, app_name, 'template')
-os.mkdir(urls_path)
-content = '''<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>index</title>
-</head>
-<body>
-    <h1>Inicio</h1>
-    
-</body>
-</html>
+# Actualizamos views.py
+print('Actualizamos views.py')
+file_path = ruta_settings[0]
+
+print(file_path)
+new_content = f'''\n
+def {view_name}(request):
+    return render(request, '{view_name}.html')
 '''
-urls_path = os.path.join(project_path, app_name, 'template', 'index.html')
-if not os.path.isfile(urls_path):
-    with open(urls_path, "w") as f:
-        f.write(content)
+append_to_file(file_path, new_content)
