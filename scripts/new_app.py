@@ -28,13 +28,13 @@ os.chdir(project_path)
 subprocess.run(["python", "manage.py", "startapp", app_name])
 # subprocess.run(["python", "manage.py", "migrate"])
 
-# # Agregamos la aplicacion
-# print(f'Instalando en settings.py')
-# print(ruta_settings[0])
-# file_path = ruta_settings[0]
-# pivot_substring = 'INSTALLED_APPS'
-# new_substring = "[\n\t'" + app_name + "',"
-# append_substring_to_line(file_path, pivot_substring, new_substring)
+# Agregamos la aplicacion
+print(f'Instalando en settings.py')
+print(ruta_settings[0])
+file_path = ruta_settings[0]
+pivot_substring = 'INSTALLED_APPS'
+new_substring = "[\n\t'" + app_name + "',"
+append_substring_to_line(file_path, pivot_substring, new_substring)
 
 # # Instalando la direccion de los templates
 # print(f'Instalando la direccion de los templates')
