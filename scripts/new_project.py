@@ -1,7 +1,7 @@
 import os
 from General_Utilities.control_rutas import setting_routes
 
-project_name = 'proyecto_prueba'
+project_name = 'miProyecto'
 
 key = 'resources'
 directorio = setting_routes(key)[0]

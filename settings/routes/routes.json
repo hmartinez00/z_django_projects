@@ -5,7 +5,6 @@
     ],
     "exec": [
         [
-            "Crear nuevo entorno",
             "Crear nuevo proyecto",
             "Crear nueva aplicacion",
             "Crear nueva vista",
@@ -16,7 +15,6 @@
             "prueba"
         ],
         [
-            "scripts/env.py",
             "scripts/new_project.py",
             "scripts/new_app.py",
             "scripts/new_view.py",
