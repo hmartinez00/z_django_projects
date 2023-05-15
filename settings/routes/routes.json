@@ -1,10 +1,11 @@
 {
     "resources": [
-        "C:/Users/admin/Documents/0 - A Repositorios GitHub/z_django_projects/",
-        "C:/Users/Hector/Documents/0 - A Repositorios GitHub/z_django_projects/"
+        "C:/Users/Hector/Documents/0 - A Repositorios GitHub/z_django_projects/",
+        "C:/Users/admin/Documents/0 - A Repositorios GitHub/z_django_projects/"
     ],
     "exec": [
         [
+            "Crear nuevo entorno",
             "Crear nuevo proyecto",
             "Crear nueva aplicacion",
             "Crear nueva vista",
@@ -15,6 +16,7 @@
             "prueba"
         ],
         [
+            "scripts/env.py",
             "scripts/new_project.py",
             "scripts/new_app.py",
             "scripts/new_view.py",
