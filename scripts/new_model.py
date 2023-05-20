@@ -1,8 +1,8 @@
 import os
-from django.db import models
-from modules.django_models import create_model
 from modules.django_rootes import *
+from modules.modifile import *
 from General_Utilities.control_rutas import setting_routes
+from General_Utilities.option_list import option_list
 
 
 key = 'resources'
@@ -10,15 +10,48 @@ path = setting_routes(key)[0]
 
 projects_list = get_django_projects(path)
 project_path = select_django_project(projects_list)
-project_name = os.path.basename(project_path)
+app_list = get_django_apps(project_path)
+app_path = select_django_apps(app_list)
 
+files_list = get_py_files(app_path)
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', f'{project_name}/{project_name}.settings')
-import django
-django.setup()
+# Create el listado de directorios
+ruta_settings = [
+        find_substring_in_list(files_list, 'models.py'),
+    ]
 
-create_model('aplicacion', 'Producto', {
-    'nombre': models.CharField(max_length=50),
-    'descripcion': models.TextField(),
-    'precio': models.DecimalField(max_digits=8, decimal_places=2)
-})
+file_path = ruta_settings[0]
+
+# Creando el modelo
+model_name = input('Introduzca el nombre del modelo: ')
+
+# Actualizando el archivo models.py de la app
+class_def = f"class {model_name}(models.Model): "
+new_content = '\n\n' + class_def
+append_to_file(file_path, new_content)
+
+var_name = input('Introduzca el nombre de la variable: ')
+var_list = {
+    "ForeingKey": [
+            'model_name2',
+            'on_delete=models.CASCADE',
+        ],
+    "CharField": [
+            'max_lenght=50',
+        ],
+    "IntegerField": [
+            'default=0',
+        ],
+    "DateField": [],
+    "ManyToManyField": [
+            'single_var',
+        ],
+}
+
+var_type = option_list(list(var_list.keys()))
+var_attrs = var_list[var_type]
+var_def = f'{var_name} = models.{var_type}(' + ', '.join(var_attrs) + ')'
+pivot_substring = class_def
+# find_pivot_substring(file_path, pivot_substring)
+new_substring = ':\n\t' + var_def
+append_substring_to_line(file_path, pivot_substring, new_substring)

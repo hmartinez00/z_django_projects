@@ -5,7 +5,7 @@ from modules.modifile import *
 from General_Utilities.control_rutas import setting_routes
 
 
-app_name = 'miApp'
+app_name = 'appEmpresaDjango'
 
 key = 'resources'
 path = setting_routes(key)[0]
@@ -50,34 +50,34 @@ append_substring_to_line(file_path, pivot_substring, new_substring)
 # new_substring = "[\n\t\t\t" + f"os.path.join(BASE_DIR, '{app_name}', 'templates'),"
 # append_substring_to_line(file_path, pivot_substring, new_substring)
 
-# # Actualizamos urls.py del proyecto
-# print(f'Modificando urls.py')
-# print(ruta_settings[1])
-# file_path = ruta_settings[1]
-# pivot_substring = 'from django.urls import path'
-# old_substring = pivot_substring
-# new_substring = 'from django.urls import path, include'
-# replace_substring_in_line(file_path, pivot_substring, old_substring, new_substring)
-# element = f"path('{app_name}/', include('{app_name}.urls'))"
-# pivot_substring = 'urlpatterns = '
-# new_substring = "[\n\t" + element + ","
-# append_substring_to_line(file_path, pivot_substring, new_substring)
+# Actualizamos urls.py del proyecto
+print(f'Modificando urls.py')
+print(ruta_settings[1])
+file_path = ruta_settings[1]
+pivot_substring = 'from django.urls import path'
+old_substring = pivot_substring
+new_substring = 'from django.urls import path, include'
+replace_substring_in_line(file_path, pivot_substring, old_substring, new_substring)
+element = f"path('{app_name}/', include('{app_name}.urls'))"
+pivot_substring = 'urlpatterns = '
+new_substring = "[\n\t" + element + ","
+append_substring_to_line(file_path, pivot_substring, new_substring)
 
-# # Creamos urls.py de la aplicacion
-# ruta_settings.append(
-#         os.path.join(project_path, app_name, 'urls.py')
-#     )
+# Creamos urls.py de la aplicacion
+ruta_settings.append(
+        os.path.join(project_path, app_name, 'urls.py')
+    )
 
-# print(f'Creando {app_name}/urls.py')
-# urls_path = ruta_settings[2]
-# content = '''from django.urls import path
-# from . import views
+print(f'Creando {app_name}/urls.py')
+urls_path = ruta_settings[2]
+content = '''from django.urls import path
+from . import views
 
-# urlpatterns = [
-#     path('', views.index, name='index'),
-# ]
-# '''
-# if not os.path.isfile(urls_path):
-#     with open(urls_path, "w") as f:
-#         f.write(content)
+urlpatterns = [
+    path('', views.index, name='index'),
+]
+'''
+if not os.path.isfile(urls_path):
+    with open(urls_path, "w") as f:
+        f.write(content)
 

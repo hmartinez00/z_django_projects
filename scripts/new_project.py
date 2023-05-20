@@ -1,7 +1,7 @@
 import os
 from General_Utilities.control_rutas import setting_routes
 
-project_name = 'miProyecto'
+project_name = 'empresaDjango'
 
 key = 'resources'
 directorio = setting_routes(key)[0]

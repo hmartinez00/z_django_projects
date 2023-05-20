@@ -5,7 +5,7 @@ from modules.modifile import *
 from General_Utilities.control_rutas import setting_routes
 
 
-view_name = 'nova'
+view_name = 'index'
 
 key = 'resources'
 path = setting_routes(key)[0]
@@ -28,9 +28,15 @@ print('Actualizamos views.py')
 file_path = ruta_settings[0]
 
 print(file_path)
-new_content = f'''
+# new_content = f'''
+# def {view_name}(request):
+#     return render(request, '{view_name}.html')
+# '''
+new_content = f'''from django.http import HttpResponse
+
+
 def {view_name}(request):
-    return render(request, '{view_name}.html')
+    return HttpResponse("Mostrando el Listado de departamentos")
 '''
 append_to_file(file_path, new_content)
 
@@ -44,33 +50,33 @@ if view_name != 'index':
     append_substring_to_line(file_path, pivot_substring, new_substring)
 
 
-# Añadir el template
-print('Agregamos el template')
-urls_path = os.path.join(app_path, 'templates')
-if os.path.exists(urls_path):
-    pass
-else:
-    os.mkdir(urls_path)
-file_path = os.path.join(urls_path, f'{view_name}.html')
-new_content = f'''<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{view_name}</title>
-</head>
-<body>
-    <h1>{view_name}</h1>
+# # Añadir el template
+# print('Agregamos el template')
+# urls_path = os.path.join(app_path, 'templates')
+# if os.path.exists(urls_path):
+#     pass
+# else:
+#     os.mkdir(urls_path)
+# file_path = os.path.join(urls_path, f'{view_name}.html')
+# new_content = f'''<!DOCTYPE html>
+# <html lang="en">
+# <head>
+#     <meta charset="UTF-8">
+#     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+#     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+#     <title>{view_name}</title>
+# </head>
+# <body>
+#     <h1>{view_name}</h1>
     
-</body>
-</html>
-'''
-if not os.path.isfile(file_path):
-    replace_file_content(file_path, new_content)
+# </body>
+# </html>
+# '''
+# if not os.path.isfile(file_path):
+#     replace_file_content(file_path, new_content)
 
-# Ejecutando migraciones
-print(f'Ejecutando migraciones en: {app_name}')
-os.chdir(project_path)
-subprocess.run(["python", "manage.py", "makemigrations", app_name])
-subprocess.run(["python", "manage.py", "migrate"])
+# # Ejecutando migraciones
+# print(f'Ejecutando migraciones en: {app_name}')
+# os.chdir(project_path)
+# subprocess.run(["python", "manage.py", "makemigrations", app_name])
+# subprocess.run(["python", "manage.py", "migrate"])

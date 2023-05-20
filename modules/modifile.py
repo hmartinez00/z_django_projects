@@ -17,7 +17,7 @@ def find_pivot_substring(file_path, pivot_substring):
     """
     with open(file_path, 'r') as f:
         for i, line in enumerate(f):
-            if pivot_substring in line:
+            if line.startswith(pivot_substring):
                 return i
     raise ValueError(f'La substring de pivoteo "{pivot_substring}" no fue encontrada en el archivo.')
 
@@ -120,8 +120,11 @@ def add_substring_to_line(filepath, line_num, substring):
             return True
 
 def append_to_file(file_path, text):
-    with open(file_path, 'a') as file:
-        file.write(text)
+    with open(file_path, 'r') as file:
+        content = file.read()
+    if text not in content: 
+        with open(file_path, 'a') as file:
+            file.write(text)
 
 def import_module_to_file(file_path, module_name):
     """
