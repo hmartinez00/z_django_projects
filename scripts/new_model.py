@@ -27,6 +27,28 @@ file_path = ruta_settings[0]
 model_name = input('Introduzca el nombre del modelo: ')
 
 
-res = ModelGenerator(file_path, model_name).model_exists()
+# Crear una instancia de ModelGenerator
+generator = ModelGenerator(file_path, model_name)
+print(generator.model_exists())
+generator.add_model_class()
 
-print(res)
+generator.add_field()
+
+# Si no existe, agregar la clase del modelo al archivo
+# generator.add_field('id', 'AutoField', ['primary_key=True'])
+# generator.add_field('name', 'CharField', ["max_length=100"])
+# generator.add_field('age', 'IntegerField')
+
+# Obtener los campos existentes en el modelo
+existing_fields = generator.get_existing_fields()
+print("Campos existentes:", existing_fields)
+
+generator.remove_field()
+
+# # Agregar un nuevo campo al modelo
+# if 'email2' not in existing_fields:
+#     generator.add_field('email', 'EmailField')
+
+# # Eliminar un campo del modelo
+# if 'name2' in existing_fields:
+#     generator.remove_field('name2')

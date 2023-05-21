@@ -1,7 +1,12 @@
+import re
+from General_Utilities.option_list import option_list
+
+
 class ModelGenerator:
     def __init__(self, file_path, model_name):
         self.file_path = file_path
         self.model_name = model_name
+        # self.existing_fields = self.get_existing_fields()
         self.field_types = {
             "AutoField": [],
             "BigAutoField": [],
@@ -40,32 +45,57 @@ class ModelGenerator:
             content = file.read()
         return self.model_name in content
 
+    def add_model_class(self):
+        class_str = f"\nclass {self.model_name}(models.Model):\n"
+        with open(self.file_path, 'r+') as file:
+            content = file.read()
+            if class_str not in content:
+                file.seek(0, 2)  # Mover el puntero al final del archivo
+                file.write(class_str)
+
     def get_existing_fields(self):
         with open(self.file_path, 'r') as file:
             content = file.read()
         start_index = content.index(f"class {self.model_name}")
-        end_index = content.index("\n\n", start_index)
-        class_content = content[start_index:end_index]
-        lines = class_content.split("\n")
-        fields = []
-        for line in lines:
-            line = line.strip()
-            if "=" in line:
-                field_name = line.split("=")[0].strip()
-                fields.append(field_name)
+        end_index = content.find("\n\n", start_index)
+        if end_index == -1:
+            # No se encontró una línea en blanco adicional, ajustar el índice final
+            end_index = len(content)
+        class_section = content[start_index:end_index]
+        fields = re.findall(r'\w+\s*=\s*models\.', class_section)
+        fields = [field.replace(' = models.', '') for field in fields]
         return fields
 
-    def add_field(self, field_name, field_type, attributes=None):
+    def add_field(self, field_name=None, field_type=None, attributes=None):
         if not attributes:
             attributes = []
-        field_declaration = f"    {field_name} = models.{field_type}({', '.join(attributes)})"
-        with open(self.file_path, 'a') as file:
-            file.write(f"\n{field_declaration}")
+        
+        if not field_name:
+            field_name = input("Ingrese el nombre del campo: ")
 
-    def remove_field(self, field_name):
-        with open(self.file_path, 'r') as file:
-            lines = file.readlines()
-        with open(self.file_path, 'w') as file:
-            for line in lines:
-                if f"{field_name} =" not in line:
-                    file.write(line)
+        if not field_type:
+            field_list = self.field_types
+            field_type = option_list(list(field_list.keys()))
+            attributes = field_list[field_type]
+            
+        field_declaration = f"    {field_name} = models.{field_type}({', '.join(attributes)})\n"
+        
+        with open(self.file_path, 'a') as file:
+            file.write(f"{field_declaration}")
+
+    def remove_field(self, field_name=None):
+        if field_name is None:
+            existing_fields = self.get_existing_fields()
+            existing_fields.append('No borrar ningun campo!')
+            field_name = option_list(existing_fields)
+
+        
+        if field_name != 'No borrar ningun campo!':
+            with open(self.file_path, 'r') as file:
+                lines = file.readlines()
+            with open(self.file_path, 'w') as file:
+                for line in lines:
+                    if f"{field_name} =" not in line:
+                        file.write(line)
+        else:
+            print('No se elimino ningun campo!')
