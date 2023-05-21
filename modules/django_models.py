@@ -6,24 +6,23 @@ class ModelGenerator:
     def __init__(self, file_path, model_name):
         self.file_path = file_path
         self.model_name = model_name
-        # self.existing_fields = self.get_existing_fields()
         self.field_types = {
-            "AutoField": [],
-            "BigAutoField": [],
+            "AutoField": ["primary_key=True"],
+            "BigAutoField": ["primary_key=True"],
             "BigIntegerField": [],
             "BinaryField": [],
-            "BooleanField": [],
-            "CharField": [],
+            "BooleanField": ["default=False"],
+            "CharField": ["max_length=100"],
             "DateField": [],
-            "DateTimeField": [],
-            "DecimalField": [],
+            "DateTimeField": ["auto_now_add=True"],
+            "DecimalField": ["max_digits=8", "decimal_places=2"],
             "DurationField": [],
             "EmailField": [],
-            "FileField": [],
+            "FileField": ["upload_to='archivos/'"],
             "FilePathField": [],
             "FloatField": [],
-            "ForeignKey": ["to", "on_delete"],
-            "ImageField": [],
+            "ForeignKey": ["to", "on_delete=models.CASCADE"],
+            "ImageField": ["upload_to='imagenes/'"],
             "IntegerField": [],
             "ManyToManyField": ["to"],
             "NullBooleanField": [],
@@ -82,13 +81,17 @@ class ModelGenerator:
         
         with open(self.file_path, 'a') as file:
             file.write(f"{field_declaration}")
+        
+        # Obtener los campos existentes en el modelo
+        existing_fields = self.get_existing_fields()
+        print("Campos existentes:", existing_fields)
+
 
     def remove_field(self, field_name=None):
         if field_name is None:
             existing_fields = self.get_existing_fields()
             existing_fields.append('No borrar ningun campo!')
             field_name = option_list(existing_fields)
-
         
         if field_name != 'No borrar ningun campo!':
             with open(self.file_path, 'r') as file:
@@ -99,3 +102,29 @@ class ModelGenerator:
                         file.write(line)
         else:
             print('No se elimino ningun campo!')
+        
+        # Obtener los campos existentes en el modelo
+        existing_fields = self.get_existing_fields()
+        print("Campos existentes:", existing_fields)
+
+
+    def modules_actions(self):
+        while True:
+            # Mostrar opciones y solicitar entrada al usuario
+            print("1. Insertar Campo")
+            print("2. Salir")
+            opcion = input("Selecciona una opción: ")
+
+            if opcion == "1":
+                # Realizar la acción
+                print("Insertando Campo")
+                self.add_field()
+
+            elif opcion == "2":
+                # Salir del ciclo
+                print("Saliendo del programa...")
+                break
+
+            else:
+                # Opción inválida
+                print("Opción inválida. Por favor, selecciona una opción válida.")
