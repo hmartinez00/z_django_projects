@@ -122,7 +122,9 @@ def add_substring_to_line(filepath, line_num, substring):
 def append_to_file(file_path, text):
     with open(file_path, 'r') as file:
         content = file.read()
-    if text not in content: 
+    if text in content:
+        print(f"El modelo ya existe en el archivo.")
+    else:
         with open(file_path, 'a') as file:
             file.write(text)
 
@@ -165,3 +167,23 @@ def import_module_to_file(file_path, module_name):
         f.writelines(lines)
         print(f"Module {module_name} imported to {file_path} successfully")
 
+
+def swap_lines(file_path, target_line):
+    with open(file_path, 'r') as file:
+        lines = file.readlines()
+
+    line_index = None
+    for i, line in enumerate(lines):
+        if line.strip() == target_line:
+            line_index = i
+            break
+
+    if line_index is None or line_index == len(lines) - 1:
+        # No se encontró la línea o es la última línea, no se puede intercambiar
+        return
+
+    # Intercambiar las líneas
+    lines[line_index], lines[line_index + 1] = lines[line_index + 1], lines[line_index]
+
+    with open(file_path, 'w') as file:
+        file.writelines(lines)
