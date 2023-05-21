@@ -1,29 +1,71 @@
-import os
-from django.apps import apps
-from django.db import models
-from django.utils import timezone
+class ModelGenerator:
+    def __init__(self, file_path, model_name):
+        self.file_path = file_path
+        self.model_name = model_name
+        self.field_types = {
+            "AutoField": [],
+            "BigAutoField": [],
+            "BigIntegerField": [],
+            "BinaryField": [],
+            "BooleanField": [],
+            "CharField": [],
+            "DateField": [],
+            "DateTimeField": [],
+            "DecimalField": [],
+            "DurationField": [],
+            "EmailField": [],
+            "FileField": [],
+            "FilePathField": [],
+            "FloatField": [],
+            "ForeignKey": ["to", "on_delete"],
+            "ImageField": [],
+            "IntegerField": [],
+            "ManyToManyField": ["to"],
+            "NullBooleanField": [],
+            "OneToOneField": ["to", "on_delete"],
+            "PositiveBigIntegerField": [],
+            "PositiveIntegerField": [],
+            "PositiveSmallIntegerField": [],
+            "SlugField": [],
+            "SmallAutoField": [],
+            "SmallIntegerField": [],
+            "TextField": [],
+            "TimeField": [],
+            "URLField": [],
+            "UUIDField": [],
+        }
 
+    def model_exists(self):
+        with open(self.file_path, 'r') as file:
+            content = file.read()
+        return self.model_name in content
 
-def create_model(app_name, model_name, fields):
-    # Obtenemos la aplicación a la que queremos agregar el modelo
-    app_config = apps.get_app_config(app_name)
+    def get_existing_fields(self):
+        with open(self.file_path, 'r') as file:
+            content = file.read()
+        start_index = content.index(f"class {self.model_name}")
+        end_index = content.index("\n\n", start_index)
+        class_content = content[start_index:end_index]
+        lines = class_content.split("\n")
+        fields = []
+        for line in lines:
+            line = line.strip()
+            if "=" in line:
+                field_name = line.split("=")[0].strip()
+                fields.append(field_name)
+        return fields
 
-    # Definimos los campos del modelo
-    attrs = {
-        '__module__': app_config.__module__,
-        'created_at': models.DateTimeField(default=timezone.now)
-    }
-    attrs.update(fields)
+    def add_field(self, field_name, field_type, attributes=None):
+        if not attributes:
+            attributes = []
+        field_declaration = f"    {field_name} = models.{field_type}({', '.join(attributes)})"
+        with open(self.file_path, 'a') as file:
+            file.write(f"\n{field_declaration}")
 
-    # Creamos la clase del modelo y la registramos en la aplicación
-    model_class = type(model_name, (models.Model,), attrs)
-    app_config.models_module.models[model_name] = model_class
-
-    # Guardamos el archivo del modelo en la carpeta correspondiente
-    models_path = os.path.join(app_config.path, 'models.py')
-    with open(models_path, 'a') as f:
-        f.write(f'\n\n{model_class.__name__} = {model_class.__name__}')
-    
-    # Creamos la migración y la aplicamos
-    os.system(f'python manage.py makemigrations {app_name}')
-    os.system('python manage.py migrate')
+    def remove_field(self, field_name):
+        with open(self.file_path, 'r') as file:
+            lines = file.readlines()
+        with open(self.file_path, 'w') as file:
+            for line in lines:
+                if f"{field_name} =" not in line:
+                    file.write(line)
