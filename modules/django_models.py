@@ -126,7 +126,6 @@ class ModelGenerator:
         existing_fields = self.get_existing_fields()
         print("Campos existentes:", existing_fields)
 
-
     def remove_field(self, field_name=None):
         """
         main_description: Remover campos.
