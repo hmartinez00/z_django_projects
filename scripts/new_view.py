@@ -34,14 +34,9 @@ print(file_path)
 # '''
 new_content = f'''from django.http import HttpResponse
 
-<<<<<<< HEAD
-def {view_name}(request):
-    return HttpResponse('Listado de departamentos')
-=======
 
 def {view_name}(request):
     return HttpResponse("Mostrando el Listado de departamentos")
->>>>>>> c3c4d50f7ad79c6ba922617c2e01f952df6b2d00
 '''
 append_to_file(file_path, new_content)
 
