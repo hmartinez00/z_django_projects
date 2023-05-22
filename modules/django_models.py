@@ -1,9 +1,22 @@
 import re
+import inspect
 from General_Utilities.option_list import option_list
 
 
 class ModelGenerator:
+    """
+    Clase para generar modelos en Django.
+
+    :param file_path: Ruta del archivo models.py.
+    :param model_name: Nombre del modelo a generar.
+    """
     def __init__(self, file_path, model_name):
+        """
+        Inicializa una instancia de ModelGenerator.
+
+        :param file_path: Ruta del archivo models.py.
+        :param model_name: Nombre del modelo a generar.
+        """
         self.file_path = file_path
         self.model_name = model_name
         self.field_types = {
@@ -40,11 +53,21 @@ class ModelGenerator:
         }
 
     def model_exists(self):
+        """
+        main_description: Verificar existencia.
+        Verifica si el modelo ya existe en el archivo models.py.
+
+        :return: True si el modelo existe, False en caso contrario.
+        """
         with open(self.file_path, 'r') as file:
             content = file.read()
         return self.model_name in content
 
     def add_model_class(self):
+        """
+        Agrega la definición de la clase del modelo en el archivo models.py.
+        Si la clase ya existe, no realiza ninguna acción.
+        """
         class_str = f"\nclass {self.model_name}(models.Model):\n"
         with open(self.file_path, 'r+') as file:
             content = file.read()
@@ -53,6 +76,11 @@ class ModelGenerator:
                 file.write(class_str)
 
     def get_existing_fields(self):
+        """
+        Obtiene la lista de campos existentes en el modelo.
+
+        :return: Lista de campos existentes en el modelo.
+        """
         with open(self.file_path, 'r') as file:
             content = file.read()
         start_index = content.index(f"class {self.model_name}")
@@ -66,6 +94,15 @@ class ModelGenerator:
         return fields
 
     def add_field(self, field_name=None, field_type=None, attributes=None):
+        """
+        Agrega un nuevo campo al modelo.
+
+        :param field_name: Nombre del campo a agregar.
+                           Si no se proporciona, se solicitará al usuario.
+        :param field_type: Tipo de campo a agregar.
+                           Si no se proporciona, se solicitará al usuario.
+        :param attributes: Atributos adicionales para el campo.
+        """
         if not attributes:
             attributes = []
         
@@ -88,6 +125,13 @@ class ModelGenerator:
 
 
     def remove_field(self, field_name=None):
+        """
+        Elimina un campo del modelo.
+
+        :param field_name: Nombre del campo a eliminar.
+                           Si no se proporciona, se solicitará al usuario.
+                           Si se selecciona 'No borrar ningun campo!', no se realizará ninguna acción.
+        """
         if field_name is None:
             existing_fields = self.get_existing_fields()
             existing_fields.append('No borrar ningun campo!')
@@ -107,6 +151,22 @@ class ModelGenerator:
         existing_fields = self.get_existing_fields()
         print("Campos existentes:", existing_fields)
 
+    def get_method_tags(cls):
+        """
+        Escanea un objeto de clase y retorna una lista con las etiquetas y descripciones resumidas de sus métodos.
+
+        :param cls: Objeto de clase a escanear.
+        :return: Lista de etiquetas y descripciones resumidas de los métodos.
+        """
+        tags = []
+        for name, method in inspect.getmembers(cls, inspect.ismethod):
+            docstring = inspect.getdoc(method)
+            if docstring:
+                match = re.search(r"main_description:\s*(.*)", docstring)
+                if match:
+                    description = match.group(1)
+                    tags.append((name, description))
+        return tags
 
     def modules_actions(self):
         while True:
