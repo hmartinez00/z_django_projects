@@ -2,8 +2,10 @@ from modules.django_models import ModelGenerator
 import inspect
 from modules.django_rootes import *
 from modules.modifile import *
+from General_Utilities.menu import get_method_tags, menu_class, request
 from General_Utilities.control_rutas import setting_routes
 from modules.django_models import ModelGenerator
+
 
 
 key = 'resources'
@@ -38,11 +40,20 @@ print(metodos)
 
 # Ejemplo de uso
 # tags = get_method_tags(ModelGenerator)
-tags = generator.get_method_tags()
-for name, description in tags:
-    print(f"metodo: {name}")
-    print(f"Descripcion: {description}")
-    print()
+# tags = [i for i in get_method_tags(generator)]
+tags = get_method_tags(generator)
+opciones, acciones = [i[1] for i in tags], [i[0] for i in tags]
+# acciones = [i[0] for i in tags]
+
+out = menu_class(generator)
+request(generator, out[0])
+
+
+
+# for name, description in tags:
+#     print(f"metodo: {name}")
+#     print(f"Descripcion: {description}")
+#     print()
 
 # # Obtener la lista de métodos de la clase
 # metodos = [nombre for nombre in dir(generator) if callable(getattr(generator, nombre))]

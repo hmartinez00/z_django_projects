@@ -65,6 +65,7 @@ class ModelGenerator:
 
     def add_model_class(self):
         """
+        main_description: Agregar modelo.
         Agrega la definición de la clase del modelo en el archivo models.py.
         Si la clase ya existe, no realiza ninguna acción.
         """
@@ -77,6 +78,7 @@ class ModelGenerator:
 
     def get_existing_fields(self):
         """
+        main_description: Verificar existencia de campos.
         Obtiene la lista de campos existentes en el modelo.
 
         :return: Lista de campos existentes en el modelo.
@@ -95,6 +97,7 @@ class ModelGenerator:
 
     def add_field(self, field_name=None, field_type=None, attributes=None):
         """
+        main_description: Agregar campos.
         Agrega un nuevo campo al modelo.
 
         :param field_name: Nombre del campo a agregar.
@@ -126,6 +129,7 @@ class ModelGenerator:
 
     def remove_field(self, field_name=None):
         """
+        main_description: Remover campos.
         Elimina un campo del modelo.
 
         :param field_name: Nombre del campo a eliminar.
@@ -150,41 +154,3 @@ class ModelGenerator:
         # Obtener los campos existentes en el modelo
         existing_fields = self.get_existing_fields()
         print("Campos existentes:", existing_fields)
-
-    def get_method_tags(cls):
-        """
-        Escanea un objeto de clase y retorna una lista con las etiquetas y descripciones resumidas de sus métodos.
-
-        :param cls: Objeto de clase a escanear.
-        :return: Lista de etiquetas y descripciones resumidas de los métodos.
-        """
-        tags = []
-        for name, method in inspect.getmembers(cls, inspect.ismethod):
-            docstring = inspect.getdoc(method)
-            if docstring:
-                match = re.search(r"main_description:\s*(.*)", docstring)
-                if match:
-                    description = match.group(1)
-                    tags.append((name, description))
-        return tags
-
-    def modules_actions(self):
-        while True:
-            # Mostrar opciones y solicitar entrada al usuario
-            print("1. Insertar Campo")
-            print("2. Salir")
-            opcion = input("Selecciona una opción: ")
-
-            if opcion == "1":
-                # Realizar la acción
-                print("Insertando Campo")
-                self.add_field()
-
-            elif opcion == "2":
-                # Salir del ciclo
-                print("Saliendo del programa...")
-                break
-
-            else:
-                # Opción inválida
-                print("Opción inválida. Por favor, selecciona una opción válida.")
