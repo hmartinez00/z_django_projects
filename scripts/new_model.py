@@ -28,7 +28,6 @@ model_name = input('Introduzca el nombre del modelo: ')
 generator = ModelGenerator(file_path, model_name)
 menu_class(generator)
 
-
 # print(generator.model_exists())
 # generator.add_model_class()
 
@@ -36,6 +35,3 @@ menu_class(generator)
 # generator.add_field('id', 'AutoField', ['primary_key=True'])
 # generator.add_field('name', 'CharField', ["max_length=100"])
 # generator.add_field('age', 'IntegerField')
-
-# generator.add_field()
-# generator.remove_field()
