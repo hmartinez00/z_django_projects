@@ -22,14 +22,11 @@ files_list = get_py_files(app_path)
 # Create el listado de directorios
 ruta_settings = [
         find_substring_in_list(files_list, 'models.py'),
+        find_substring_in_list(files_list, 'admin.py'),
     ]
 
-file_path = ruta_settings[0]
-
-# Creando el modelo
-model_name = input('Introduzca el nombre del modelo: ')
-
-# Crear una instancia de ModelGenerator
-generator = ModelGenerator(file_path, model_name)
-menu_class(generator)
+file_path = ruta_settings[1]
+line_num = 1
+substring = 'from .models import *'
+add_substring_to_line(file_path, line_num, substring)
 input('Presione una tecla para continuar: ')
