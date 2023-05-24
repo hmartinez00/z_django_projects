@@ -1,4 +1,6 @@
+import os
 import re
+import subprocess
 from General_Utilities.option_list import option_list
 
 
@@ -152,3 +154,18 @@ class ModelGenerator:
         # Obtener los campos existentes en el modelo
         existing_fields = self.get_existing_fields()
         print("Campos existentes:", existing_fields)
+
+    def all_migrations(self):
+        '''
+        main_description: Aplicar migraciones.
+        '''
+        componentes = os.path.normpath(self.file_path).split(os.sep)
+        app_name = componentes[-2]
+        project_path = os.path.join(*componentes[:-2])
+        print(project_path)
+        print(f'Ejecutando migraciones en: {app_name}')
+        os.listdir()
+        os.chdir(project_path)
+        input('Presione una tecla para continuar: ')
+        # subprocess.run(["python", "manage.py", "makemigrations", app_name])
+        # subprocess.run(["python", "manage.py", "migrate"])

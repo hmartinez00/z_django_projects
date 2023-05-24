@@ -21,6 +21,14 @@ ruta_settings = [
 
 file_path = ruta_settings[0]
 
+# print(file_path)
+# # Obtener todos los componentes de la ruta como una lista
+# componentes = os.path.normpath(file_path).split(os.sep)
+# print(componentes[-2])
+# project_path2 = os.path.join(*componentes[:-2])
+# print(project_path2)
+# input('Presione una tecla para continuar: ')
+
 # Creando el modelo
 model_name = input('Introduzca el nombre del modelo: ')
 
