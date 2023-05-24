@@ -77,6 +77,21 @@ class ModelGenerator:
                 file.seek(0, 2)  # Mover el puntero al final del archivo
                 file.write(class_str)
 
+
+    def get_existing_class(self):
+        '''
+        main_description: Listar modelos
+        '''
+        with open(self.file_path, 'r') as file:
+            content = file.read()
+
+        pattern = r"class\s+(\w+)"
+        clases = re.findall(pattern, content)
+        print(clases)
+        input('Presione una tecla para continuar: ')
+        return clases
+
+
     def get_existing_fields(self):
         """
         main_description: Verificar existencia de campos.
