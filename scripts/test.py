@@ -28,34 +28,7 @@ file_path = ruta_settings[0]
 # Creando el modelo
 model_name = input('Introduzca el nombre del modelo: ')
 
-
 # Crear una instancia de ModelGenerator
-generator = ModelGenerator(file_path, model_name)
-print(generator.model_exists())
-
-metodos = [nombre for nombre, _ in inspect.getmembers(generator, predicate=inspect.ismethod) if nombre != '__init__']
-
-# Imprimir la lista de métodos
-print(metodos)
-
-# Ejemplo de uso
-# tags = get_method_tags(ModelGenerator)
-# tags = [i for i in get_method_tags(generator)]
-tags = get_method_tags(generator)
-opciones, acciones = [i[1] for i in tags], [i[0] for i in tags]
-# acciones = [i[0] for i in tags]
-
-out = menu_class(generator)
-request(generator, out[0])
-
-
-
-# for name, description in tags:
-#     print(f"metodo: {name}")
-#     print(f"Descripcion: {description}")
-#     print()
-
-# # Obtener la lista de métodos de la clase
-# metodos = [nombre for nombre in dir(generator) if callable(getattr(generator, nombre))]
-
-# print(metodos)  # Output: ['metodo1', 'metodo2', 'metodo3']
+generator = ModelGenerator(file_path)
+print(generator.get_existing_fields())
+input('Presione una tecla para continuar: ')
