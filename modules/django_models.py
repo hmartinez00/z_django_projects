@@ -161,11 +161,15 @@ class ModelGenerator:
         '''
         componentes = os.path.normpath(self.file_path).split(os.sep)
         app_name = componentes[-2]
-        project_path = os.path.join(*componentes[:-2])
-        print(project_path)
+        project_path = os.path.join(*componentes[:-2]).replace(':', ':\\')
+        # print(
+        #     project_path,
+        #     type(project_path),
+        # )
+
         print(f'Ejecutando migraciones en: {app_name}')
-        os.listdir()
         os.chdir(project_path)
+        print(os.listdir())
         input('Presione una tecla para continuar: ')
         # subprocess.run(["python", "manage.py", "makemigrations", app_name])
         # subprocess.run(["python", "manage.py", "migrate"])
