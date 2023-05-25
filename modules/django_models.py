@@ -225,52 +225,26 @@ class ModelGenerator:
                     end_index = i
                     break
             
+            if end_index == None:
+                end_index = len(content)
+            
             print(start_index, end_index)
             
-        #     if start_index is not None and end_index is not None:
-        #         class_content = content[start_index:end_index]
-        #         print(class_content)
-        #         class_content = list(filter(lambda x: field_name not in x, class_content))
-        #         content = content[:start_index] + class_content + content[end_index:]
+            if start_index is not None and end_index is not None:
+                class_content = content[start_index:end_index]
+                print(class_content)
+                class_content = list(filter(lambda x: field_name + ' =' not in x, class_content))
+                content = content[:start_index] + class_content + content[end_index:]
 
-        #     with open(self.file_path, 'w') as file:
-        #         file.writelines(content)
-        # else:
-        #     print('No se elimino ningun campo!')
+            with open(self.file_path, 'w') as file:
+                file.writelines(content)
+        else:
+            print('No se elimino ningun campo!')
         
-        # # Obtener los campos existentes en el modelo
-        # existing_fields = self.get_existing_fields()
-        # print("Campos existentes:", existing_fields)
-        # input('Presione una tecla para continuar: ')
-
-
-    # def remove_field(self, field_name=None):
-    #     """
-    #     main_description: Remover campos.
-    #     Elimina un campo del modelo.
-
-    #     :param field_name: Nombre del campo a eliminar.
-    #                        Si no se proporciona, se solicitará al usuario.
-    #                        Si se selecciona 'No borrar ningun campo!', no se realizará ninguna acción.
-    #     """
-    #     if field_name is None:
-    #         existing_fields = self.get_existing_fields()
-    #         existing_fields.append('No borrar ningun campo!')
-    #         field_name = option_list(existing_fields)
-        
-    #     if field_name != 'No borrar ningun campo!':
-    #         with open(self.file_path, 'r') as file:
-    #             lines = file.readlines()
-    #         with open(self.file_path, 'w') as file:
-    #             for line in lines:
-    #                 if f"{field_name} =" not in line:
-    #                     file.write(line)
-    #     else:
-    #         print('No se elimino ningun campo!')
-        
-    #     # Obtener los campos existentes en el modelo
-    #     existing_fields = self.get_existing_fields()
-    #     print("Campos existentes:", existing_fields)
+        # Obtener los campos existentes en el modelo
+        existing_fields = self.get_existing_fields()
+        print("Campos existentes:", existing_fields)
+        input('Presione una tecla para continuar: ')
 
 
     def update_admin_file(self):
