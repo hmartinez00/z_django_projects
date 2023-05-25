@@ -29,11 +29,8 @@ file_path = ruta_settings[0]
 # print(project_path2)
 # input('Presione una tecla para continuar: ')
 
-# Creando el modelo
-model_name = input('Introduzca el nombre del modelo: ')
-
 # Crear una instancia de ModelGenerator
-generator = ModelGenerator(file_path, model_name)
+generator = ModelGenerator(file_path)
 menu_class(generator)
 
 # print(generator.model_exists())

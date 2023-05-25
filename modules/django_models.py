@@ -2,7 +2,7 @@ import os
 import re
 import subprocess
 from General_Utilities.option_list import option_list
-from modules.modifile import replace_file_content
+from modules.modifile import replace_file_content, add_substring_to_line
 
 
 class ModelGenerator:
@@ -132,8 +132,8 @@ class ModelGenerator:
         class_section = content[start_index:end_index]
         fields = re.findall(r'\w+\s*=\s*models\.', class_section)
         fields = [field.replace(' = models.', '') for field in fields]
-        print(fields)
-        input('Presione una tecla para continuar: ')
+        # print(fields)
+        # input('Presione una tecla para continuar: ')
         return fields
 
 
@@ -160,13 +160,37 @@ class ModelGenerator:
             attributes = field_list[field_type]
             
         field_declaration = f"    {field_name} = models.{field_type}({', '.join(attributes)})\n"
+
+        with open(self.file_path, 'r') as file:
+            content = file.readlines()
+
+        start_index = None
+        end_index = None
+        class_found = False
+
+        for i, line in enumerate(content):
+            if line.strip().startswith("class ") and line.strip().endswith(":"):
+                class_name = line.strip()[6:-1].split("(")[0].strip()
+                if class_name == self.model_name:
+                    start_index = i
+                    class_found = True
+            elif class_found and line.strip() == "":
+                end_index = i
+                break
+
+        if start_index is not None and end_index is not None:
+            content.insert(end_index, field_declaration)
+        else:
+            # Class section not found, adding field at the end of the file
+            content.append(field_declaration)
+
+        with open(self.file_path, 'w') as file:
+            file.writelines(content)
         
-        with open(self.file_path, 'a') as file:
-            file.write(f"{field_declaration}")
-        
-        # Obtener los campos existentes en el modelo
-        existing_fields = self.get_existing_fields()
-        print("Campos existentes:", existing_fields)
+        # # Obtener los campos existentes en el modelo
+        # existing_fields = self.get_existing_fields()
+        # print("Campos existentes:", existing_fields)
+        # input('Presione una tecla para continuar: ')
 
 
     def remove_field(self, field_name=None):
@@ -175,8 +199,8 @@ class ModelGenerator:
         Elimina un campo del modelo.
 
         :param field_name: Nombre del campo a eliminar.
-                           Si no se proporciona, se solicitará al usuario.
-                           Si se selecciona 'No borrar ningun campo!', no se realizará ninguna acción.
+                        Si no se proporciona, se solicitará al usuario.
+                        Si se selecciona 'No borrar ningun campo!', no se realizará ninguna acción.
         """
         if field_name is None:
             existing_fields = self.get_existing_fields()
@@ -185,17 +209,65 @@ class ModelGenerator:
         
         if field_name != 'No borrar ningun campo!':
             with open(self.file_path, 'r') as file:
-                lines = file.readlines()
+                content = file.readlines()
+
+            start_index = None
+            end_index = None
+            class_found = False
+
+            for i, line in enumerate(content):
+                if line.strip().startswith("class ") and line.strip().endswith(":"):
+                    class_name = line.strip()[6:-1].split("(")[0].strip()
+                    if class_name == self.model_name:
+                        start_index = i
+                        class_found = True
+                elif class_found and line.strip() == "":
+                    end_index = i
+                    break
+            
+            
+            if start_index is not None and end_index is not None:
+                class_content = list(filter(lambda x: field_name not in x, content[start_index:end_index]))
+                content = content[:start_index] + class_content + content[end_index:]
+
             with open(self.file_path, 'w') as file:
-                for line in lines:
-                    if f"{field_name} =" not in line:
-                        file.write(line)
+                file.writelines(content)
         else:
             print('No se elimino ningun campo!')
         
         # Obtener los campos existentes en el modelo
         existing_fields = self.get_existing_fields()
         print("Campos existentes:", existing_fields)
+        input('Presione una tecla para continuar: ')
+
+
+    # def remove_field(self, field_name=None):
+    #     """
+    #     main_description: Remover campos.
+    #     Elimina un campo del modelo.
+
+    #     :param field_name: Nombre del campo a eliminar.
+    #                        Si no se proporciona, se solicitará al usuario.
+    #                        Si se selecciona 'No borrar ningun campo!', no se realizará ninguna acción.
+    #     """
+    #     if field_name is None:
+    #         existing_fields = self.get_existing_fields()
+    #         existing_fields.append('No borrar ningun campo!')
+    #         field_name = option_list(existing_fields)
+        
+    #     if field_name != 'No borrar ningun campo!':
+    #         with open(self.file_path, 'r') as file:
+    #             lines = file.readlines()
+    #         with open(self.file_path, 'w') as file:
+    #             for line in lines:
+    #                 if f"{field_name} =" not in line:
+    #                     file.write(line)
+    #     else:
+    #         print('No se elimino ningun campo!')
+        
+    #     # Obtener los campos existentes en el modelo
+    #     existing_fields = self.get_existing_fields()
+    #     print("Campos existentes:", existing_fields)
 
 
     def update_admin_file(self):
