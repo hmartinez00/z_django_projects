@@ -25,19 +25,10 @@ ruta_settings = [
         find_substring_in_list(files_list, 'admin.py'),
     ]
 
-file_path = ruta_settings[1]
-pivot_substring = 'from .models import *'
-line_num = find_pivot_substring(file_path, pivot_substring)
-print(line_num)
-if line_num == None:
-    line_num = 1
-    add_substring_to_line(file_path, line_num, pivot_substring)
-
-model_name = input('Introduzca el nombre del modelo: ')
+# model_name = input('Introduzca el nombre del modelo: ')
 file_path = ruta_settings[0]
-generator = ModelGenerator(file_path, model_name)
+# generator = ModelGenerator(file_path, model_name)
+generator = ModelGenerator(file_path)
 menu_class(generator)
-# print(generator.get_existing_class())
-# print(generator.update_admin_file())
 
 input('Presione una tecla para continuar: ')

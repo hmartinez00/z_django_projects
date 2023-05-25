@@ -12,7 +12,7 @@ class ModelGenerator:
     :param file_path: Ruta del archivo models.py.
     :param model_name: Nombre del modelo a generar.
     """
-    def __init__(self, file_path, model_name):
+    def __init__(self, file_path, model_name=None):
         """
         Inicializa una instancia de ModelGenerator.
 
@@ -20,7 +20,16 @@ class ModelGenerator:
         :param model_name: Nombre del modelo a generar.
         """
         self.file_path = file_path
-        self.model_name = model_name
+        
+        lista_modelos = self.get_existing_class()
+
+        if model_name != None:
+            self.model_name = model_name
+        elif len(lista_modelos) > 0:
+            self.model_name = self.change_model()
+        else:
+            self.model_name = self.add_model_class()
+
         self.field_types = {
             "AutoField": ["primary_key=True"],
             "BigAutoField": ["primary_key=True"],
@@ -54,6 +63,32 @@ class ModelGenerator:
             "UUIDField": [],
         }
 
+    def change_model(self):
+        '''
+        main_description: Cambiar modelo.
+        '''
+        lista_modelos = self.get_existing_class()
+        self.model_name = option_list(lista_modelos)
+        return self.model_name
+
+
+    def add_model_class(self):
+        """
+        main_description: Agregar modelo.
+        Agrega la definición de la clase del modelo en el archivo models.py.
+        Si la clase ya existe, no realiza ninguna acción.
+        """
+        model_name = input('Introduzca el nombre del modelo: ')
+        self.model_name = model_name
+        class_str = f"\nclass {self.model_name}(models.Model):\n"
+        with open(self.file_path, 'r+') as file:
+            content = file.read()
+            if class_str not in content:
+                file.seek(0, 2)  # Mover el puntero al final del archivo
+                file.write(class_str)
+        return self.model_name
+
+
     def model_exists(self):
         """
         main_description: Verificar existencia.
@@ -66,20 +101,6 @@ class ModelGenerator:
         return self.model_name in content
 
 
-    def add_model_class(self):
-        """
-        main_description: Agregar modelo.
-        Agrega la definición de la clase del modelo en el archivo models.py.
-        Si la clase ya existe, no realiza ninguna acción.
-        """
-        class_str = f"\nclass {self.model_name}(models.Model):\n"
-        with open(self.file_path, 'r+') as file:
-            content = file.read()
-            if class_str not in content:
-                file.seek(0, 2)  # Mover el puntero al final del archivo
-                file.write(class_str)
-
-
     def get_existing_class(self):
         '''
         main_description: Listar modelos
@@ -89,8 +110,8 @@ class ModelGenerator:
 
         pattern = r"class\s+(\w+)"
         clases = re.findall(pattern, content)
-        print(clases)
-        input('Presione una tecla para continuar: ')
+        # print(clases)
+        # input('Presione una tecla para continuar: ')
         return clases
 
 
@@ -111,6 +132,8 @@ class ModelGenerator:
         class_section = content[start_index:end_index]
         fields = re.findall(r'\w+\s*=\s*models\.', class_section)
         fields = [field.replace(' = models.', '') for field in fields]
+        print(fields)
+        input('Presione una tecla para continuar: ')
         return fields
 
 
@@ -184,15 +207,22 @@ class ModelGenerator:
         print(admin_path)
         models = self.get_existing_class()
         print(models)
-        records = ''
-        for i in models:
-            records = records + f'admin.site.register({i})\n'
-        new_content = f'''from django.contrib import admin  
+        if len(models) > 0:
+            for i in models:
+                records = f'admin.site.register({i})\n'
+            new_content = f'''from django.contrib import admin  
 from .models import *
 
 # Register your models here.
 {records}
 '''
+        else:
+            new_content = f'''from django.contrib import admin  
+
+            
+# Register your models here.
+'''
+
         replace_file_content(admin_path, new_content)
         input('Presione una tecla para continuar: ')
 
