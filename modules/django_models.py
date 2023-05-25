@@ -2,6 +2,7 @@ import os
 import re
 import subprocess
 from General_Utilities.option_list import option_list
+from modules.modifile import replace_file_content
 
 
 class ModelGenerator:
@@ -64,6 +65,7 @@ class ModelGenerator:
             content = file.read()
         return self.model_name in content
 
+
     def add_model_class(self):
         """
         main_description: Agregar modelo.
@@ -111,6 +113,7 @@ class ModelGenerator:
         fields = [field.replace(' = models.', '') for field in fields]
         return fields
 
+
     def add_field(self, field_name=None, field_type=None, attributes=None):
         """
         main_description: Agregar campos.
@@ -142,6 +145,7 @@ class ModelGenerator:
         existing_fields = self.get_existing_fields()
         print("Campos existentes:", existing_fields)
 
+
     def remove_field(self, field_name=None):
         """
         main_description: Remover campos.
@@ -169,6 +173,30 @@ class ModelGenerator:
         # Obtener los campos existentes en el modelo
         existing_fields = self.get_existing_fields()
         print("Campos existentes:", existing_fields)
+
+
+    def update_admin_file(self):
+        '''
+        main_description: Actualizar archivo admin.
+        '''
+        componentes = os.path.normpath(self.file_path).split(os.sep)
+        admin_path = os.path.join(*componentes[:-1], 'admin.py').replace(':', ':\\')
+        print(admin_path)
+        models = self.get_existing_class()
+        print(models)
+        records = ''
+        for i in models:
+            records = records + f'admin.site.register({i})\n'
+        new_content = f'''from django.contrib import admin  
+from .models import *
+
+# Register your models here.
+{records}
+'''
+        replace_file_content(admin_path, new_content)
+        input('Presione una tecla para continuar: ')
+
+
 
     def all_migrations(self):
         '''

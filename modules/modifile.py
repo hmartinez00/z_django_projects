@@ -19,7 +19,7 @@ def find_pivot_substring(file_path, pivot_substring):
         for i, line in enumerate(f):
             if line.startswith(pivot_substring):
                 return i
-    raise ValueError(f'La substring de pivoteo "{pivot_substring}" no fue encontrada en el archivo.')
+       # raise ValueError(f'La substring de pivoteo "{pivot_substring}" no fue encontrada en el archivo.')
 
 
 def replace_file_content(file_path, new_content):
@@ -110,7 +110,7 @@ def add_substring_to_line(filepath, line_num, substring):
         if substring not in line:
 
             # add substring to line
-            line = line.rstrip('\n') + ' ' + substring + '\n'
+            line = line.rstrip('\n') + substring + '\n'
             lines[line_num] = line
 
             # write updated lines to file
