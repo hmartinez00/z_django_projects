@@ -225,20 +225,23 @@ class ModelGenerator:
                     end_index = i
                     break
             
+            print(start_index, end_index)
             
-            if start_index is not None and end_index is not None:
-                class_content = list(filter(lambda x: field_name not in x, content[start_index:end_index]))
-                content = content[:start_index] + class_content + content[end_index:]
+        #     if start_index is not None and end_index is not None:
+        #         class_content = content[start_index:end_index]
+        #         print(class_content)
+        #         class_content = list(filter(lambda x: field_name not in x, class_content))
+        #         content = content[:start_index] + class_content + content[end_index:]
 
-            with open(self.file_path, 'w') as file:
-                file.writelines(content)
-        else:
-            print('No se elimino ningun campo!')
+        #     with open(self.file_path, 'w') as file:
+        #         file.writelines(content)
+        # else:
+        #     print('No se elimino ningun campo!')
         
-        # Obtener los campos existentes en el modelo
-        existing_fields = self.get_existing_fields()
-        print("Campos existentes:", existing_fields)
-        input('Presione una tecla para continuar: ')
+        # # Obtener los campos existentes en el modelo
+        # existing_fields = self.get_existing_fields()
+        # print("Campos existentes:", existing_fields)
+        # input('Presione una tecla para continuar: ')
 
 
     # def remove_field(self, field_name=None):
