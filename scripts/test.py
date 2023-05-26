@@ -40,10 +40,14 @@ field_type = option_list(list(field_list.keys()))
 if field_type in fields_connectable_to_models:
     attributes = field_list[field_type]
     new_element = option_list(generator.get_existing_class())
-    print(new_element)
-    attributes = [new_element if i == 'to' else i for i in attributes]
+    new_attributes = []
+    for i in attributes:
+        if i != 'to':
+            new_attributes.append(i)
+        else:
+            new_attributes.append(new_element)
 
-    field_declaration = f"    nombre = models.{field_type}({', '.join(attributes)})\n"
+    field_declaration = f"    nombre = models.{field_type}({', '.join(new_attributes)})\n"
 
 print(field_declaration)
 
