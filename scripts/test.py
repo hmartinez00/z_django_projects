@@ -2,7 +2,7 @@ from modules.django_models import ModelGenerator
 import inspect
 from modules.django_rootes import *
 from modules.modifile import *
-from General_Utilities.menu import get_method_tags, menu_class, request
+from General_Utilities.menu import get_method_tags, menu_class, request, option_list
 from General_Utilities.control_rutas import setting_routes
 from modules.django_models import ModelGenerator
 
@@ -29,6 +29,22 @@ ruta_settings = [
 file_path = ruta_settings[0]
 # generator = ModelGenerator(file_path, model_name)
 generator = ModelGenerator(file_path)
-menu_class(generator)
+# menu_class(generator)
+fields_connectable_to_models = [
+    'ForeignKey',
+    'ManyToManyField',
+]
+field_list = generator.field_types
+field_type = option_list(list(field_list.keys()))
+
+if field_type in fields_connectable_to_models:
+    attributes = field_list[field_type]
+    new_element = option_list(generator.get_existing_class())
+    print(new_element)
+    attributes = [new_element if i == 'to' else i for i in attributes]
+
+    field_declaration = f"    nombre = models.{field_type}({', '.join(attributes)})\n"
+
+print(field_declaration)
 
 input('Presione una tecla para continuar: ')

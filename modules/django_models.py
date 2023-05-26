@@ -63,6 +63,11 @@ class ModelGenerator:
             "UUIDField": [],
         }
 
+        self.fields_connectable_to_models = [
+            'ForeignKey',
+            'ManyToManyField',
+        ]
+
     def change_model(self):
         '''
         main_description: Cambiar modelo.
