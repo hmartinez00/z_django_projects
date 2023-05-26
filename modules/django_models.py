@@ -47,7 +47,7 @@ class ModelGenerator:
             "FloatField": [],
             "ForeignKey": ["to", "on_delete=models.CASCADE"],
             "ImageField": ["upload_to='imagenes/'"],
-            "IntegerField": [],
+            "IntegerField": ["default=0"],
             "ManyToManyField": ["to"],
             "NullBooleanField": [],
             "OneToOneField": ["to", "on_delete"],
@@ -70,8 +70,9 @@ class ModelGenerator:
 
     def change_model(self):
         '''
-        main_description: Cambiar modelo.
+        main_description: Conectar modelo.
         '''
+        print('Selecciones el modelo que desea conectar:\n')
         lista_modelos = self.get_existing_class()
         self.model_name = option_list(lista_modelos)
         return self.model_name
@@ -163,6 +164,18 @@ class ModelGenerator:
             field_list = self.field_types
             field_type = option_list(list(field_list.keys()))
             attributes = field_list[field_type]
+            
+        if field_type in self.fields_connectable_to_models:
+            print('Seleccione el modelo:\n')
+            new_element = option_list(self.get_existing_class())
+            new_attributes = []
+            for i in attributes:
+                if i != 'to':
+                    new_attributes.append(i)
+                else:
+                    new_attributes.append(new_element)
+                
+                attributes = new_attributes
             
         field_declaration = f"    {field_name} = models.{field_type}({', '.join(attributes)})\n"
 
