@@ -257,8 +257,9 @@ class ModelGenerator:
         models = self.get_existing_class()
         print(models)
         if len(models) > 0:
+            records = ''
             for i in models:
-                records = f'admin.site.register({i})\n'
+                records = records + f'admin.site.register({i})\n'
             new_content = f'''from django.contrib import admin  
 from .models import *
 
