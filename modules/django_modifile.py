@@ -1,3 +1,4 @@
+import os
 
 
 class TextFileManipulator:
@@ -37,6 +38,7 @@ class TextFileManipulator:
         # input('Presione una tecla para continuar: ')
         return content
 
+
     def num_content(self):
         '''
         main_description: Desplegar contenido enumerado.
@@ -46,6 +48,33 @@ class TextFileManipulator:
                 print(i, line)
         
         input('Presione una tecla para continuar: ')
+
+
+    def replace_content(self, new_content=None):
+        '''
+        main_description: Reemplazar contenido.
+        Reemplaza todo el contenido de un archivo.
+        '''
+        if new_content == None:
+            new_content = input('Introduzca el nuevo contenido: ')
+
+        with open(self.file_path, 'w') as f:
+            f.write(new_content)
+
+
+    def num_section_content(self, interval=None):
+        '''
+        main_description: Mostrar segmento.
+        '''
+
+        if interval == None:
+            str_start   = input('Introduzca el numero de linea de inicio: ')
+            str_end     = input('Introduzca el numero de linea de cierre: ')
+            interval    = [str_start, str_end]
+
+        content = self.list_content()
+
+        print(interval)
 
 
     def section_content(self, interval=None):
@@ -59,19 +88,13 @@ class TextFileManipulator:
             interval    = [str_start, str_end]
 
         content = self.show_content()
-        print(interval)
         start_index = content.index(interval[0])
-        print(start_index)
-        print(interval[1])
-        end_index = content.find(interval[1], interval[0])
-        # print(end_index)
-        print(start_index, end_index)
-
-        # if end_index == -1:
-        #     # No se encontró una línea en blanco adicional, ajustar el índice final
-        #     end_index = len(content)
-        # class_section = content[start_index:end_index]
+        end_index = content.find(interval[1], start_index)
+        if end_index == -1:
+            # No se encontró una línea en blanco adicional, ajustar el índice final
+            end_index = len(content)
+        class_section = content[start_index:end_index]
         
-        # print(class_section)
+        print(class_section)
         input('Presione una tecla para continuar: ')
-
+        return class_section
