@@ -3,6 +3,7 @@ import re
 import subprocess
 from General_Utilities.option_list import option_list
 from modules.modifile import replace_file_content, add_substring_to_line
+from modules.modifile import *
 
 
 class ModelGenerator:
@@ -68,6 +69,7 @@ class ModelGenerator:
             'ManyToManyField',
         ]
 
+
     def change_model(self):
         '''
         main_description: Conectar modelo.
@@ -102,9 +104,8 @@ class ModelGenerator:
 
         :return: True si el modelo existe, False en caso contrario.
         """
-        with open(self.file_path, 'r') as file:
-            content = file.read()
-        return self.model_name in content
+        status = self.get_existing_class()
+        return self.model_name in status
 
 
     def get_existing_class(self):
@@ -204,11 +205,6 @@ class ModelGenerator:
 
         with open(self.file_path, 'w') as file:
             file.writelines(content)
-        
-        # # Obtener los campos existentes en el modelo
-        # existing_fields = self.get_existing_fields()
-        # print("Campos existentes:", existing_fields)
-        # input('Presione una tecla para continuar: ')
 
 
     def remove_field(self, field_name=None):
@@ -295,7 +291,6 @@ from .models import *
         input('Presione una tecla para continuar: ')
 
 
-
     def all_migrations(self):
         '''
         main_description: Aplicar migraciones.
@@ -316,4 +311,132 @@ from .models import *
         subprocess.run(["python", "manage.py", "migrate"])
         
         os.chdir(directorio)
+        input('Presione una tecla para continuar: ')
+
+
+
+class ViewsGenerator:
+    """
+    Clase para generar views en Django.
+
+    :param file_path: Ruta del archivo views.py.
+    :param view_name: Nombre de la view a generar.
+    """
+    def __init__(self, file_path, view_name=None):
+        """
+        Inicializa una instancia de ViewsGenerator.
+
+        :param file_path: Ruta del archivo models.py.
+        :param view_name: Nombre de la view a generar.
+        """
+        self.file_path = file_path
+        
+        if view_name != None:
+            self.view_name = view_name
+        else:
+            self.view_name = input('Ingrese el nombre de la vista: ')
+
+    def get_existing_class(self):
+        '''
+        main_description: Listar vistas.
+        '''
+        with open(self.file_path, 'r') as file:
+            content = file.read()
+
+        pattern = r"def\s+(\w+)"
+        vistas = re.findall(pattern, content)
+        print(vistas)
+        input('Presione una tecla para continuar: ')
+        return vistas    
+
+    def simple_view(self):
+        '''
+        main_description: Agregar vista simple.
+        '''
+        view_name = self.view_name
+        file_path = self.file_path
+
+        # Actualizamos views.py
+        print('Actualizamos views.py')
+        print(file_path)
+        # new_content = f'''
+        # def {view_name}(request):
+        #     return render(request, '{view_name}.html')
+        # '''
+        new_content = f'''from django.http import HttpResponse
+
+
+def {view_name}(request):
+    return HttpResponse("Mostrando el Listado de departamentos")
+'''
+        append_to_file(file_path, new_content)
+
+        # Actualizamos urls.py de la aplicacion
+        if view_name != 'index':
+            print(f'Modificando urls.py')
+            componentes = os.path.normpath(self.file_path).split(os.sep)
+            file_path = os.path.join(*componentes[:-1], 'urls.py').replace(':', ':\\')
+            element = f"path('{view_name}/', views.{view_name}, name='{view_name}')"
+            pivot_substring = 'urlpatterns = '
+            new_substring = "[\n\t" + element + ","
+            append_substring_to_line(file_path, pivot_substring, new_substring)
+         
+
+        input('Presione una tecla para continuar: ')
+
+    def template_view(self):
+        '''
+        main_description: Agregar template.
+        '''
+
+        view_name = self.view_name
+
+        componentes = os.path.normpath(self.file_path).split(os.sep)
+        app_path = os.path.join(*componentes[:-1]).replace(':', ':\\')
+
+        # Añadir el template
+        print('Agregamos el template')
+        urls_path = os.path.join(app_path, 'templates')
+        if os.path.exists(urls_path):
+            pass
+        else:
+            os.mkdir(urls_path)
+        file_path = os.path.join(urls_path, f'{view_name}.html')
+        new_content = f'''<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{view_name}</title>
+</head>
+<body>
+    <h1>{view_name}</h1>
+    
+</body>
+</html>
+'''
+        if not os.path.isfile(file_path):
+            replace_file_content(file_path, new_content)
+
+        # Instalando la direccion de los templates
+        print(f'Instalando la direccion de los templates')
+        componentes = os.path.normpath(self.file_path).split(os.sep)
+        app_name = componentes[-2]
+        file_path = os.path.join(*componentes[:-2], componentes[-3], 'settings.py').replace(':', ':\\')
+        module_name = 'os'
+        import_module_to_file(file_path, module_name)
+        print('Importado modulo os')
+        pivot_substring = "'DIRS': "
+
+        cont = find_pivot_substring(file_path, pivot_substring)
+        print(cont)
+
+        # old_substring = '[]'
+        # new_substring = '[\n\t\t]'
+        # replace_substring_in_line(file_path, pivot_substring, old_substring, new_substring)
+        # pivot_substring = "'DIRS': ["
+        # new_substring = "[\n\t\t\t" + f"os.path.join(BASE_DIR, '{app_name}', 'templates'),"
+        # append_substring_to_line(file_path, pivot_substring, new_substring)
+
         input('Presione una tecla para continuar: ')
