@@ -24,13 +24,6 @@ generator = TextFileManipulator(file_path)
 content = generator.list_content()
 # print(content[55:71])
 
-index = generator.index_sub_string(
-    content=content,
-    sub_string=']', 
-    type_finder=None
-)
-
-print(index)
 
 inicio = 'TEMPLATES = [\n'
 final = '\n'
@@ -38,15 +31,26 @@ final = '\n'
 section = generator.segment_num_content(
     content, inicio, final
 )
-print(section)
 
 index = generator.index_sub_string(
     content=section,
-    sub_string=']', 
-    type_finder=None
+    sub_string="        'DIRS': [],\n", 
+    type_finder=0
 )
 
-print(index)
+section = generator.replace_line(
+    index=index[0],
+    section=section,
+    new_substring="        'DIRS': [\n"
+)
+
+section = generator.insert_line(
+    section=section,
+    position=index[0] + 1,
+    new_element="\t\t\t]\n"
+)
+
+print(section)
 
 input('Presione una tecla para continuar: ')
 

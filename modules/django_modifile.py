@@ -91,14 +91,6 @@ class TextFileManipulator:
     # -------------------------------------------
 
 
-    def get_index(self, elemento, lista):
-        try:
-            indice = lista.index(elemento)
-            return indice
-        except ValueError:
-            return None
-
-
     def index_sub_string(
         self, 
         content=None,
@@ -187,3 +179,27 @@ class TextFileManipulator:
         return section
 
 
+    def replace_line(
+        self,
+        index,
+        section,
+        new_substring
+    ):
+        '''
+        main_description: Reemplazar linea.
+        '''
+        section[index] = new_substring
+        return section
+
+
+    def insert_line(
+        self,
+        section,
+        position,
+        new_element
+    ):
+        '''
+        main_description: Insertar linea.
+        '''
+        section.insert(position, new_element)
+        return section
