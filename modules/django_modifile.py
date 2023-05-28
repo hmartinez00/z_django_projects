@@ -62,19 +62,49 @@ class TextFileManipulator:
             f.write(new_content)
 
 
+    def index_sub_string(self, sub_string=None):
+        '''
+        main_description: Extraer indice de linea.
+        '''
+        if sub_string == None:
+            sub_string = input('Introduca la subcadena: ')
+        
+        str_start   = int(input('Introduzca el numero de linea de inicio: '))
+        str_end     = int(input('Introduzca el numero de linea de cierre: '))
+        interval    = [str_start, str_end]
+        
+        section = self.num_section_content(interval)
+
+        for i in range(len(section)):
+            if sub_string in section[i]:
+                print(i)
+                input('Presione una tecla para continuar: ')
+                return i
+        
+
+
+
+
     def num_section_content(self, interval=None):
         '''
         main_description: Mostrar segmento.
         '''
 
         if interval == None:
-            str_start   = input('Introduzca el numero de linea de inicio: ')
-            str_end     = input('Introduzca el numero de linea de cierre: ')
+            str_start   = int(input('Introduzca el numero de linea de inicio: '))
+            str_end     = int(input('Introduzca el numero de linea de cierre: '))
             interval    = [str_start, str_end]
 
         content = self.list_content()
 
-        print(interval)
+        section = content[interval[0]: interval[1]]
+        
+        # for i in section:
+        #     print(i)
+        # print(section)
+
+        # input('Presione una tecla para continuar: ')
+        return section
 
 
     def section_content(self, interval=None):
@@ -93,8 +123,8 @@ class TextFileManipulator:
         if end_index == -1:
             # No se encontró una línea en blanco adicional, ajustar el índice final
             end_index = len(content)
-        class_section = content[start_index:end_index]
+        section = content[start_index:end_index]
         
-        print(class_section)
+        print(section)
         input('Presione una tecla para continuar: ')
-        return class_section
+        return section
