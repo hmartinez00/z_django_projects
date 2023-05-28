@@ -62,62 +62,37 @@ class TextFileManipulator:
             f.write(new_content)
 
 
-    def index_sub_string(self, sub_string=None):
-        '''
-        main_description: Extraer indice de linea.
-        '''
-        if sub_string == None:
-            sub_string = input('Introduca la subcadena: ')
-        
-        str_start   = int(input('Introduzca el numero de linea de inicio: '))
-        str_end     = int(input('Introduzca el numero de linea de cierre: '))
-        interval    = [str_start, str_end]
-        
-        section = self.num_section_content(interval)
-
-        for i in range(len(section)):
-            if sub_string in section[i]:
-                print(i)
-                input('Presione una tecla para continuar: ')
-                return i
-        
-
-
-
-
-    def num_section_content(self, interval=None):
+    def num_section_content(self, content=None, interval=None):
         '''
         main_description: Mostrar segmento.
         '''
+        if content == None:
+            content = self.list_content()
 
         if interval == None:
             str_start   = int(input('Introduzca el numero de linea de inicio: '))
             str_end     = int(input('Introduzca el numero de linea de cierre: '))
             interval    = [str_start, str_end]
 
-        content = self.list_content()
-
         section = content[interval[0]: interval[1]]
-        
-        # for i in section:
-        #     print(i)
-        # print(section)
 
+        # print(section)
         # input('Presione una tecla para continuar: ')
         return section
 
 
-    def section_content(self, interval=None):
+    def section_content(self, content=None, interval=None):
         '''
         main_description: Mostrar fragmento.
         '''
+        if content == None:
+            content = self.show_content()
         
         if interval == None:           
             str_start   = input('Introduzca la cadena de inicio: ')
             str_end     = input('Introduzca la cadena de cierre: ')
             interval    = [str_start, str_end]
 
-        content = self.show_content()
         start_index = content.index(interval[0])
         end_index = content.find(interval[1], start_index)
         if end_index == -1:
@@ -125,6 +100,34 @@ class TextFileManipulator:
             end_index = len(content)
         section = content[start_index:end_index]
         
-        print(section)
-        input('Presione una tecla para continuar: ')
+        # print(section)
+        # input('Presione una tecla para continuar: ')
         return section
+
+
+    def index_sub_string(self, interval=None, sub_string=None):
+        '''
+        main_description: Extraer indice de linea.
+        '''
+        if sub_string == None:
+            sub_string = input('Introduca la subcadena: ')
+        
+        if interval == None:
+            str_start   = int(input('Introduzca el numero de linea de inicio: '))
+            str_end     = int(input('Introduzca el numero de linea de cierre: '))
+            intervalo    = [str_start, str_end]
+        
+        section = self.num_section_content(content=None, interval=intervalo)
+
+        # print(section)
+
+        index = None
+        for i in range(len(section)):
+            if sub_string in section[i]:
+                print(section[i])
+                index = i
+            
+        print(index)
+        input('Presione una tecla para continuar: ')
+        
+        return index
