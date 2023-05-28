@@ -62,25 +62,6 @@ class TextFileManipulator:
             f.write(new_content)
 
 
-    def num_section_content(self, content=None, interval=None):
-        '''
-        main_description: Mostrar segmento.
-        '''
-        if content == None:
-            content = self.list_content()
-
-        if interval == None:
-            str_start   = int(input('Introduzca el numero de linea de inicio: '))
-            str_end     = int(input('Introduzca el numero de linea de cierre: '))
-            interval    = [str_start, str_end]
-
-        section = content[interval[0]: interval[1]]
-
-        # print(section)
-        # input('Presione una tecla para continuar: ')
-        return section
-
-
     def section_content(self, content=None, interval=None):
         '''
         main_description: Mostrar fragmento.
@@ -105,29 +86,89 @@ class TextFileManipulator:
         return section
 
 
-    def index_sub_string(self, interval=None, sub_string=None):
+    # -------------------------------------------
+    # En esta seccion definimos los metodos para detectar lineas cnocretas y extraer segmentos de texto.
+    # -------------------------------------------
+
+
+    def index_sub_string(
+        self, 
+        content=None,
+        sub_string=None, 
+        type_finder=None
+    ):
         '''
         main_description: Extraer indice de linea.
         '''
+        if content==None: 
+            content = self.list_content()
+        
         if sub_string == None:
             sub_string = input('Introduca la subcadena: ')
-        
-        if interval == None:
-            str_start   = int(input('Introduzca el numero de linea de inicio: '))
-            str_end     = int(input('Introduzca el numero de linea de cierre: '))
-            intervalo    = [str_start, str_end]
-        
-        section = self.num_section_content(content=None, interval=intervalo)
 
-        # print(section)
-
-        index = None
-        for i in range(len(section)):
-            if sub_string in section[i]:
-                print(section[i])
-                index = i
+        index = []
+        for i in range(len(content)):
+            if type_finder==None:
+                if sub_string in content[i]:
+                    print(content[i])
+                    index.append(i)
+            elif type_finder==0:
+                if sub_string == content[i]:
+                    print(content[i])
+                    index.append(i)
             
-        print(index)
-        input('Presione una tecla para continuar: ')
+        # print(index)
+        # input('Presione una tecla para continuar: ')
         
         return index
+
+
+    def num_section_content(
+        self, 
+        content=None, 
+        interval=None
+    ):
+        '''
+        main_description: Mostrar segmento.
+        '''
+        if content == None:
+            content = self.list_content()
+
+        str_start   = int(input('Introduzca el numero de linea de inicio:'))
+        str_end     = int(input('Introduzca el numero de linea de final:'))
+        interval    = [str_start, str_end]
+
+        section = content[interval[0]: interval[1]]
+
+        print(section)
+        input('Presione una tecla para continuar: ')
+        return section
+
+
+    def segment_num_content(
+        self, 
+        content=None, 
+        inicio=None,
+        final=None,
+    ):
+        '''
+        main_description: Mostrar segmento entre cadenas.
+        '''
+        if content == None:
+            content = self.list_content()
+
+        str_start   = self.index_sub_string(sub_string=inicio)[0]
+        print(type(str_start))
+        # str_end     = self.index_sub_string(sub_string=final, type_finder=0)
+        # print(str_end)
+        # str_end     = [i for i in str_end if i > str_start][0]
+        # print(str_end)
+        # interval    = [str_start, str_end]
+
+        # section = content[interval[0]: interval[1]]
+
+        # print(section)
+        input('Presione una tecla para continuar: ')
+        # return section
+
+
