@@ -19,7 +19,34 @@ file_path = option_list(files_list)
 
 # Crear una instancia de ModelGenerator
 generator = TextFileManipulator(file_path)
-menu_class(generator)
+# menu_class(generator)
+
+content = generator.list_content()
+# print(content[55:71])
+
+index = generator.index_sub_string(
+    content=content,
+    sub_string=']', 
+    type_finder=None
+)
+
+print(index)
+
+inicio = 'TEMPLATES = [\n'
+final = '\n'
+
+section = generator.segment_num_content(
+    content, inicio, final
+)
+print(section)
+
+index = generator.index_sub_string(
+    content=section,
+    sub_string=']', 
+    type_finder=None
+)
+
+print(index)
 
 input('Presione una tecla para continuar: ')
 

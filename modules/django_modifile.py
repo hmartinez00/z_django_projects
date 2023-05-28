@@ -91,6 +91,14 @@ class TextFileManipulator:
     # -------------------------------------------
 
 
+    def get_index(self, elemento, lista):
+        try:
+            indice = lista.index(elemento)
+            return indice
+        except ValueError:
+            return None
+
+
     def index_sub_string(
         self, 
         content=None,
@@ -110,11 +118,9 @@ class TextFileManipulator:
         for i in range(len(content)):
             if type_finder==None:
                 if sub_string in content[i]:
-                    print(content[i])
                     index.append(i)
             elif type_finder==0:
                 if sub_string == content[i]:
-                    print(content[i])
                     index.append(i)
             
         # print(index)
@@ -134,14 +140,15 @@ class TextFileManipulator:
         if content == None:
             content = self.list_content()
 
-        str_start   = int(input('Introduzca el numero de linea de inicio:'))
-        str_end     = int(input('Introduzca el numero de linea de final:'))
-        interval    = [str_start, str_end]
+        if interval==None:
+            str_start   = int(input('Introduzca el numero de linea de inicio:'))
+            str_end     = int(input('Introduzca el numero de linea de final:'))
+            interval    = [str_start, str_end]
 
         section = content[interval[0]: interval[1]]
 
-        print(section)
-        input('Presione una tecla para continuar: ')
+        # print(section)
+        # input('Presione una tecla para continuar: ')
         return section
 
 
@@ -154,21 +161,29 @@ class TextFileManipulator:
         '''
         main_description: Mostrar segmento entre cadenas.
         '''
-        if content == None:
+        if content==None:
             content = self.list_content()
 
-        str_start   = self.index_sub_string(sub_string=inicio)[0]
-        print(type(str_start))
-        # str_end     = self.index_sub_string(sub_string=final, type_finder=0)
-        # print(str_end)
-        # str_end     = [i for i in str_end if i > str_start][0]
-        # print(str_end)
-        # interval    = [str_start, str_end]
+        if inicio != final:
+            str_start = self.index_sub_string(content=content, sub_string=inicio, type_finder=0)[0]
+            new_str_end = []
+            for i in self.index_sub_string(content=content, sub_string=final, type_finder=0):
+                if i >= str_start:
+                    new_str_end.append(i)
+            str_end = new_str_end[0]
 
-        # section = content[interval[0]: interval[1]]
+        elif inicio == final:
+            str_start = self.index_sub_string(content=content, sub_string=inicio)[0]
+            str_end = str_start + 1
+
+        interval = [str_start, str_end]
+        print(interval)
+        section = self.num_section_content(
+            content, interval
+        )
 
         # print(section)
-        input('Presione una tecla para continuar: ')
-        # return section
+        # input('Presione una tecla para continuar: ')
+        return section
 
 
