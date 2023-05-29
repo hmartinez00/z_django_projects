@@ -196,10 +196,11 @@ class TextFileManipulator:
         self,
         section,
         position,
-        new_element
+        new_element,
     ):
         '''
         main_description: Insertar linea.
         '''
+
         section.insert(position, new_element)
         return section
