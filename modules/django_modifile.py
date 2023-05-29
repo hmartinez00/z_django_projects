@@ -169,14 +169,14 @@ class TextFileManipulator:
             str_end = str_start + 1
 
         interval = [str_start, str_end]
-        print(interval)
+        # print(interval)
         section = self.num_section_content(
             content, interval
         )
 
         # print(section)
         # input('Presione una tecla para continuar: ')
-        return section
+        return section, interval
 
 
     def replace_line(

@@ -22,15 +22,16 @@ generator = TextFileManipulator(file_path)
 # menu_class(generator)
 
 content = generator.list_content()
-# print(content[55:71])
-
 
 inicio = 'TEMPLATES = [\n'
 final = '\n'
 
-section = generator.segment_num_content(
+segment = generator.segment_num_content(
     content, inicio, final
 )
+
+section = segment[0]
+interval = segment[1]
 
 index = generator.index_sub_string(
     content=section,
@@ -38,17 +39,31 @@ index = generator.index_sub_string(
     type_finder=0
 )
 
-section = generator.replace_line(
-    index=index[0],
-    section=section,
-    new_substring="        'DIRS': [\n"
-)
+if len(index)!=0:
+    section = generator.replace_line(
+        index=index[0],
+        section=section,
+        new_substring="        'DIRS': [\n"
+    )
 
-section = generator.insert_line(
-    section=section,
-    position=index[0] + 1,
-    new_element="\t\t\t]\n"
-)
+    section = generator.insert_line(
+        section=section,
+        position=index[0] + 1,
+        new_element="\n\t\t],\n"
+    )
+
+else:
+    index = generator.index_sub_string(
+        content=section,
+        sub_string="        'DIRS': [\n", 
+        type_finder=0
+    )
+
+    section = generator.insert_line(
+        section=section,
+        position=index[0] + 1,
+        new_element="\t\t\t'ruta_template/'"
+    )
 
 print(section)
 
