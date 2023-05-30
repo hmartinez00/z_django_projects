@@ -16,7 +16,21 @@ class settings:
         self.file_path = file_path
         self.object = TextFileManipulator(self.file_path)
 
-    
+
+    def import_os(self):
+        '''
+        main_description: Importa el modulo os
+        '''
+        object = self.object
+        content = object.list_content()
+        index = object.index_sub_string(
+            content=content,
+            sub_string='import'
+        )
+        print(index)
+        input('Presione una tecla para continuar: ')
+        return index
+
     def install_template_dir(
         self,
         new_dir=None
@@ -28,7 +42,6 @@ class settings:
         :params:
         :returns: 
         '''
-
         # Creamos los inputs del proceso.        
         object = self.object
         content = object.list_content()
