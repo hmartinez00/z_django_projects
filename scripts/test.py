@@ -22,6 +22,8 @@ generator = TextFileManipulator(file_path)
 # menu_class(generator)
 
 content = generator.list_content()
+# print(content[55:71])
+
 
 inicio = 'TEMPLATES = [\n'
 final = '\n'
@@ -30,14 +32,28 @@ segment = generator.segment_num_content(
     content, inicio, final
 )
 
-section = segment[0]
-interval = segment[1]
+section     = segment[0]
+interval    = segment[1]
+
+prev_index = [0, interval[0]]
+prev_content = generator.num_section_content(
+    content, prev_index
+)
+post_index = [interval[1], -1]
+post_content = generator.num_section_content(
+    content, post_index
+)
+
+# print(prev_content)
+# print(post_content)
 
 index = generator.index_sub_string(
     content=section,
     sub_string="        'DIRS': [],\n", 
     type_finder=0
 )
+
+print(index)
 
 if len(index)!=0:
     section = generator.replace_line(
@@ -52,20 +68,27 @@ if len(index)!=0:
         new_element="\n\t\t],\n"
     )
 
-else:
-    index = generator.index_sub_string(
-        content=section,
-        sub_string="        'DIRS': [\n", 
-        type_finder=0
-    )
+index = generator.index_sub_string(
+    content=section,
+    sub_string="        'DIRS': [\n", 
+    type_finder=0
+)
 
-    section = generator.insert_line(
-        section=section,
-        position=index[0] + 1,
-        new_element="\t\t\t'ruta_template/'"
-    )
+section = generator.insert_line(
+    section=section,
+    position=index[0] + 1,
+    new_element="\n"
+)
 
-print(section)
+section = generator.insert_line(
+    section=section,
+    position=index[0] + 1,
+    new_element="\t\t\t'ruta_template2/',"
+)
+
+
+new_content = prev_content + section + post_content
+generator.replace_lines_content(new_content)
 
 input('Presione una tecla para continuar: ')
 
