@@ -19,12 +19,15 @@ file_path = option_list(files_list)
 
 # Crear una instancia de ModelGenerator
 object = settings(file_path)
-menu_class(object)
+# menu_class(object)
 
-# app_path = select_django_apps(app_list)
-# app_name = os.path.basename(app_path)
-# new_dir = f"os.path.join(BASE_DIR, '{app_name}', 'templates'),"
-# object.install_template_dir(new_dir)
+# Importamos modulo os
+object.import_os()
+# Instalamos ruta template
+app_path = select_django_apps(app_list)
+app_name = os.path.basename(app_path)
+new_dir = f"os.path.join(BASE_DIR, '{app_name}', 'templates')"
+object.install_template_dir(new_dir)
 
 input('Presione una tecla para continuar: ')
 

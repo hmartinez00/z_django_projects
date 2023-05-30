@@ -23,13 +23,41 @@ class settings:
         '''
         object = self.object
         content = object.list_content()
+        sub_string='import os\n'
+
         index = object.index_sub_string(
             content=content,
-            sub_string='import'
+            sub_string=sub_string,
+            type_finder=0
         )
-        print(index)
+
+        if len(index)==0:
+            index = object.index_sub_string(
+                content=content,
+                sub_string='import',
+                type_finder=None
+            )
+
+            new_content = object.insert_line(
+                section=content,
+                position=index[0] + 1,
+                new_element="\n"
+            )
+
+            new_content = object.insert_line(
+                section=content,
+                position=index[0] + 1,
+                new_element=f"import os"
+            )
+            
+            object.replace_lines_content(new_content)
+            print('Importacion de modulo os ejecutada.')
+        else:
+            print('Modulos os detectado en el archivo.')
+
+
         input('Presione una tecla para continuar: ')
-        return index
+
 
     def install_template_dir(
         self,
@@ -107,7 +135,7 @@ class settings:
         section = object.insert_line(
             section=section,
             position=index[0] + 1,
-            new_element=f"\t\t\t'{new_dir}/',"
+            new_element=f"\t\t\t{new_dir},"
         )
 
         # Reconstruimos la cadena y reemplazamos en el archivo final.
