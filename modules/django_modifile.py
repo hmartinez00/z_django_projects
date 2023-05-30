@@ -1,206 +1,102 @@
-import os
+from modules.TextFileManipulator import TextFileManipulator
 
 
-class TextFileManipulator:
+class settings:
     '''
-    Clase para manipular archivos de proyectos Django.
+    Clase para manipular archivo settings.py de Django.
 
-    :param file_path: Ruta del archivo.
+    :param file_path: Ruta del archivo settings.py.
     '''
     def __init__(self, file_path):
         '''
-        Inicializa una instancia de TextFileManipulator.
+        Inicializa una instancia de settings.
 
-        :param file_path: Ruta del archivo.
+        :param file_path: Ruta del archivo settings.py.
         '''
         self.file_path = file_path
+        self.object = TextFileManipulator(self.file_path)
 
     
-    def show_content(self):
-        '''
-        main_description: Mostrar contenido.
-        '''
-        with open(self.file_path, 'r') as f:
-            content = f.read()
-        
-        # print(content)
-        # input('Presione una tecla para continuar: ')
-        return content
-
-    def list_content(self):
-        '''
-        main_description: Listar contenido.
-        '''
-        with open(self.file_path, 'r') as f:
-            content = f.readlines()
-        
-        # print(content)
-        # input('Presione una tecla para continuar: ')
-        return content
-
-
-    def num_content(self):
-        '''
-        main_description: Desplegar contenido enumerado.
-        '''
-        with open(self.file_path, 'r') as f:
-            for i, line in enumerate(f):
-                print(i, line)
-        
-        input('Presione una tecla para continuar: ')
-
-
-    def replace_content(self, new_content=None):
-        '''
-        main_description: Reemplazar contenido.
-        Reemplaza todo el contenido de un archivo.
-        '''
-        if new_content == None:
-            new_content = input('Introduzca el nuevo contenido: ')
-
-        with open(self.file_path, 'w') as f:
-            f.write(new_content)
-
-
-    def section_content(self, content=None, interval=None):
-        '''
-        main_description: Mostrar fragmento.
-        '''
-        if content == None:
-            content = self.show_content()
-        
-        if interval == None:           
-            str_start   = input('Introduzca la cadena de inicio: ')
-            str_end     = input('Introduzca la cadena de cierre: ')
-            interval    = [str_start, str_end]
-
-        start_index = content.index(interval[0])
-        end_index = content.find(interval[1], start_index)
-        if end_index == -1:
-            # No se encontró una línea en blanco adicional, ajustar el índice final
-            end_index = len(content)
-        section = content[start_index:end_index]
-        
-        # print(section)
-        # input('Presione una tecla para continuar: ')
-        return section
-
-
-    # -------------------------------------------
-    # En esta seccion definimos los metodos para detectar lineas cnocretas y extraer segmentos de texto.
-    # -------------------------------------------
-
-
-    def index_sub_string(
-        self, 
-        content=None,
-        sub_string=None, 
-        type_finder=None
+    def install_template_dir(
+        self,
+        new_dir=None
     ):
         '''
-        main_description: Extraer indice de linea.
-        '''
-        if content==None: 
-            content = self.list_content()
+        main_description: Insertar en TEMPLATE.
+        Inserta un nuevo elemento en la lista TEMPLATE para hacer la instalacion segun los protocolos de Django.
         
-        if sub_string == None:
-            sub_string = input('Introduca la subcadena: ')
-
-        index = []
-        for i in range(len(content)):
-            if type_finder==None:
-                if sub_string in content[i]:
-                    index.append(i)
-            elif type_finder==0:
-                if sub_string == content[i]:
-                    index.append(i)
-            
-        # print(index)
-        # input('Presione una tecla para continuar: ')
-        
-        return index
-
-
-    def num_section_content(
-        self, 
-        content=None, 
-        interval=None
-    ):
+        :params:
+        :returns: 
         '''
-        main_description: Mostrar segmento.
-        '''
-        if content == None:
-            content = self.list_content()
 
-        if interval==None:
-            str_start   = int(input('Introduzca el numero de linea de inicio:'))
-            str_end     = int(input('Introduzca el numero de linea de final:'))
-            interval    = [str_start, str_end]
+        # Creamos los inputs del proceso.        
+        object = self.object
+        content = object.list_content()
+        inicio = 'TEMPLATES = [\n'
+        final = '\n'
 
-        section = content[interval[0]: interval[1]]
+        if new_dir==None:
+            new_dir = input('Introduzca la ruta al directorio de templates: ')
 
-        # print(section)
-        # input('Presione una tecla para continuar: ')
-        return section
+        # Extraemos el segmento a modificar y el intervalo.
+        segment = object.segment_num_content(
+            content, inicio, final
+        )
+        section     = segment[0]
+        interval    = segment[1]
 
-
-    def segment_num_content(
-        self, 
-        content=None, 
-        inicio=None,
-        final=None,
-    ):
-        '''
-        main_description: Mostrar segmento entre cadenas.
-        '''
-        if content==None:
-            content = self.list_content()
-
-        if inicio != final:
-            str_start = self.index_sub_string(content=content, sub_string=inicio, type_finder=0)[0]
-            new_str_end = []
-            for i in self.index_sub_string(content=content, sub_string=final, type_finder=0):
-                if i >= str_start:
-                    new_str_end.append(i)
-            str_end = new_str_end[0]
-
-        elif inicio == final:
-            str_start = self.index_sub_string(content=content, sub_string=inicio)[0]
-            str_end = str_start + 1
-
-        interval = [str_start, str_end]
-        # print(interval)
-        section = self.num_section_content(
-            content, interval
+        # Construimos los contenidos previo y posterior.
+        prev_index = [0, interval[0]]
+        prev_content = object.num_section_content(
+            content, prev_index
+        )
+        post_index = [interval[1], -1]
+        post_content = object.num_section_content(
+            content, post_index
         )
 
-        # print(section)
-        # input('Presione una tecla para continuar: ')
-        return section, interval
+        # Extraemos el indice del renglon de pivoteo
+        # dentro del segmento de trabajo y modificamos
+        # para ajustar la condiciones de insercion.
+        index = object.index_sub_string(
+            content=section,
+            sub_string="        'DIRS': [],\n", 
+            type_finder=0
+        )
 
+        if len(index)!=0:
+            section = object.replace_line(
+                index=index[0],
+                section=section,
+                new_substring="        'DIRS': [\n"
+            )
 
-    def replace_line(
-        self,
-        index,
-        section,
-        new_substring
-    ):
-        '''
-        main_description: Reemplazar linea.
-        '''
-        section[index] = new_substring
-        return section
+            section = object.insert_line(
+                section=section,
+                position=index[0] + 1,
+                new_element="\n\t\t],\n"
+            )
 
+        # Aseguradas las condiciones de insercion
+        # ejecutamos las operaciones:
+        index = object.index_sub_string(
+            content=section,
+            sub_string="        'DIRS': [\n", 
+            type_finder=0
+        )
+            # Abrimos un salto de linea.
+        section = object.insert_line(
+            section=section,
+            position=index[0] + 1,
+            new_element="\n"
+        )
+            # Insertamos el elemento.
+        section = object.insert_line(
+            section=section,
+            position=index[0] + 1,
+            new_element=f"\t\t\t'{new_dir}/',"
+        )
 
-    def insert_line(
-        self,
-        section,
-        position,
-        new_element,
-    ):
-        '''
-        main_description: Insertar linea.
-        '''
-
-        section.insert(position, new_element)
-        return section
+        # Reconstruimos la cadena y reemplazamos en el archivo final.
+        new_content = prev_content + section + post_content
+        object.replace_lines_content(new_content)
