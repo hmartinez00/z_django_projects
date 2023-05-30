@@ -81,3 +81,4 @@ if not os.path.isfile(urls_path):
     with open(urls_path, "w") as f:
         f.write(content)
 
+os.chdir(path)
