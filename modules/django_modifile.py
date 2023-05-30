@@ -73,71 +73,82 @@ class settings:
         # Creamos los inputs del proceso.        
         object = self.object
         content = object.list_content()
+
         inicio = 'TEMPLATES = [\n'
         final = '\n'
 
         if new_dir==None:
             new_dir = input('Introduzca la ruta al directorio de templates: ')
 
-        # Extraemos el segmento a modificar y el intervalo.
-        segment = object.segment_num_content(
-            content, inicio, final
-        )
-        section     = segment[0]
-        interval    = segment[1]
+        sub_string=new_dir
 
-        # Construimos los contenidos previo y posterior.
-        prev_index = [0, interval[0]]
-        prev_content = object.num_section_content(
-            content, prev_index
-        )
-        post_index = [interval[1], -1]
-        post_content = object.num_section_content(
-            content, post_index
-        )
-
-        # Extraemos el indice del renglon de pivoteo
-        # dentro del segmento de trabajo y modificamos
-        # para ajustar la condiciones de insercion.
         index = object.index_sub_string(
-            content=section,
-            sub_string="        'DIRS': [],\n", 
+            content=content,
+            sub_string=sub_string,
             type_finder=0
         )
 
-        if len(index)!=0:
-            section = object.replace_line(
-                index=index[0],
-                section=section,
-                new_substring="        'DIRS': [\n"
+        if len(index)==0:
+
+            # Extraemos el segmento a modificar y el intervalo.
+            segment = object.segment_num_content(
+                content, inicio, final
+            )
+            section     = segment[0]
+            interval    = segment[1]
+
+            # Construimos los contenidos previo y posterior.
+            prev_index = [0, interval[0]]
+            prev_content = object.num_section_content(
+                content, prev_index
+            )
+            post_index = [interval[1], -1]
+            post_content = object.num_section_content(
+                content, post_index
             )
 
+            # Extraemos el indice del renglon de pivoteo
+            # dentro del segmento de trabajo y modificamos
+            # para ajustar la condiciones de insercion.
+            index = object.index_sub_string(
+                content=section,
+                sub_string="        'DIRS': [],\n", 
+                type_finder=0
+            )
+
+            if len(index)!=0:
+                section = object.replace_line(
+                    index=index[0],
+                    section=section,
+                    new_substring="        'DIRS': [\n"
+                )
+
+                section = object.insert_line(
+                    section=section,
+                    position=index[0] + 1,
+                    new_element="\t\t],\n"
+                )
+
+            # Aseguradas las condiciones de insercion
+            # ejecutamos las operaciones:
+            index = object.index_sub_string(
+                content=section,
+                sub_string="        'DIRS': [\n", 
+                type_finder=0
+            )
+                # Abrimos un salto de linea.
             section = object.insert_line(
                 section=section,
                 position=index[0] + 1,
-                new_element="\n\t\t],\n"
+                new_element="\n"
+            )
+                # Insertamos el elemento.
+            section = object.insert_line(
+                section=section,
+                position=index[0] + 1,
+                new_element=f"\t\t\t{new_dir},"
             )
 
-        # Aseguradas las condiciones de insercion
-        # ejecutamos las operaciones:
-        index = object.index_sub_string(
-            content=section,
-            sub_string="        'DIRS': [\n", 
-            type_finder=0
-        )
-            # Abrimos un salto de linea.
-        section = object.insert_line(
-            section=section,
-            position=index[0] + 1,
-            new_element="\n"
-        )
-            # Insertamos el elemento.
-        section = object.insert_line(
-            section=section,
-            position=index[0] + 1,
-            new_element=f"\t\t\t{new_dir},"
-        )
-
-        # Reconstruimos la cadena y reemplazamos en el archivo final.
-        new_content = prev_content + section + post_content
-        object.replace_lines_content(new_content)
+            # Reconstruimos la cadena y reemplazamos en el archivo final.
+            new_content = prev_content + section + post_content
+            object.replace_lines_content(new_content)
