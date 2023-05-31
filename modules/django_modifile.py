@@ -73,7 +73,6 @@ class settings:
         # Creamos los inputs del proceso.        
         object = self.object
         content = object.list_content()
-
         inicio = 'TEMPLATES = [\n'
         final = '\n'
 
@@ -85,7 +84,7 @@ class settings:
         index = object.index_sub_string(
             content=content,
             sub_string=sub_string,
-            type_finder=0
+            type_finder=None
         )
 
         if len(index)==0:
@@ -152,3 +151,6 @@ class settings:
             # Reconstruimos la cadena y reemplazamos en el archivo final.
             new_content = prev_content + section + post_content
             object.replace_lines_content(new_content)
+        
+        else:
+            print('Esta direccion ya esta en la lista de TEMPLATES.')
