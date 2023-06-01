@@ -11,21 +11,16 @@ path = setting_routes(key)[0]
 
 projects_list = get_django_projects(path)
 project_path = select_django_project(projects_list)
-app_list = get_django_apps(project_path)
-app_path = select_django_apps(app_list)
-files_list = get_py_files(app_path)
+project_name = os.path.basename(project_path)
+file_path = os.path.join(project_path, project_name, 'settings.py')
+print(project_path)
 
-file_path = option_list(files_list)
+app_name = 'appEmpresaDjango'
 
-# Crear una instancia de ModelGenerator
-object = settings(file_path)
-# menu_class(object)
-
-# Importamos modulo os
+print(f'Instalando la direccion de los templates.')
+object = settings(project_path)
+# Importamos modulo os.
 object.import_os()
-# Instalamos ruta template
-app_path = select_django_apps(app_list)
-app_name = os.path.basename(app_path)
 new_dir = f"os.path.join(BASE_DIR, '{app_name}', 'templates')"
 object.install_template_dir(new_dir)
 

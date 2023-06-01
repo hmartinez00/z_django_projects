@@ -3,6 +3,7 @@ import subprocess
 from modules.django_rootes import *
 from modules.modifile import *
 from General_Utilities.control_rutas import setting_routes
+from modules.django_modifile import settings
 
 
 app_name = 'appEmpresaDjango'
@@ -28,27 +29,26 @@ os.chdir(project_path)
 subprocess.run(["python", "manage.py", "startapp", app_name])
 # subprocess.run(["python", "manage.py", "migrate"])
 
-# Agregamos la aplicacion
-print(f'Instalando en settings.py')
-print(ruta_settings[0])
-file_path = ruta_settings[0]
-pivot_substring = 'INSTALLED_APPS'
-new_substring = "[\n\t'" + app_name + "',"
-append_substring_to_line(file_path, pivot_substring, new_substring)
 
-# # Instalando la direccion de los templates
-# print(f'Instalando la direccion de los templates')
-# print(ruta_settings[0])
-# file_path = ruta_settings[0]
-# module_name = 'os'
-# import_module_to_file(file_path, module_name)
-# pivot_substring = "'DIRS': "
-# old_substring = '[]'
-# new_substring = '[\n\t\t]'
-# replace_substring_in_line(file_path, pivot_substring, old_substring, new_substring)
-# pivot_substring = "'DIRS': ["
-# new_substring = "[\n\t\t\t" + f"os.path.join(BASE_DIR, '{app_name}', 'templates'),"
-# append_substring_to_line(file_path, pivot_substring, new_substring)
+# Crear una instancia de settings e instala la app.
+object = settings(project_path)
+print(f'Instalando la app en settings.py.')
+object.install_app(app_name)
+print(f'Instalando la direccion de los templates.')
+# Importamos modulo os.
+object.import_os()
+new_dir = f"os.path.join(BASE_DIR, '{app_name}', 'templates')"
+object.install_template_dir(new_dir)
+print('Creando el directorio templates de la app.')
+app_path = os.path.join(project_path, app_name)
+urls_path = os.path.join(app_path, 'templates')
+if os.path.exists(urls_path):
+    print('\t- Directorio de templates ya existe.')
+else:
+    os.mkdir(urls_path)
+
+input('Presione una tecla para continuar: ')
+
 
 # Actualizamos urls.py del proyecto
 print(f'Modificando urls.py')
