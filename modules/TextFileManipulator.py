@@ -57,9 +57,10 @@ class TextFileManipulator:
         '''
         if new_content == None:
             new_content = input('Introduzca el nuevo contenido: ')
-
-        with open(self.file_path, 'w') as f:
-            f.write(new_content)
+ 
+        if not os.path.isfile(self.file_path):
+            with open(self.file_path, 'w') as f:
+                f.write(new_content)
 
     def replace_lines_content(self, new_content=None):
         '''

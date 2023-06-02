@@ -18,10 +18,11 @@ print(project_path)
 
 app_name = 'appEmpresaDjango'
 
-print(f'Importando funcion include.')
-object = urls(project_path, app_name)
-object.import_include()
-object.reg_url_app_project()
+# Creamos urls.py de la aplicacion
+url_app = urls(project_path, app_name)
+url_app.reg_url_app_app()
+
+os.chdir(path)
 
 input('Presione una tecla para continuar: ')
 

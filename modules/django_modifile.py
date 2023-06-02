@@ -248,11 +248,11 @@ class urls:
         project_name = os.path.basename(project_path)
         url_project_path = os.path.join(project_path, project_name, 'urls.py')        
         url_app_path = os.path.join(project_path, self.app_name, 'urls.py')        
-        url_project_path = url_project_path
-        url_app_path = url_app_path
+        self.url_project_path = url_project_path
+        self.url_app_path = url_app_path
    
-        self.url_project = TextFileManipulator(url_project_path)
-        self.url_app = TextFileManipulator(url_app_path)
+        self.url_project = TextFileManipulator(self.url_project_path)
+        self.url_app = TextFileManipulator(self.url_app_path)
 
 
     def import_include(self):
@@ -357,3 +357,16 @@ class urls:
             print('\t- Esta app ya se encuentra registrada.')
 
 
+    def reg_url_app_app(self):
+        '''
+        Crea el archivo urls.py de la app.
+        '''
+        print(f'Creando {self.app_name}/urls.py')
+        content = '''from django.urls import path
+from . import views
+
+urlpatterns = [
+    path('', views.index, name='index'),
+]
+'''
+        self.url_app.replace_content(content)
