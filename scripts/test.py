@@ -4,6 +4,7 @@ from modules.TextFileManipulator import TextFileManipulator
 from General_Utilities.menu import menu_class
 from General_Utilities.option_list import option_list
 from modules.django_modifile import settings
+from modules.django_modifile import urls
 
 
 key = 'resources'
@@ -17,12 +18,10 @@ print(project_path)
 
 app_name = 'appEmpresaDjango'
 
-print(f'Instalando la direccion de los templates.')
-object = settings(project_path)
-# Importamos modulo os.
-object.import_os()
-new_dir = f"os.path.join(BASE_DIR, '{app_name}', 'templates')"
-object.install_template_dir(new_dir)
+print(f'Importando funcion include.')
+object = urls(project_path, app_name)
+object.import_include()
+object.reg_url_app_project()
 
 input('Presione una tecla para continuar: ')
 

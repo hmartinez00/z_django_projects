@@ -225,15 +225,130 @@ class settings:
         else:
             print('\t- El directorio ya esta registrado en la lista de TEMPLATES.')
 
+
 class urls:
     '''
     Clase para manipular archivo urls.py de Django.
 
     :param project_path: Ruta del proyecto.
     '''
-    def __init__(self, project_path):
+    def __init__(
+        self, 
+        project_path,
+        app_name,
+    ):
         '''
         Inicializa una instancia de urls.
 
         :param project_path: Ruta del proyecto.
+        :app_name: Nombre de la app con cuyo urls.py se desea conectar.
         '''
+        self.app_name = app_name
+ 
+        project_name = os.path.basename(project_path)
+        url_project_path = os.path.join(project_path, project_name, 'urls.py')        
+        url_app_path = os.path.join(project_path, self.app_name, 'urls.py')        
+        self.url_project_path = url_project_path
+        self.url_app_path = url_app_path
+   
+        self.url_project = TextFileManipulator(self.url_project_path)
+        self.url_app = TextFileManipulator(self.url_app_path)
+
+
+    def import_include(self):
+        '''
+        Importa la funcion include en la zona de importacion de modulos.
+        '''
+        url_project = self.url_project
+        content = url_project.list_content()
+        sub_string='from django.urls import path, include\n'
+
+        index = url_project.index_sub_string(
+            content=content,
+            sub_string=sub_string,
+            type_finder=0
+        )
+
+        if len(index)==0:
+            sub_string = 'from django.urls import path'
+
+            index = url_project.index_sub_string(
+                content=content,
+                sub_string=sub_string,
+                type_finder=None
+            )
+
+            new_content = url_project.replace_line(
+                index=index[0],
+                section=content,
+                new_substring=f"{sub_string}, include\n"
+            )
+            print(new_content[index[0]])
+            
+            url_project.replace_lines_content(new_content)
+            print('\t- Importacion de la funcion include ejecutada.')
+        else:
+            print('\t- Funcion include detectada en el archivo.')
+
+
+    def reg_url_app_project(self):
+        '''
+        main_description: Instalar en urlpatterns.
+        '''
+        # Creamos los inputs del proceso.        
+        url_project = self.url_project
+        content = url_project.list_content()
+        inicio = 'urlpatterns = [\n'
+        final = '\n'
+
+        sub_string=self.app_name
+
+        # Extraemos el segmento a modificar y el intervalo.
+        segment = url_project.segment_num_content(
+            content, inicio, final
+        )
+        section     = segment[0]
+        interval    = segment[1]
+
+        # Construimos los contenidos previo y posterior.
+        prev_index = [0, interval[0]]
+        prev_content = url_project.num_section_content(
+            content, prev_index
+        )
+        post_index = [interval[1], -1]
+        post_content = url_project.num_section_content(
+            content, post_index
+        )
+
+        # Determinamos si la app existe en la lista.
+        condition = url_project.index_sub_string(
+            content=section,
+            sub_string=sub_string,
+            type_finder=None
+        )
+
+        print(condition)
+
+        if len(condition)==0:
+
+            # Abrimos un salto de linea.
+            section = url_project.insert_line(
+                section=section,
+                position= 1,
+                new_element="\n"
+            )
+            # Insertamos el elemento.
+            section = url_project.insert_line(
+                section=section,
+                position= 1,
+                new_element=f"\tpath('{self.app_name}/', include('{self.app_name}.urls'))"
+            )
+
+            # Reconstruimos la cadena y reemplazamos en el archivo final.
+            new_content = prev_content + section + post_content
+            url_project.replace_lines_content(new_content)
+        
+        else:
+            print('\t- Esta app ya se encuentra registrada.')
+
+

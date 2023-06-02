@@ -30,7 +30,6 @@ subprocess.run(["python", "manage.py", "startapp", app_name])
 # subprocess.run(["python", "manage.py", "migrate"])
 
 
-
 # Instalando la app, creando el directorio de templates e
 # instalando el directorio.
 
