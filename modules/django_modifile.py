@@ -224,3 +224,16 @@ class settings:
         
         else:
             print('\t- El directorio ya esta registrado en la lista de TEMPLATES.')
+
+class urls:
+    '''
+    Clase para manipular archivo urls.py de Django.
+
+    :param project_path: Ruta del proyecto.
+    '''
+    def __init__(self, project_path):
+        '''
+        Inicializa una instancia de urls.
+
+        :param project_path: Ruta del proyecto.
+        '''

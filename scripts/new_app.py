@@ -6,7 +6,7 @@ from General_Utilities.control_rutas import setting_routes
 from modules.django_modifile import settings
 
 
-app_name = 'appEmpresaDjango'
+app_name = 'appTiendaDjango'
 
 key = 'resources'
 path = setting_routes(key)[0]
@@ -30,7 +30,11 @@ subprocess.run(["python", "manage.py", "startapp", app_name])
 # subprocess.run(["python", "manage.py", "migrate"])
 
 
-# Crear una instancia de settings e instala la app.
+
+# Instalando la app, creando el directorio de templates e
+# instalando el directorio.
+
+# Crear una instancia de settings, 
 object = settings(project_path)
 print(f'Instalando la app en settings.py.')
 object.install_app(app_name)
