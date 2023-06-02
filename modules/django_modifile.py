@@ -298,6 +298,11 @@ class urls:
         # Creamos los inputs del proceso.        
         url_project = self.url_project
         content = url_project.list_content()
+        if content[-1] == '\n':
+            pass
+        else:
+            content.append('\n')
+
         inicio = 'urlpatterns = [\n'
         final = '\n'
 
@@ -341,7 +346,7 @@ class urls:
             section = url_project.insert_line(
                 section=section,
                 position= 1,
-                new_element=f"\tpath('{self.app_name}/', include('{self.app_name}.urls'))"
+                new_element=f"\tpath('{self.app_name}/', include('{self.app_name}.urls')),"
             )
 
             # Reconstruimos la cadena y reemplazamos en el archivo final.
