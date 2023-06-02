@@ -51,20 +51,6 @@ if view_name != 'index':
     append_substring_to_line(file_path, pivot_substring, new_substring)
 
 
-# Instalando la direccion de los templates.
-print('Instalamos en la direccion de templates.')
-# Crear una instancia de settings.
-object = settings(project_path)
-# Importamos modulo os.
-object.import_os()
-# Instalamos ruta template.
-apps_list = get_django_apps(project_path)
-app_path = select_django_apps(apps_list)
-app_name = os.path.basename(app_path)
-new_dir = f"os.path.join(BASE_DIR, '{app_name}', 'templates')"
-object.install_template_dir(new_dir)
-
-
 # # Añadir el template
 # print('Agregamos el template')
 # urls_path = os.path.join(app_path, 'templates')
