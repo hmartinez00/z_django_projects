@@ -53,11 +53,6 @@ if view_name != 'index':
 
 # # Añadir el template
 # print('Agregamos el template')
-# urls_path = os.path.join(app_path, 'templates')
-# if os.path.exists(urls_path):
-#     pass
-# else:
-#     os.mkdir(urls_path)
 # file_path = os.path.join(urls_path, f'{view_name}.html')
 # new_content = f'''<!DOCTYPE html>
 # <html lang="en">

@@ -4,23 +4,29 @@ import subprocess
 from General_Utilities.option_list import option_list
 from modules.modifile import replace_file_content, add_substring_to_line
 from modules.modifile import *
+from modules.TextFileManipulator import TextFileManipulator
 
 
-class ModelGenerator:
+class models:
     """
     Clase para generar modelos en Django.
 
     :param file_path: Ruta del archivo models.py.
     :param model_name: Nombre del modelo a generar.
     """
-    def __init__(self, file_path, model_name=None):
+    def __init__(
+            self, 
+            project_path,
+            app_name,
+            model_name=None
+    ):
         """
-        Inicializa una instancia de ModelGenerator.
+        Inicializa una instancia de models.
 
         :param file_path: Ruta del archivo models.py.
         :param model_name: Nombre del modelo a generar.
         """
-        self.file_path = file_path
+        self.file_path = os.path.join(project_path, app_name, 'models.py')
         
         lista_modelos = self.get_existing_class()
 
@@ -286,8 +292,9 @@ from .models import *
             
 # Register your models here.
 '''
-
-        replace_file_content(admin_path, new_content)
+        # replace_file_content(admin_path, new_content)
+        admin_object = TextFileManipulator(admin_path)
+        admin_object.replace_content(new_content)
         input('Presione una tecla para continuar: ')
 
 
@@ -315,28 +322,50 @@ from .models import *
 
 
 
-class ViewsGenerator:
+class views:
     """
     Clase para generar views en Django.
 
     :param file_path: Ruta del archivo views.py.
     :param view_name: Nombre de la view a generar.
     """
-    def __init__(self, file_path, view_name=None):
+    def __init__(
+            self, 
+            project_path,
+            app_name,
+            view_name=None
+    ):
         """
         Inicializa una instancia de ViewsGenerator.
 
-        :param file_path: Ruta del archivo models.py.
+        :param file_path: Ruta del archivo views.py.
         :param view_name: Nombre de la view a generar.
         """
-        self.file_path = file_path
-        
+        self.file_path = os.path.join(project_path, app_name, 'views.py')
+
+        lista_vistas = self.get_existing_def()
+
         if view_name != None:
             self.view_name = view_name
-        else:
-            self.view_name = input('Ingrese el nombre de la vista: ')
+        elif len(lista_vistas) > 0:
+            self.model_name = self.change_view()
+        # else:
+        #     self.model_name = self.add_view_def()
 
-    def get_existing_class(self):
+        self.object = TextFileManipulator(self.file_path)
+
+
+    def change_view(self):
+        '''
+        main_description: Conectar modelo.
+        '''
+        print('Selecciones el modelo que desea conectar:\n')
+        lista_vistas = self.get_existing_def()
+        self.view_name = option_list(lista_vistas)
+        return self.view_name
+
+
+    def get_existing_def(self):
         '''
         main_description: Listar vistas.
         '''

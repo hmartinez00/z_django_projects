@@ -1,6 +1,6 @@
 from General_Utilities.control_rutas import setting_routes
 from modules.django_rootes import *
-from modules.django_models import ModelGenerator
+from modules.django_models import models
 from General_Utilities.menu import menu_class
 
 
@@ -11,26 +11,10 @@ projects_list = get_django_projects(path)
 project_path = select_django_project(projects_list)
 app_list = get_django_apps(project_path)
 app_path = select_django_apps(app_list)
-
-files_list = get_py_files(app_path)
-
-# Create el listado de directorios
-ruta_settings = [
-        find_substring_in_list(files_list, 'models.py'),
-    ]
-
-file_path = ruta_settings[0]
-
-# print(file_path)
-# # Obtener todos los componentes de la ruta como una lista
-# componentes = os.path.normpath(file_path).split(os.sep)
-# print(componentes[-2])
-# project_path2 = os.path.join(*componentes[:-2])
-# print(project_path2)
-# input('Presione una tecla para continuar: ')
+app_name = os.path.basename(app_path)
 
 # Crear una instancia de ModelGenerator
-generator = ModelGenerator(file_path)
+generator = models(project_path, app_name)
 menu_class(generator)
 
 # print(generator.model_exists())

@@ -8,7 +8,10 @@ class settings:
 
     :param project_path: Ruta del proyecto.
     '''
-    def __init__(self, project_path):
+    def __init__(
+            self, 
+            project_path
+    ):
         '''
         Inicializa una instancia de settings.
 
