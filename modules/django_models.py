@@ -347,21 +347,49 @@ class views:
         if view_name != None:
             self.view_name = view_name
         elif len(lista_vistas) > 0:
-            self.model_name = self.change_view()
+            self.view_name = self.change_view()
         # else:
-        #     self.model_name = self.add_view_def()
+        #     self.view_name = self.add_view_def()
 
         self.object = TextFileManipulator(self.file_path)
 
 
     def change_view(self):
         '''
-        main_description: Conectar modelo.
+        main_description: Conectar vista.
         '''
         print('Selecciones el modelo que desea conectar:\n')
         lista_vistas = self.get_existing_def()
         self.view_name = option_list(lista_vistas)
         return self.view_name
+
+
+    def add_view_def(self):
+        """
+        main_description: Agregar vista.
+        Agrega la definición de la funcion de la vista en el archivo views.py.
+        Si la vista ya existe, no realiza ninguna acción.
+        """
+        view_name = input('Introduzca el nombre de la vista: ')
+        self.view_name = view_name
+        def_str = f"\ndef {self.view_name}(request):\n"
+        with open(self.file_path, 'r+') as file:
+            content = file.read()
+            if def_str not in content:
+                file.seek(0, 2)  # Mover el puntero al final del archivo
+                file.write(def_str)
+        return self.view_name
+
+
+    def views_exists(self):
+        """
+        main_description: Verificar existencia.
+        Verifica si la vista ya existe en el archivo views.py.
+
+        :return: True si la vista existe, False en caso contrario.
+        """
+        status = self.get_existing_def()
+        return self.view_name in status
 
 
     def get_existing_def(self):
@@ -373,9 +401,58 @@ class views:
 
         pattern = r"def\s+(\w+)"
         vistas = re.findall(pattern, content)
-        print(vistas)
-        input('Presione una tecla para continuar: ')
-        return vistas    
+        # print(vistas)
+        # input('Presione una tecla para continuar: ')
+        return vistas  
+
+
+    def import_HttpResponse(self):
+        '''
+        main_description: Importa el modulo HttpResponse
+        '''
+        object = self.object
+        content = object.list_content()
+        sub_string='from django.http import HttpResponse\n'
+
+        index = object.index_sub_string(
+            content=content,
+            sub_string=sub_string,
+            type_finder=0
+        )
+
+        if len(index)==0:
+            index = object.index_sub_string(
+                content=content,
+                sub_string='import',
+                type_finder=None
+            )
+
+            new_content = object.insert_line(
+                section=content,
+                position=index[0] + 1,
+                new_element="\n"
+            )
+
+            new_content = object.insert_line(
+                section=content,
+                position=index[0] + 1,
+                new_element=f"from django.http import HttpResponse"
+            )
+            
+            object.replace_lines_content(new_content)
+            print('\t- Importacion de modulo HttpResponse ejecutada.')
+        else:
+            print('\t- Modulos HttpResponse detectado en el archivo.')
+
+
+
+
+
+
+
+
+
+
 
     def simple_view(self):
         '''
