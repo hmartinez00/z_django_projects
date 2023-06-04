@@ -353,7 +353,8 @@ class views:
 
 
         self.views_types = {
-            "HttpResponse": "return HttpResponse('Vista simple.')",
+            "HttpResponse": f"return HttpResponse('Vista simple {self.view_name}.')",
+            "Template": f"return render(request, '{self.view_name}.html')",
         }
 
         self.object = TextFileManipulator(self.file_path)
@@ -494,7 +495,7 @@ class views:
 
     def update_urls_file(self):
         '''
-        main_description: Registrar url.
+        main_description: Actualizar archivo urls.
         '''
         componentes = os.path.normpath(self.file_path).split(os.sep)
         urls_path = os.path.join(*componentes[:-1], 'urls.py').replace(':', ':\\')
@@ -560,25 +561,5 @@ urlpatterns = [
 '''
         if not os.path.isfile(file_path):
             replace_file_content(file_path, new_content)
-
-        # Instalando la direccion de los templates
-        print(f'Instalando la direccion de los templates')
-        componentes = os.path.normpath(self.file_path).split(os.sep)
-        app_name = componentes[-2]
-        file_path = os.path.join(*componentes[:-2], componentes[-3], 'settings.py').replace(':', ':\\')
-        module_name = 'os'
-        import_module_to_file(file_path, module_name)
-        print('Importado modulo os')
-        pivot_substring = "'DIRS': "
-
-        cont = find_pivot_substring(file_path, pivot_substring)
-        print(cont)
-
-        # old_substring = '[]'
-        # new_substring = '[\n\t\t]'
-        # replace_substring_in_line(file_path, pivot_substring, old_substring, new_substring)
-        # pivot_substring = "'DIRS': ["
-        # new_substring = "[\n\t\t\t" + f"os.path.join(BASE_DIR, '{app_name}', 'templates'),"
-        # append_substring_to_line(file_path, pivot_substring, new_substring)
 
         input('Presione una tecla para continuar: ')
