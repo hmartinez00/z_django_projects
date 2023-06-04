@@ -348,8 +348,13 @@ class views:
             self.view_name = view_name
         elif len(lista_vistas) > 0:
             self.view_name = self.change_view()
-        # else:
-        #     self.view_name = self.add_view_def()
+        else:
+            self.view_name = self.add_view_def()
+
+
+        self.views_types = {
+            "HttpResponse": "return HttpResponse('Vista simple.')",
+        }
 
         self.object = TextFileManipulator(self.file_path)
 
@@ -445,49 +450,81 @@ class views:
             print('\t- Modulos HttpResponse detectado en el archivo.')
 
 
+    def add_return(self, view_type=None):
+        """
+        main_description: Agregar return.
+        Agrega un nuevo campo al modelo.
+
+        :param field_type: Tipo de campo a agregar.
+                           Si no se proporciona, se solicitará al usuario.
+        """       
+        if not view_type:
+            views_list = self.views_types
+            view_type = option_list(list(views_list.keys()))
+            attributes = views_list[view_type]            
+        
+        return_declaration = f"    {attributes}\n"
+
+        with open(self.file_path, 'r') as file:
+            content = file.readlines()
+
+        start_index = None
+        end_index = None
+        class_found = False
+
+        for i, line in enumerate(content):
+            if line.strip().startswith("def ") and line.strip().endswith(":"):
+                class_name = line.strip()[4:-1].split("(")[0].strip()
+                if class_name == self.view_name:
+                    start_index = i
+                    class_found = True
+            elif class_found and line.strip() == "":
+                end_index = i
+                break
+
+        if start_index is not None and end_index is not None:
+            content.insert(end_index, return_declaration)
+        else:
+            # Class section not found, adding field at the end of the file
+            content.append(return_declaration)
+
+        with open(self.file_path, 'w') as file:
+            file.writelines(content)
 
 
-
-
-
-
-
-
-
-    def simple_view(self):
+    def update_urls_file(self):
         '''
-        main_description: Agregar vista simple.
+        main_description: Registrar url.
         '''
-        view_name = self.view_name
-        file_path = self.file_path
+        componentes = os.path.normpath(self.file_path).split(os.sep)
+        urls_path = os.path.join(*componentes[:-1], 'urls.py').replace(':', ':\\')
+        print(urls_path)
+        views = self.get_existing_def()
+        print(views)
+        if len(views) > 0:
+            records = ''
+            for i in views:
+                records = records + f"\tpath('{i}/', views.{i}, name='{i}'),\n"
+            new_content = f'''from django.urls import path
+from . import views
 
-        # Actualizamos views.py
-        print('Actualizamos views.py')
-        print(file_path)
-        # new_content = f'''
-        # def {view_name}(request):
-        #     return render(request, '{view_name}.html')
-        # '''
-        new_content = f'''from django.http import HttpResponse
-
-
-def {view_name}(request):
-    return HttpResponse("Mostrando el Listado de departamentos")
+urlpatterns = [
+{records}\tpath('', views.index, name='index'),
+]
 '''
-        append_to_file(file_path, new_content)
+        else:
+            new_content = f'''from django.urls import path
+from . import views
 
-        # Actualizamos urls.py de la aplicacion
-        if view_name != 'index':
-            print(f'Modificando urls.py')
-            componentes = os.path.normpath(self.file_path).split(os.sep)
-            file_path = os.path.join(*componentes[:-1], 'urls.py').replace(':', ':\\')
-            element = f"path('{view_name}/', views.{view_name}, name='{view_name}')"
-            pivot_substring = 'urlpatterns = '
-            new_substring = "[\n\t" + element + ","
-            append_substring_to_line(file_path, pivot_substring, new_substring)
-         
+urlpatterns = [
+    path('', views.index, name='index'),
+]
+'''
+        # replace_file_content(urls_path, new_content)
+        urls_object = TextFileManipulator(urls_path)
+        urls_object.replace_content(new_content)
+        input('Presione una tecla para continuar: ')        
 
-        input('Presione una tecla para continuar: ')
 
     def template_view(self):
         '''
