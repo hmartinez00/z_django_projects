@@ -103,17 +103,6 @@ class models:
         return self.model_name
 
 
-    def model_exists(self):
-        """
-        main_description: Verificar existencia.
-        Verifica si el modelo ya existe en el archivo models.py.
-
-        :return: True si el modelo existe, False en caso contrario.
-        """
-        status = self.get_existing_class()
-        return self.model_name in status
-
-
     def get_existing_class(self):
         '''
         main_description: Listar modelos
@@ -360,13 +349,19 @@ class views:
         self.object = TextFileManipulator(self.file_path)
 
 
-    def change_view(self):
+    def change_view(
+            self,
+            view_name=None,
+    ):
         '''
         main_description: Conectar vista.
         '''
-        print('Selecciones el modelo que desea conectar:\n')
-        lista_vistas = self.get_existing_def()
-        self.view_name = option_list(lista_vistas)
+        if view_name==None:
+            print('Selecciones el modelo que desea conectar:\n')
+            lista_vistas = self.get_existing_def()
+            self.view_name = option_list(lista_vistas)
+        else:
+            self.view_name = view_name
         return self.view_name
 
 
@@ -376,26 +371,25 @@ class views:
         Agrega la definición de la funcion de la vista en el archivo views.py.
         Si la vista ya existe, no realiza ninguna acción.
         """
-        view_name = input('Introduzca el nombre de la vista: ')
-        self.view_name = view_name
-        def_str = f"\ndef {self.view_name}(request):\n"
-        with open(self.file_path, 'r+') as file:
-            content = file.read()
-            if def_str not in content:
-                file.seek(0, 2)  # Mover el puntero al final del archivo
-                file.write(def_str)
-        return self.view_name
+        while True:
+            quest = input('Desea agregar nueva vista? (S/N): ')
 
+            if quest=='s' or quest=='S':
 
-    def views_exists(self):
-        """
-        main_description: Verificar existencia.
-        Verifica si la vista ya existe en el archivo views.py.
-
-        :return: True si la vista existe, False en caso contrario.
-        """
-        status = self.get_existing_def()
-        return self.view_name in status
+                view_name = input('Introduzca el nombre de la vista: ')
+                self.view_name = view_name
+                def_str = f"\ndef {self.view_name}(request):\n"
+                with open(self.file_path, 'r+') as file:
+                    content = file.read()
+                    if def_str not in content:
+                        file.seek(0, 2)  # Mover el puntero al final del archivo
+                        file.write(def_str)
+                return self.view_name
+            
+            elif quest=='n' or quest=='N':
+                break
+            else:
+                print('Opcion Invalida!') 
 
 
     def get_existing_def(self):
@@ -451,7 +445,7 @@ class views:
             print('\t- Modulos HttpResponse detectado en el archivo.')
 
 
-    def add_return(self, view_type=None):
+    def add_return(self, view_type=None, view_name=None):
         """
         main_description: Agregar return.
         Agrega un nuevo campo al modelo.
@@ -462,9 +456,12 @@ class views:
         if not view_type:
             views_list = self.views_types
             view_type = option_list(list(views_list.keys()))
-            attributes = views_list[view_type]            
+        
+        attributes = views_list[view_type]            
         
         return_declaration = f"    {attributes}\n"
+
+        print(return_declaration)
 
         with open(self.file_path, 'r') as file:
             content = file.readlines()
@@ -476,7 +473,7 @@ class views:
         for i, line in enumerate(content):
             if line.strip().startswith("def ") and line.strip().endswith(":"):
                 class_name = line.strip()[4:-1].split("(")[0].strip()
-                if class_name == self.view_name:
+                if class_name == view_name:
                     start_index = i
                     class_found = True
             elif class_found and line.strip() == "":
@@ -524,6 +521,25 @@ urlpatterns = [
         # replace_file_content(urls_path, new_content)
         urls_object = TextFileManipulator(urls_path)
         urls_object.replace_content(new_content)
+        input('Presione una tecla para continuar: ')        
+
+
+    def add_new_view(self):
+        '''
+        main_description: Agregar nueva vista.
+        '''
+
+        views_list = self.views_types
+        view_type = option_list(list(views_list.keys()))
+        print(
+            views_list,
+            self.view_name
+        )
+
+        # self.import_HttpResponse()
+        # self.add_return(view_type, self.view_name)
+
+
         input('Presione una tecla para continuar: ')        
 
 
