@@ -5,6 +5,7 @@ from General_Utilities.option_list import option_list
 from modules.modifile import replace_file_content, add_substring_to_line
 from modules.modifile import *
 from modules.TextFileManipulator import TextFileManipulator
+from General_Utilities.menu import menu_class
 
 
 class models:
@@ -340,13 +341,22 @@ class views:
         else:
             self.view_name = self.add_view_def()
 
-
-        self.views_types = {
-            "HttpResponse": f"return HttpResponse('Vista simple {self.view_name}.')",
-            "Template": f"return render(request, '{self.view_name}.html')",
-        }
+        self.views_types = self.change_views_types(self.view_name)
 
         self.object = TextFileManipulator(self.file_path)
+
+
+    def change_views_types(
+            self,
+            view_name,
+        ):
+
+        views_types = {
+            "HttpResponse": f"return HttpResponse('Vista simple {view_name}.')",
+            "Template": f"return render(request, '{view_name}.html')",
+        }
+
+        return views_types
 
 
     def change_view(
@@ -362,6 +372,13 @@ class views:
             self.view_name = option_list(lista_vistas)
         else:
             self.view_name = view_name
+        
+        self.views_types = self.change_views_types(self.view_name)
+        # print(
+        #     self.view_name,
+        #     self.views_types
+        # )
+        # input('Presione una tecla para continuar: ')
         return self.view_name
 
 
@@ -371,24 +388,15 @@ class views:
         Agrega la definición de la funcion de la vista en el archivo views.py.
         Si la vista ya existe, no realiza ninguna acción.
         """
-        while True:
-            quest = input('Desea agregar nueva vista? (S/N): ')
-            if quest=='s' or quest=='S':
-
-                view_name = input('Introduzca el nombre de la vista: ')
-                self.view_name = view_name
-                def_str = f"\ndef {self.view_name}(request):\n"
-                with open(self.file_path, 'r+') as file:
-                    content = file.read()
-                    if def_str not in content:
-                        file.seek(0, 2)  # Mover el puntero al final del archivo
-                        file.write(def_str)
-                return self.view_name
-            
-            elif quest=='n' or quest=='N':
-                break
-            else:
-                print('Opcion Invalida!') 
+        view_name = input('Introduzca el nombre de la vista: ')
+        self.view_name = view_name
+        def_str = f"\ndef {self.view_name}(request):\n"
+        with open(self.file_path, 'r+') as file:
+            content = file.read()
+            if def_str not in content:
+                file.seek(0, 2)  # Mover el puntero al final del archivo
+                file.write(def_str)
+        return self.view_name
 
 
     def get_existing_def(self):
@@ -452,6 +460,9 @@ class views:
         :param field_type: Tipo de campo a agregar.
                            Si no se proporciona, se solicitará al usuario.
         """
+        print(self.view_name)
+        input('Presione una tecla para continuar: ')
+
         if not view_type:
             views_list = self.views_types
             view_type = option_list(list(views_list.keys()))
@@ -459,8 +470,8 @@ class views:
         attributes = views_list[view_type]            
         
         return_declaration = f"    {attributes}\n"
-
         print(return_declaration)
+        input('Presione una tecla para continuar: ')
 
         with open(self.file_path, 'r') as file:
             content = file.readlines()
@@ -472,7 +483,7 @@ class views:
         for i, line in enumerate(content):
             if line.strip().startswith("def ") and line.strip().endswith(":"):
                 class_name = line.strip()[4:-1].split("(")[0].strip()
-                if class_name == view_name:
+                if class_name == self.view_name:
                     start_index = i
                     class_found = True
             elif class_found and line.strip() == "":
@@ -522,25 +533,6 @@ urlpatterns = [
         urls_object.replace_content(new_content)
         input('Presione una tecla para continuar: ')        
 
-
-    def add_new_view(self):
-        '''
-        main_description: Agregar nueva vista.
-        '''
-
-        views_list = self.views_types
-        view_type = option_list(list(views_list.keys()))
-        print(
-            views_list,
-            view_type,
-            self.view_name,
-        )
-
-        # self.import_HttpResponse()
-        # self.add_return(view_type, self.view_name)
-
-
-        input('Presione una tecla para continuar: ')        
 
 
     def template_view(self):
