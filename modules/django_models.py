@@ -1,11 +1,8 @@
 import os
 import re
 import subprocess
-from telnetlib import Telnet
 from General_Utilities.option_list import option_list
 from General_Utilities.control_rutas import setting_routes
-from modules.modifile import replace_file_content, add_substring_to_line
-from modules.modifile import *
 from modules.TextFileManipulator import TextFileManipulator
 
 
@@ -535,7 +532,7 @@ urlpatterns = [
         input('Presione una tecla para continuar: ')        
 
 
-    def template_view(self):
+    def add_template_view(self):
         '''
         main_description: Agregar template.
         '''
