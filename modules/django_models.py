@@ -5,7 +5,6 @@ from General_Utilities.option_list import option_list
 from modules.modifile import replace_file_content, add_substring_to_line
 from modules.modifile import *
 from modules.TextFileManipulator import TextFileManipulator
-from General_Utilities.menu import menu_class
 
 
 class models:
