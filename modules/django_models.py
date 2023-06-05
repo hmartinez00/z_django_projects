@@ -373,7 +373,6 @@ class views:
         """
         while True:
             quest = input('Desea agregar nueva vista? (S/N): ')
-
             if quest=='s' or quest=='S':
 
                 view_name = input('Introduzca el nombre de la vista: ')
@@ -452,7 +451,7 @@ class views:
 
         :param field_type: Tipo de campo a agregar.
                            Si no se proporciona, se solicitará al usuario.
-        """       
+        """
         if not view_type:
             views_list = self.views_types
             view_type = option_list(list(views_list.keys()))
@@ -533,7 +532,8 @@ urlpatterns = [
         view_type = option_list(list(views_list.keys()))
         print(
             views_list,
-            self.view_name
+            view_type,
+            self.view_name,
         )
 
         # self.import_HttpResponse()
