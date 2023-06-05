@@ -1,7 +1,9 @@
 import os
 import re
 import subprocess
+from telnetlib import Telnet
 from General_Utilities.option_list import option_list
+from General_Utilities.control_rutas import setting_routes
 from modules.modifile import replace_file_content, add_substring_to_line
 from modules.modifile import *
 from modules.TextFileManipulator import TextFileManipulator
@@ -459,8 +461,8 @@ class views:
         :param field_type: Tipo de campo a agregar.
                            Si no se proporciona, se solicitará al usuario.
         """
-        print(self.view_name)
-        input('Presione una tecla para continuar: ')
+        # print(self.view_name)
+        # input('Presione una tecla para continuar: ')
 
         if not view_type:
             views_list = self.views_types
@@ -533,40 +535,51 @@ urlpatterns = [
         input('Presione una tecla para continuar: ')        
 
 
-
     def template_view(self):
         '''
         main_description: Agregar template.
         '''
 
-        view_name = self.view_name
+        view_name = option_list(self.get_existing_def())
 
-        componentes = os.path.normpath(self.file_path).split(os.sep)
-        app_path = os.path.join(*componentes[:-1]).replace(':', ':\\')
+        if view_name!=None:
+            # Seleccionamos el template del directorio de templates.
+            key = 'backup_Templates'
+            backup_Templates_path = setting_routes(key)[0]
+            list_Templates = os.listdir(backup_Templates_path)
+            Template = option_list(list_Templates)
+            selected_template_path = os.path.join(backup_Templates_path, Template)
+            Template_object = TextFileManipulator(selected_template_path)
+        
+            # Ubicamos la ruta de destino.
+            componentes = os.path.normpath(self.file_path).split(os.sep)
+            app_path = os.path.join(*componentes[:-1]).replace(':', ':\\')
+            templates_path = os.path.join(app_path, 'templates')
+            file_path = os.path.join(templates_path, f'{view_name}.html')
+            Final_File = TextFileManipulator(file_path)
 
-        # Añadir el template
-        print('Agregamos el template')
-        urls_path = os.path.join(app_path, 'templates')
-        if os.path.exists(urls_path):
-            pass
-        else:
-            os.mkdir(urls_path)
-        file_path = os.path.join(urls_path, f'{view_name}.html')
-        new_content = f'''<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{view_name}</title>
-</head>
-<body>
-    <h1>{view_name}</h1>
-    
-</body>
-</html>
-'''
-        if not os.path.isfile(file_path):
-            replace_file_content(file_path, new_content)
+            new_content = Template_object.show_content()
+            if not os.path.isfile(file_path):
+                Final_File.replace_content(new_content)
+
+            print(new_content)
+
+    #         new_content = f'''<!DOCTYPE html>
+    # <html lang="en">
+    # <head>
+    #     <meta charset="UTF-8">
+    #     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    #     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    #     <title>{view_name}</title>
+    # </head>
+    # <body>
+    #     <h1>{view_name}</h1>
+        
+    # </body>
+    # </html>
+    # '''
+    #         if not os.path.isfile(file_path):
+    #             replace_file_content(file_path, new_content)
+
 
         input('Presione una tecla para continuar: ')

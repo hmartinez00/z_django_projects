@@ -1,7 +1,10 @@
 {
     "resources": [
-        "C:/Users/Hector/Documents/0 - A Repositorios GitHub/z_django_projects/",
-        "C:/Users/admin/Documents/0 - A Repositorios GitHub/z_django_projects/"
+        "C:/Users/admin/Documents/0 - A Repositorios GitHub/z_django_projects/",
+        "C:/Users/Hector/Documents/0 - A Repositorios GitHub/z_django_projects/"
+    ],
+    "backup_Templates": [
+        "C:/Users/admin/Documents/0 - A Repositorios GitHub/z_django_projects/backup_Templates/"
     ],
     "exec": [
         [

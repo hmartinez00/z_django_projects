@@ -61,6 +61,7 @@ class TextFileManipulator:
         with open(self.file_path, 'w') as f:
             f.write(new_content)
 
+
     def replace_lines_content(self, new_content=None):
         '''
         main_description: Reemplazar contenido.
