@@ -539,7 +539,7 @@ urlpatterns = [
         '''
         main_description: Agregar template.
         '''
-
+        print('Seleccione la vista:')
         view_name = option_list(self.get_existing_def())
 
         if view_name!=None:
@@ -547,6 +547,7 @@ urlpatterns = [
             key = 'backup_Templates'
             backup_Templates_path = setting_routes(key)[0]
             list_Templates = os.listdir(backup_Templates_path)
+            print('Seleccione la plantilla:')
             Template = option_list(list_Templates)
             selected_template_path = os.path.join(backup_Templates_path, Template)
             Template_object = TextFileManipulator(selected_template_path)
@@ -558,28 +559,8 @@ urlpatterns = [
             file_path = os.path.join(templates_path, f'{view_name}.html')
             Final_File = TextFileManipulator(file_path)
 
-            new_content = Template_object.show_content()
+            new_content = Template_object.show_content().replace('Document', view_name)
             if not os.path.isfile(file_path):
                 Final_File.replace_content(new_content)
-
-            print(new_content)
-
-    #         new_content = f'''<!DOCTYPE html>
-    # <html lang="en">
-    # <head>
-    #     <meta charset="UTF-8">
-    #     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    #     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    #     <title>{view_name}</title>
-    # </head>
-    # <body>
-    #     <h1>{view_name}</h1>
-        
-    # </body>
-    # </html>
-    # '''
-    #         if not os.path.isfile(file_path):
-    #             replace_file_content(file_path, new_content)
-
 
         input('Presione una tecla para continuar: ')
