@@ -1,6 +1,6 @@
 from General_Utilities.control_rutas import setting_routes
 from modules.django_rootes import *
-from modules.django_models import views
+from modules.django_modelsviews import views
 from General_Utilities.menu import menu_class
 
 
