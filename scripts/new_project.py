@@ -12,7 +12,6 @@ print(os.getcwd())
 # Create Django project
 os.system(f"django-admin startproject {project_name}")
 
-
 # Agregando directorio static files
 project_path = os.path.join(directorio, project_name)
 

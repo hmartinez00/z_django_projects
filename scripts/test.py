@@ -1,6 +1,7 @@
 import os
 from General_Utilities.control_rutas import setting_routes
 from modules.django_rootes import *
+from modules.django_modifile import settings
 
 
 key = 'resources'
@@ -8,21 +9,26 @@ path = setting_routes(key)[0]
 
 projects_list = get_django_projects(path)
 project_path = select_django_project(projects_list)
-project_name = os.path.basename(project_path)
-app_list = get_django_apps(project_path)
-app_path = select_django_apps(app_list)
-app_name = os.path.basename(app_path)
 
-# Agregando directorio static
-sub_dirs = ['css', 'js', 'img']
-for i in sub_dirs:
-    urls_path = os.path.join(project_path, 'static', i)
-    if os.path.exists(urls_path):
-        print(f'\t- Directorio de static/{i} ya existe.')
-    else:
-        os.makedirs(urls_path)
+object = settings(project_path)
+# Importamos modulo os.
+object.import_os()
+object = object.object
+# Instala la ruta de static en settings.
+new_dir = f"os.path.join(BASE_DIR, 'static')"
+content = object.list_content()
+sub_string="STATICFILES_DIRS = [\n"
 
-print(urls_path)
+index = object.index_sub_string(
+    content=content,
+    sub_string=sub_string,
+    type_finder=0
+)
+
+if len(index)==0:
+    pass
+else:
+    print(index)
 
 
 input('Presione una tecla para continuar: ')
