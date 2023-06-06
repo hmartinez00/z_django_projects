@@ -6,7 +6,7 @@ from modules.django_modifile import settings
 from modules.django_modifile import urls
 
 
-app_name = 'appEmpresaDjango'
+app_name = 'appTiendaDjango'
 
 key = 'resources'
 path = setting_routes(key)[0]
