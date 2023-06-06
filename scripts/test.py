@@ -26,9 +26,30 @@ index = object.index_sub_string(
 )
 
 if len(index)==0:
-    pass
-else:
-    print(index)
+    sub_string="STATIC_URL = 'static/'\n"
+
+    index = object.index_sub_string(
+        content=content,
+        sub_string=sub_string,
+        type_finder=0
+    )
+
+    new_content = object.insert_line(
+        section=content,
+        position=index[0] + 1,
+        new_element="\n"
+    )
+
+    new_content = object.insert_line(
+        section=content,
+        position=index[0] + 1,
+        new_element=f"STATICFILES_DIRS = [\n\n]"
+    )
+
+    object.replace_lines_content(new_content)
+    print('\t- Insercion de STATICFILES_DIRS ejecutada.')
+
+print(new_content)
 
 
 input('Presione una tecla para continuar: ')
