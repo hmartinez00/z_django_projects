@@ -35,8 +35,8 @@ new_dir = f"os.path.join(BASE_DIR, '{app_name}', 'templates')"
 object.install_template_dir(new_dir)
 # Creamos el directorio de templates de la app.
 print('Creando el directorio templates de la app.')
-app_path = os.path.join(project_path, app_name)
-urls_path = os.path.join(app_path, 'templates')
+# app_path = os.path.join()
+urls_path = os.path.join(project_path, app_name, 'templates')
 if os.path.exists(urls_path):
     print('\t- Directorio de templates ya existe.')
 else:
