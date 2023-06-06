@@ -1,10 +1,6 @@
+import os
 from General_Utilities.control_rutas import setting_routes
 from modules.django_rootes import *
-from General_Utilities.menu import menu_class
-from General_Utilities.option_list import option_list
-from modules.django_modifile import settings
-from modules.django_modifile import urls
-from modules.django_models import views
 
 
 key = 'resources'
@@ -17,8 +13,16 @@ app_list = get_django_apps(project_path)
 app_path = select_django_apps(app_list)
 app_name = os.path.basename(app_path)
 
-object = views(project_path, app_name)
-menu_class(object)
+# Agregando directorio static
+sub_dirs = ['css', 'js', 'img']
+for i in sub_dirs:
+    urls_path = os.path.join(project_path, 'static', i)
+    if os.path.exists(urls_path):
+        print(f'\t- Directorio de static/{i} ya existe.')
+    else:
+        os.makedirs(urls_path)
+
+print(urls_path)
 
 
 input('Presione una tecla para continuar: ')
