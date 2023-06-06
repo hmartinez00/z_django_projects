@@ -19,7 +19,6 @@ project_path = select_django_project(projects_list)
 print(f'Creando la aplicacion: {app_name}')
 os.chdir(project_path)
 subprocess.run(["python", "manage.py", "startapp", app_name])
-# subprocess.run(["python", "manage.py", "migrate"])
 
 
 # 2. Instala la app, crea el directorio de templates e instala el directorio.
