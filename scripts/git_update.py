@@ -18,3 +18,6 @@ os.chdir('..')
 opciones = os.listdir()
 project = option_list(opciones)
 auto_commit(project)
+
+
+input('Presione una tecla para continuar: ')
