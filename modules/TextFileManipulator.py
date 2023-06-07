@@ -216,3 +216,44 @@ class TextFileManipulator:
 
         section.insert(position, new_element)
         return section
+
+
+    def insert_substring(self, substring=None):
+        '''
+        main_description: Insertar linea en archivo abierto.
+        '''
+        file = self.file_path
+
+        # Abrir el archivo en modo de lectura para obtener la posición actual del cursor
+        with open(file, 'r') as file_obj:
+            current_position = file_obj.tell()
+
+        print(current_position)
+
+        # # Abrir el archivo en modo de escritura para realizar la inserción
+        # with open(file, 'w') as file_obj:
+        #     file_obj.seek(current_position)  # Mover el cursor a la posición guardada
+        #     content = file_obj.read()  # Leer el contenido restante del archivo
+        #     # Realizar la inserción de la subcadena en la posición deseada
+        #     new_content = content[:current_position] + substring + content[current_position:]
+        #     file_obj.write(new_content)
+
+        input('Presione una tecla para continuar: ')
+
+        # file_obj.close()
+
+        # if substring==None:
+        #     substring=input('Ingrese la cadena a insertar: ')
+
+        # # Insertar la subcadena en la posición actual del cursor
+        # updated_content = content[:current_position] + substring + content[current_position:]
+
+        # # Regresar al principio del archivo y escribir el contenido actualizado
+        # file.seek(0)
+        # file.write(updated_content)
+
+        # # Mover el cursor al final del contenido insertado
+        # file.seek(current_position + len(substring))
+        #     # insert_substring(file, 'Subcadena a insertar')
+
+
