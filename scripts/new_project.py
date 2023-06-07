@@ -1,7 +1,9 @@
 import os
 from General_Utilities.control_rutas import setting_routes
+from modules.django_modifile import settings
 
-project_name = 'empresaDjango'
+
+project_name = 'miProyecto'
 
 key = 'resources'
 directorio = setting_routes(key)[0]
@@ -22,3 +24,7 @@ for i in sub_dirs:
         print(f'\t- Directorio de static/{i} ya existe.')
     else:
         os.makedirs(urls_path)
+
+# Instalando static en settings
+object = settings(project_path)
+object.install_static_dir()
