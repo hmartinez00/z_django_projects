@@ -11,6 +11,13 @@ datos = {
     'materias': ['materia1', 'materia2', 'materia3']
 }
 
+
+print('''
+
+SECCION A. PROGRAMACION 1: TELECOMUNICACIONES. UNETI
+----------------------------------------------------
+''')
+
 # -----------------------------------------------
 # Ejercicio a: 
 # Elaborar una Impresion por pantalla que indique nombre completo,
@@ -18,10 +25,11 @@ datos = {
 # UNETI esta cursando. 
 
 # Resultados:
-print('\nEjercicio a:')
+print('\nEjercicio a:\n------------------------------')
 print(
     f'''
     Nombre completo:\t{datos['nombre']} {datos['apellido']}
+    Seccion: \t\t{datos['seccion']}
     Carrera en Curso:\t{datos['carrera']}
     '''
 )
@@ -36,7 +44,7 @@ print(
 # actualmente. 
 
 # Resultados:
-print('\nEjercicio b:')
+print('\nEjercicio b:\n------------------------------')
 print('Nombre completo:'    , datos['nombre']   , datos['apellido'])
 print('Lugar de Nacimiento:', datos['lug_nacimiento'])
 print('Edo de Residencia'   , datos['edo_residencia'])
@@ -62,7 +70,7 @@ print('Edo de Residencia'   , datos['edo_residencia'])
 # estar cursando.
 
 # Resultados:
-print('\nEjercicio d:')
+print('\nEjercicio d:\n------------------------------')
 Lista_materia_cursadas = list(datos['materias'])
 print(Lista_materia_cursadas)
 
@@ -74,7 +82,7 @@ print(Lista_materia_cursadas)
 # Nota: Las listas comienzan a enumerar desde al posicion 0, de manera que la posicion 1 debe ser obligatoriamente la segunda posicion de la lista si se cuenta usando numeros naturales.
 
 # Resultados:
-print('\nEjercicio e:')
+print('\nEjercicio e:\n------------------------------')
 new_element = 'Logica Matematica'
 position = 1
 # el metodo de strings "insert" puede resolver la situacion de forma sencilla.
@@ -90,7 +98,7 @@ print(Lista_materia_cursadas)
 # luego imprimir la tupla completa 
 
 # Resultados:
-print('\nEjercicio f:')
+print('\nEjercicio f:\n------------------------------')
 tupla = (
     datos['nombre'], 
     datos['apellido'],
@@ -125,7 +133,7 @@ print('Valor de la Tupla: ' , tupla     )
 # Residencia
 
 # Resultados:
-print('\nEjercicio g:')
+print('\nEjercicio g:\n------------------------------')
 estados_capitales = {
     'Amazonas'          : 'Puerto Ayacucho',
     'Anzoategui'        : 'Barcelona',
@@ -166,7 +174,7 @@ print(estados_capitales)
 # como clave su nombre y su valor su Estado de residencia. 
 
 # Resultados:
-print('\nEjercicio h:')
+print('\nEjercicio h:\n------------------------------')
 
 #Definimos la posicion donde vamos a insertar los datos.
 position = 2
