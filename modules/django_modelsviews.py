@@ -309,6 +309,11 @@ from .models import *
         input('Presione una tecla para continuar: ')
 
 
+    def add_def_str(self):
+        pass
+
+
+
 class views:
     """
     Clase para generar views en Django.
