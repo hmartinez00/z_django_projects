@@ -316,9 +316,12 @@ from .models import *
 
         :return:
         """
+
+        fields = self.get_existing_fields()
+        str_fields = ', '.join(f'{field}=' + '{' + f'self.{field}' + '} ' for field in fields)
         method_name = "__str__"
         method_body = [
-            "out = f'id={self.id}, nombre={self.nombre}, telefono={self.telefono}'",
+            f"out = f'{str_fields}'",
             "return out\n"
         ]
 
