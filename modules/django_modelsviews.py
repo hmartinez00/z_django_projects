@@ -310,7 +310,50 @@ from .models import *
 
 
     def add_def_str(self):
-        pass
+        """
+        main_description: Agregar metodo str.
+        Agregar metodo str.
+
+        :return:
+        """
+        method_name = "__str__"
+        method_body = [
+            "out = f'id={self.id}, nombre={self.nombre}, telefono={self.telefono}'",
+            "return out\n"
+        ]
+
+        method_declaration = [
+            f"\n    def {method_name}(self):",
+            *["        " + line for line in method_body]
+        ]
+
+        method_str = "\n".join(method_declaration)
+        with open(self.file_path, 'r') as file:
+            content = file.readlines()
+
+        start_index = None
+        end_index = None
+        class_found = False
+
+        for i, line in enumerate(content):
+            if line.strip().startswith("class ") and line.strip().endswith(":"):
+                class_name = line.strip()[6:-1].split("(")[0].strip()
+                if class_name == self.model_name:
+                    start_index = i
+                    class_found = True
+            elif class_found and line.strip() == "":
+                end_index = i
+                break
+
+        if start_index is not None and end_index is not None:
+            content.insert(end_index, method_str)
+        else:
+            # Class section not found, adding method at the end of the file
+            content.append(method_str)
+
+        with open(self.file_path, 'w') as file:
+            file.writelines(content)
+
 
 
 
