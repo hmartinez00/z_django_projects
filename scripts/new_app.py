@@ -57,6 +57,3 @@ object.reg_url_app_project()
 object.reg_url_app_app()
 
 os.chdir(path)
-
-
-input('Presione una tecla para continuar: ')

@@ -252,7 +252,7 @@ class models:
         # Obtener los campos existentes en el modelo
         existing_fields = self.get_existing_fields()
         print("Campos existentes:", existing_fields)
-        input('Presione una tecla para continuar: ')
+        # input('Presione una tecla para continuar: ')
 
 
     def update_admin_file(self):
@@ -283,7 +283,7 @@ from .models import *
         # replace_file_content(admin_path, new_content)
         admin_object = TextFileManipulator(admin_path)
         admin_object.replace_content(new_content)
-        input('Presione una tecla para continuar: ')
+        # input('Presione una tecla para continuar: ')
 
 
     def all_migrations(self):
@@ -306,7 +306,7 @@ from .models import *
         subprocess.run(["python", "manage.py", "migrate"])
         
         os.chdir(directorio)
-        input('Presione una tecla para continuar: ')
+        # input('Presione una tecla para continuar: ')
 
 
     def add_def_str(self):
@@ -515,14 +515,18 @@ class views:
         if len(views) > 0:
             records = ''
             for i in views:
-                records = records + f"\tpath('{i}/', views.{i}, name='{i}'),\n"
+                if i=='index':
+                    records = records + f"\tpath('', views.{i}, name='{i}'),\n"
+                else:
+                    records = records + f"\tpath('{i}/', views.{i}, name='{i}'),\n"
             new_content = f'''from django.urls import path
 from . import views
 
 urlpatterns = [
-{records}\tpath('', views.index, name='index'),
+{records}
 ]
 '''
+# {records}\tpath('', views.index, name='index'),
         else:
             new_content = f'''from django.urls import path
 from . import views

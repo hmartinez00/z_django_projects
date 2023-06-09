@@ -443,7 +443,8 @@ class urls:
 from . import views
 
 urlpatterns = [
-    path('', views.index, name='index'),
+
 ]
 '''
+    # path('', views.index, name='index'),
         self.url_app.replace_content(content)
