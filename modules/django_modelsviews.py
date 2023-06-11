@@ -381,6 +381,8 @@ class views:
         """
         self.file_path = os.path.join(project_path, app_name, 'views.py')
 
+        self.app_name = app_name
+
         lista_vistas = self.get_existing_def()
 
         if view_name != None:
@@ -393,6 +395,10 @@ class views:
         self.views_types = self.change_views_types(self.view_name)
 
         self.object = TextFileManipulator(self.file_path)
+        
+        componentes = os.path.normpath(self.file_path).split(os.sep)
+        urls_path = os.path.join(*componentes[:-1], 'urls.py').replace(':', ':\\')
+        self.url_app = TextFileManipulator(urls_path)
 
 
     def change_views_types(
@@ -553,38 +559,107 @@ class views:
         '''
         main_description: Actualizar archivo urls.
         '''
-        componentes = os.path.normpath(self.file_path).split(os.sep)
-        urls_path = os.path.join(*componentes[:-1], 'urls.py').replace(':', ':\\')
-        print(urls_path)
-        views = self.get_existing_def()
-        print(views)
-        if len(views) > 0:
-            records = ''
-            for i in views:
-                if i=='index':
-                    records = records + f"\tpath('', views.{i}, name='{i}'),\n"
-                else:
-                    records = records + f"\tpath('{i}/', views.{i}, name='{i}'),\n"
-            new_content = f'''from django.urls import path
-from . import views
-
-urlpatterns = [
-{records}
-]
-'''
-# {records}\tpath('', views.index, name='index'),
+        # Creamos los inputs del proceso.        
+        url_app = self.url_app
+        content = url_app.list_content()
+        if content[-1] == '\n':
+            pass
         else:
-            new_content = f'''from django.urls import path
-from . import views
+            content.append('\n')
 
-urlpatterns = [
-    path('', views.index, name='index'),
-]
-'''
-        # replace_file_content(urls_path, new_content)
-        urls_object = TextFileManipulator(urls_path)
-        urls_object.replace_content(new_content)
-        input('Presione una tecla para continuar: ')        
+        inicio = 'urlpatterns = [\n'
+        final = '\n'
+
+        sub_string=self.view_name
+
+        # Extraemos el segmento a modificar y el intervalo.
+        segment = url_app.segment_num_content(
+            content, inicio, final
+        )
+        section     = segment[0]
+        interval    = segment[1]
+
+        # Construimos los contenidos previo y posterior.
+        prev_index = [0, interval[0]]
+        prev_content = url_app.num_section_content(
+            content, prev_index
+        )
+        post_index = [interval[1], -1]
+        post_content = url_app.num_section_content(
+            content, post_index
+        )
+
+        # Determinamos si la view existe en la lista.
+        print(self.view_name)
+        condition = url_app.index_sub_string(
+            content=section,
+            sub_string=sub_string,
+            type_finder=None
+        )
+
+        print(condition)
+
+        if len(condition)==0:
+
+            # Abrimos un salto de linea.
+            # section = url_app.insert_line(
+            #     section=section,
+            #     position= 1,
+            #     new_element="\n"
+            # )
+            # Insertamos el elemento.
+            if self.view_name != 'index':
+                new_element=f"\tpath('{self.view_name}/', views.{self.view_name}, name='{self.view_name}'),\n"
+            else:
+                new_element=f"\tpath('', views.{self.view_name}, name='{self.view_name}'),\n"
+            
+            section = url_app.insert_line(
+                section=section,
+                position= 1,
+                new_element=new_element
+            )
+
+            # Reconstruimos la cadena y reemplazamos en el archivo final.
+            new_content = prev_content + section + post_content
+            url_app.replace_lines_content(new_content)
+        
+        else:
+            print('\t- Esta view ya se encuentra registrada.')
+
+
+        # componentes = os.path.normpath(self.file_path).split(os.sep)
+        # urls_path = os.path.join(*componentes[:-1], 'urls.py').replace(':', ':\\')
+        # print(urls_path)
+#         views = self.get_existing_def()
+#         print(views)
+
+#         if len(views) > 0:
+#             records = ''
+#             for i in views:
+#                 if i=='index':
+#                     records = records + f"\tpath('', views.{i}, name='{i}'),\n"
+#                 else:
+#                     records = records + f"\tpath('{i}/', views.{i}, name='{i}'),\n"
+
+#             new_content = f'''from django.urls import path
+# from . import views
+
+# urlpatterns = [
+# {records}
+# ]
+# '''
+
+#         else:
+#             new_content = f'''from django.urls import path
+# from . import views
+
+# urlpatterns = [
+
+# ]
+# '''
+
+#         self.url_app.replace_content(new_content)
+#         input('Presione una tecla para continuar: ')        
 
 
     def add_template_view(self):

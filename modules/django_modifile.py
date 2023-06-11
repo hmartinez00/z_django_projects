@@ -436,6 +436,73 @@ class urls:
 
     def reg_url_app_app(self):
         '''
+        main_description: Instalar en app urlpatterns.
+        '''
+        # Creamos los inputs del proceso.        
+        url_app = self.url_app
+        content = url_app.list_content()
+        if content[-1] == '\n':
+            pass
+        else:
+            content.append('\n')
+
+        inicio = 'urlpatterns = [\n'
+        final = '\n'
+
+        sub_string=self.app_name
+
+        # Extraemos el segmento a modificar y el intervalo.
+        segment = url_app.segment_num_content(
+            content, inicio, final
+        )
+        section     = segment[0]
+        interval    = segment[1]
+
+        # Construimos los contenidos previo y posterior.
+        prev_index = [0, interval[0]]
+        prev_content = url_app.num_section_content(
+            content, prev_index
+        )
+        post_index = [interval[1], -1]
+        post_content = url_app.num_section_content(
+            content, post_index
+        )
+
+        # Determinamos si la app existe en la lista.
+        condition = url_app.index_sub_string(
+            content=section,
+            sub_string=sub_string,
+            type_finder=None
+        )
+
+        print(condition)
+
+        if len(condition)==0:
+
+            # Abrimos un salto de linea.
+            section = url_app.insert_line(
+                section=section,
+                position= 1,
+                new_element="\n"
+            )
+            # Insertamos el elemento.
+            section = url_app.insert_line(
+                section=section,
+                position= 1,
+                new_element=f"\tpath('{self.app_name}/', include('{self.app_name}.urls')),"
+            )
+
+            # Reconstruimos la cadena y reemplazamos en el archivo final.
+            new_content = prev_content + section + post_content
+            url_app.replace_lines_content(new_content)
+        
+        else:
+            print('\t- Esta app ya se encuentra registrada.')
+
+
+
+    def reg_url_app_new(self):
+        '''
         Crea el archivo urls.py de la app.
         '''
         print(f'Creando {self.app_name}/urls.py')

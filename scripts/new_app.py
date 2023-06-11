@@ -54,6 +54,6 @@ object.reg_url_app_project()
 
 
 # 4. Creamos el archivo urls.py de la aplicacion
-object.reg_url_app_app()
+object.reg_url_app_new()
 
 os.chdir(path)
