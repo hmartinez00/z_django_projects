@@ -2,11 +2,15 @@ import os
 import subprocess
 from modules.django_rootes import *
 from General_Utilities.control_rutas import setting_routes
+from General_Utilities.option_list import option_list
 from modules.django_modifile import settings
 from modules.django_modifile import urls
 
 
-app_name = 'miapp'
+app_list = list(project_settings()['Apps'].keys())
+app_name = option_list(app_list)
+
+print(app_name)
 
 key = 'resources'
 path = setting_routes(key)[0]
