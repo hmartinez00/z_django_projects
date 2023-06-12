@@ -1,3 +1,4 @@
+import json
 import os
 
 
@@ -82,3 +83,14 @@ def find_substring_in_list(string_list, substring):
             return s
     return None
 
+
+def project_settings():
+    '''
+    Extrae los datos del json.
+    '''
+    project_settings_path = 'settings/routes/project_settings.json'
+
+    with open(project_settings_path) as archivo_json:
+        datos_json = json.load(archivo_json)
+
+    return datos_json

@@ -4,8 +4,6 @@ from modules.django_modelsviews import views
 from General_Utilities.menu import menu_class
 
 
-# view_name = 'index'
-
 key = 'resources'
 path = setting_routes(key)[0]
 

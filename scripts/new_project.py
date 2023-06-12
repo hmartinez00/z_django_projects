@@ -2,9 +2,10 @@ import os
 import subprocess
 from General_Utilities.control_rutas import setting_routes
 from modules.django_modifile import settings
+from modules.django_rootes import project_settings
 
 
-project_name = 'miProyecto'
+project_name = project_settings()['Project']
 
 key = 'resources'
 directorio = setting_routes(key)[0]

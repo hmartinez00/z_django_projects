@@ -1,0 +1,20 @@
+{
+    "Project": "myproject",
+    "Apps": {
+        "app1": [
+            "index",
+            "views1",
+            "views2"
+        ],
+        "app2": [
+            "index",
+            "views1",
+            "views2"
+        ]
+    },
+    "Models": [
+        "tabla1",
+        "tabla2",
+        "tabla3"
+    ]
+}
