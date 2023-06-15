@@ -22,3 +22,21 @@ var y = false
     // OR
 condition = x || y
 console.log(condition)
+
+// 3. SWITCH
+let curso = 'php';
+switch (curso) {
+    case 'java':
+        console.log('java');
+        break;
+    case 'python':
+        console.log('python');
+        break;
+    case 'javascript':
+        console.log('javascript');
+        break;
+        
+        default:
+        console.log('no disponible!');
+        break;
+}
