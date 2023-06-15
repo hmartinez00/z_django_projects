@@ -136,7 +136,7 @@ header label{
     animation: float 3s linear infinite;
 }
 
-
+/* ----------------------------- */
 
 
 
@@ -150,6 +150,11 @@ header label{
         transform: translateY(-3.5rem);
     }
 }
+/* ----------------------------- */
+
+
+/* .inicio */
+/* ----------------------------- */
 
 .inicio .content h3{
     font-size: 5.5rem;
@@ -168,6 +173,11 @@ header label{
     padding: 1rem 0;
 }
 
+/* ----------------------------- */
+
+
+/* .detalles */
+/* ----------------------------- */
 .detalles .caja-contenedor{
     display: flex;
     align-items: center;
@@ -199,6 +209,9 @@ header label{
     color: #655;
     padding: 1rem 0;
 }
+
+/* ----------------------------- */
+
 
 /* Propiedades de Saltos */
 /* ----------------------------- */
