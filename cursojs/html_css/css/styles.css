@@ -9,6 +9,9 @@
     --degradado: linear-gradient(90deg, var(--limon), var(--verde));
 }
 
+
+/* Propiedades globales */
+/* ----------------------------- */
 *{
     font-family: 'Poppins', sans-serif;
     margin: 0;
@@ -20,10 +23,12 @@
     text-transform: capitalize;
 }
 
+
 *::selection{
     background: var(--limon);
     color: white;
 }
+
 
 html{
     font-size: 62.4%;
@@ -34,6 +39,44 @@ body{
     background: whitesmoke;
 }
 
+section{
+    min-height: 100vh;
+    padding: 0 9%;
+    padding-top: 7.5rem;
+    padding-bottom: 2rem;
+}
+
+.btn{
+    display: block;
+    margin-top: 1rem;
+    padding: .8rem 3rem;
+    border-radius: 5rem;
+    background: var(--degradado);
+    font-size: 1.8rem;
+    color: white;
+    cursor: pointer;
+    box-shadow: 0 .5rem 1rem rgba(0,0,0,.1);
+    transition: all .3s linear;
+}
+
+.btn:hover{
+    transform: scale(1.1);
+}
+
+.heading{
+    text-align: center;
+    background: var(--verde);
+    color: transparent;
+    -webkit-background-clip: text;
+    background-clip: text;
+    text-transform: uppercase;
+    padding: 1rem;
+    font-size: 2rem;
+}
+
+
+/* Elementos del header */
+/* ----------------------------- */
 header{
     position: fixed;
     top: 0;
@@ -79,12 +122,89 @@ header label{
     opacity: 0;
 }
 
+.inicio{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: url(../img/inicio_fondo.png) no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.inicio .image img{
+    width: 40vh;
+    animation: float 3s linear infinite;
+}
 
 
-/* Saltos */
+
+
+
+/* Movimientos */
+/* ----------------------------- */
+@keyframes float{
+    0%, 100%{
+        transform: translateY(0rem);
+    }
+    50%{
+        transform: translateY(-3.5rem);
+    }
+}
+
+.inicio .content h3{
+    font-size: 5.5rem;
+    color: #333;
+    text-transform: uppercase;
+}
+
+.inicio .content h3 span{
+    color: var(--limon);
+    text-transform: uppercase;
+}
+
+.inicio .content p{
+    font-size: 1.7rem;
+    color: #655;
+    padding: 1rem 0;
+}
+
+.detalles .caja-contenedor{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.detalles .caja-contenedor .caja{
+    flex: 1 1 30rem;
+    background: white;
+    border-radius: .5rem;
+    border: .1rem solid rgba(0, 0, 0, rgba(0,0,0,.2));
+    box-shadow: 0 .5rem 1rem rgba(0,0,0,.1);
+    margin: 1.5rem;
+    padding: 3rem 2rem;
+    border-radius: .5rem;
+    text-align: center;
+    transition: .2s linear;
+}
+
+.detalles .caja-contenedor .cajas h3{
+    font-size: 2rem;
+    color: #333;
+    padding-top: 1rem;
+}
+
+.detalles .caja-contenedor .cajas p{
+    font-size: 1.3rem;
+    color: #655;
+    padding: 1rem 0;
+}
+
+/* Propiedades de Saltos */
 /* ----------------------------- */
     /* Ordenadores */
 /* ----------------------------- */
+
 @media(max-width: 1200px){
     html{
         font-size: 55%;
@@ -111,6 +231,7 @@ header label{
         transform-origin: top;
         transform: scaleY(0);
         opacity: 0;
+        transition: .2s linear;
     }
 
     header .navbar a{
@@ -127,6 +248,24 @@ header label{
     header input:checked ~ label::before{
         content: '\f00d';
     }
+
+    .inicio{
+        flex-flow: column-reverse;
+    }
+
+    .inicio .image img{
+        width: 100%;
+    }
+
+    .inicio .content h3{
+        font-size: 3.6rem;
+    }
+
+    .inicio .content p{
+        font-size: 1.5rem;
+    }
+
+}
     
     /* Telefonos */
 /* ----------------------------- */
@@ -137,5 +276,4 @@ header label{
     }
 }
     
-}
 
