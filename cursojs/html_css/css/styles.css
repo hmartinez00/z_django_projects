@@ -37,4 +37,102 @@ header{
     left: 0;
     width: 100%;
     background-color: white;
+    box-shadow: 0 .5rem 1rem rgba(0,0,0,.1);
+    padding: 2rem 9%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
+
+header .logo{
+    font-size: 2rem;
+    color: var(--verde);
+}
+
+header .logo span{
+    font-size: 2rem;
+    color: var(--limon);
+}
+
+header .navbar a{
+    font-size: 1.8rem;
+    margin-left: 2rem;
+    color: var(--verde);
+}
+
+header .navbar a:hover{
+    color: var(--limon);
+}
+
+header input{
+    display: none;
+}
+
+header label{
+    font-size: 3rem;
+    color: var(--verde);
+    cursor: pointer;
+    visibility: hidden;
+    opacity: 0;
+}
+
+
+
+/* Saltos */
+
+/* Ordenadores */
+/* ----------------------------- */
+@media(max-width: 1200px){
+    html{
+        font-size: 55%;
+    }
+}
+
+/* Tablets */
+/* ----------------------------- */
+@media(max-width: 768px){
+    header label{
+        visibility: visible;
+        opacity: 1;
+    }
+    
+    header .navbar{
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background: white;
+        padding: 1rem 2rem;
+        border-top: .1rem solid rgba(0,0,0,.2);
+        box-shadow: 0 .5rem 1rem rgba(0,0,0,.1);
+        transform-origin: top;
+        transform: scaleY(0);
+        opacity: 0;
+    }
+
+    header .navbar a{
+        display: block;
+        margin: 2rem 0;
+        font-size: 2rem;
+    }
+
+    header input:checked ~ .navbar{
+        transform: scaleY(1);
+        opacity: 1;
+    }
+    
+    header input:checked ~ label::before{
+        content: '\f00d';
+    }
+    
+/* Telefonos */
+/* ----------------------------- */
+    
+@media(max-width: 450px){
+    html{
+        font-size: 49%;
+    }
+}
+    
+}
+
