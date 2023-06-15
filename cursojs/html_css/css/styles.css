@@ -1,5 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500&display=swap');
 
+/* Colores */
+/* ----------------------------- */
 :root{
     --verde: #0c444a;
     --limon: #25d1b2;
@@ -79,8 +81,8 @@ header label{
 
 
 /* Saltos */
-
-/* Ordenadores */
+/* ----------------------------- */
+    /* Ordenadores */
 /* ----------------------------- */
 @media(max-width: 1200px){
     html{
@@ -88,7 +90,7 @@ header label{
     }
 }
 
-/* Tablets */
+    /* Tablets */
 /* ----------------------------- */
 @media(max-width: 768px){
     header label{
@@ -125,7 +127,7 @@ header label{
         content: '\f00d';
     }
     
-/* Telefonos */
+    /* Telefonos */
 /* ----------------------------- */
     
 @media(max-width: 450px){
