@@ -198,6 +198,11 @@ header label{
     transition: .2s linear;
 }
 
+.detalles .caja-contenedor .caja img{
+    height: 15rem;
+}
+
+
 .detalles .caja-contenedor .cajas h3{
     font-size: 2rem;
     color: #333;
@@ -210,6 +215,49 @@ header label{
     padding: 1rem 0;
 }
 
+.acerca_de{
+    background: url(../img/fondo_2.png) no-repeat;
+    background-size: cover;
+    background-position: center;
+    padding-bottom: 3rem;
+}
+
+.acerca_de .columna{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+
+}
+
+.acerca_de .columna .image{
+    flex: 1 1 30rem;
+}
+
+.acerca_de .columna .image img{
+    width: 100%;
+}
+
+.acerca_de .columna .content{
+    flex: 1 1 30rem;
+}
+
+.acerca_de .columna .content h3{
+    font-size: 3rem;
+    color: #333;
+}
+
+.acerca_de .columna .content p{
+    font-size: 1.5rem;
+    color: #655;
+    padding: 1rem 0;
+}
+
+.acerca_de .columna .content .botton a:last-child{
+    margin-left: 2rem;
+}
+
+
 /* ----------------------------- */
 
 
@@ -221,6 +269,14 @@ header label{
 @media(max-width: 1200px){
     html{
         font-size: 55%;
+    }
+}
+
+@media (max-width: 990px) {
+    section{
+        padding: 0 3%;
+        padding-top: 7.5rem;
+        padding-bottom: 2rem;
     }
 }
 
@@ -278,6 +334,10 @@ header label{
         font-size: 1.5rem;
     }
 
+    .acerca_de{
+        background-position: right;
+    }
+
 }
     
     /* Telefonos */
@@ -287,6 +347,16 @@ header label{
     html{
         font-size: 49%;
     }
+
+    .acerca_de .columna .content .botton a{
+        width: 100%;
+        text-align: center;
+    }
+
+    .acerca_de .columna .content .botton a:last-child{
+        margin: 1rem 0;
+    }
+
 }
     
 
