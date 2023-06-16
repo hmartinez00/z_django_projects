@@ -1,0 +1,13 @@
+{
+    "Selector_de_tipo": ["p", "div", "h1"],
+    "Selector_de_clase": [".mi-clase", ".destacado"],
+    "Selector_de_ID": ["#mi-id", "#header"],
+    "Selector_universal": ["*"],
+    "Selector_descendente": ["div p", "ul li"],
+    "Selector_de_hijo_directo": ["ul > li", "div > p"],
+    "Selector_de_atributo": ["[type='text']", "[href^='https://']"],
+    "Selector_de_pseudo-clase": [":hover", ":focus", ":first-child"],
+    "Selector_de_pseudo-elemento": ["::before", "::after", "::first-letter"],
+    "Selector_de_siguiente_hermano": ["h2 + p", "div ~ span"]
+}
+  
