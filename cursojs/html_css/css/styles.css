@@ -417,11 +417,9 @@ header label{
 }
 
 .precios .caja-contenedor .caja ul li{
-.precios .caja-contenedor .caja ul li{
     font-size: 1.7rem;
     color: #333;
     padding: .5rem 0;
-}
 }
 
 .precios .caja-contenedor .caja ul li .fa-check{
