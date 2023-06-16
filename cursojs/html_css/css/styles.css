@@ -32,7 +32,7 @@
 
 html{
     font-size: 62.4%;
-    overflow: hidden;
+    overflow-x: hidden;
 }
 
 body{
@@ -231,7 +231,7 @@ header label{
 }
 
 .acerca_de .columna .image{
-    flex: 1 1 30rem;
+    flex: 1 1 40rem;
 }
 
 .acerca_de .columna .image img{
@@ -239,7 +239,7 @@ header label{
 }
 
 .acerca_de .columna .content{
-    flex: 1 1 30rem;
+    flex: 1 1 40rem;
 }
 
 .acerca_de .columna .content h3{
@@ -255,6 +255,65 @@ header label{
 
 .acerca_de .columna .content .botton a:last-child{
     margin-left: 2rem;
+}
+
+
+.suscribete{
+    text-align: center;
+    padding: 5rem 1rem;
+    background: url(../img/fondo_sub.png) no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.suscribete h3{
+    color: white;
+    font-size: 3rem;
+    text-transform: uppercase;
+}
+
+.suscribete p{
+    color: whitesmoke;
+    font-size: 1.6rem;
+    margin: 2rem auto;
+    width: 70rem;
+}
+
+.suscribete form{
+    display: flex;
+    max-width: 70rem;
+    border: .2rem solid whitesmoke;
+    padding: .5rem;
+    border-radius: 5rem;
+    margin: 2rem auto;
+    height: 5.5rem;
+}
+
+.suscribete form input[type='email']{
+    padding: 0 2rem;
+    font-size: 1.7rem;
+    background: none;
+    width: 100%;
+    color: white;
+    text-transform: none;
+    background: none;
+}
+
+.suscribete form input[type='email']::placeholder{
+    color: whitesmoke;
+    text-transform: capitalize;
+}
+
+.suscribete form input[type='submit']{
+    background: white;
+    width: 20rem;
+    font-size: 1.7rem;
+    border-radius: 5rem;
+    cursor: pointer;
+}
+
+.suscribete form input[type='submit']:hover{
+    color: var(--limon);
 }
 
 
@@ -336,6 +395,10 @@ header label{
 
     .acerca_de{
         background-position: right;
+    }
+
+    .suscribete p{
+        width: auto;
     }
 
 }
