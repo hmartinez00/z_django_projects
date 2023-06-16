@@ -1,0 +1,53 @@
+{
+    "Apariencia_diseno":{
+        "color": ["red", "#00ff00", "rgba(0, 0, 255, 0.5)", "hsl(120, 100%, 50%)"],
+        "background-color": ["#ffffff", "rgb(255, 0, 0)", "transparent"],
+        "font-family": ["Arial, sans-serif", "Georgia, serif"],
+        "font-size": ["12px", "1.5rem", "2em"],
+        "text-align": ["left", "center", "right"],
+        "display": ["block", "inline", "flex"],
+        "width": ["100px", "50%", "auto"],
+        "height": ["200px", "25%", "auto"],
+        "margin": ["10px", "0 auto", "2rem 1rem"],
+        "padding": ["20px", "1em", "5%"],
+        "border": ["1px solid #000", "2px dashed #ff0000"]
+    },
+    "Texto":{
+        "font-weight":["normal", "bold", "bolder", "lighter"],
+        "font-style":["normal", "italic", "oblique"],
+        "text-decoration":["none", "underline", "line-through"],
+        "text-transform":["uppercase", "lowercase", "capitalize"],
+        "text-shadow":["1px 1px 2px #000", "0 0 5px rgba(255, 0, 0, 0.5)"],
+        "line-height":["1", "1.5", "2"],
+        "letter-spacing":["normal", "2px"],
+        "white-space":["normal", "nowrap"]
+    },
+    "Fondos":{
+        "background-image": ["url('imagen.jpg')", "linear-gradient(to right, red, blue)"],
+        "background-repeat": ["repeat", "no-repeat"],
+        "background-position": ["top left", "center", "bottom right"],
+        "background-size": ["cover", "contain"]
+    },
+    "Caja":{
+        "box-sizing": ["content-box", "border-box"],
+        "border-width": ["1px", "2px 1px", "0"],
+        "border-color": ["#000", "red", "rgba(0, 255, 0, 0.5)"],
+        "border-radius": ["10px", "50%", "0"],
+        "box-shadow": ["2px 2px 5px #888", "0 0 10px rgba(0, 0, 0, 0.5)"]
+    },
+    "Posicionamiento":{
+        "position": ["static", "relative", "absolute", "fixed"],
+        "top": ["10px", "50%", "auto"],
+        "right": ["20px", "25%", "auto"],
+        "bottom": ["30px", "75%", "auto"],
+        "left": ["40px", "10%", "auto"],
+        "float": ["left", "right", "none"],
+        "clear": ["left", "right", "both"]
+    },
+    "Animaciones_transformaciones":{
+        "animation": ["fade-in 2s ease-out", "rotate 1s linear infinite"],
+        "transition": ["width 1s ease-in-out", "opacity 0.5s linear"],
+        "transform": ["translateX(100px)", "scale(1.5)", "rotate(45deg)"],
+        "opacity": ["0", "0.5", "1"]
+    }
+}
