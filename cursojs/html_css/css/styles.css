@@ -371,6 +371,70 @@ header label{
 }
 
 
+.precios .caja-contenedor{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.precios .caja-contenedor .caja{
+    flex: 1 1 28rem;
+    margin: 1rem;
+    padding: 1rem;
+    background: white;
+    border: .1rem solid rgba(0,0,0,.2);
+    box-shadow: 0 .5rem 1rem rgba(0,0,0,.1);
+    border-radius: .5rem;
+    text-align: center;
+    padding-bottom: 3rem;
+}
+
+.precios .caja-contenedor .caja:nth-child(2),
+.precios .caja-contenedor .caja:hover{
+    border: .2rem solid var(--limon);
+}
+
+.precios .caja-contenedor .caja .titulo{
+    color: var(--verde);
+    font-size: 2.5rem;
+    padding-top: 1rem;
+}
+
+.precios .caja-contenedor .caja .tipos{
+    font-size: 4rem;
+    color: var(--limon);
+    padding: 1rem 0;
+}
+
+.precios .caja-contenedor .caja .tipos span{
+    font-size: 2rem;
+}
+
+.precios .caja-contenedor .caja ul{
+    padding: 1rem 0;
+    list-style: none;
+}
+
+.precios .caja-contenedor .caja ul li{
+.precios .caja-contenedor .caja ul li{
+    font-size: 1.7rem;
+    color: #333;
+    padding: .5rem 0;
+}
+}
+
+.precios .caja-contenedor .caja ul li .fa-check{
+    color: lightgreen;
+}
+
+.precios .caja-contenedor .caja ul li .fa-xmark{
+    color: red;
+}
+
+
+
+
 /* ----------------------------- */
 
 
