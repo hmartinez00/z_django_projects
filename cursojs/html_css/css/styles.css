@@ -316,6 +316,60 @@ header label{
     color: var(--limon);
 }
 
+.opiniones .caja-contenedor{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.opiniones .caja-contenedor .caja{
+    background: white;
+    margin: 1rem;
+    padding: 1rem;
+    text-align: center;
+    position: relative;
+    border: .1rem solid rgba(0,0,0,.2);
+    box-shadow: 0 .5rem 1rem rgba(0,0,0,.1);
+    flex: 1 1 30rem;
+    border-radius: .5rem;
+}
+
+.opiniones .caja-contenedor .caja .fa-atom{
+    position: absolute;
+    top: 1rem;
+    right: 2rem;
+    font-size: 8rem;
+    color: var(--limon);
+    opacity: .3;
+}
+
+.opiniones .caja-contenedor .caja .user img{
+    border-radius: 50%;
+    object-fit: cover;
+    height: 8rem;
+    width: 8rem;
+    margin-top: 2rem;
+}
+
+.opiniones .caja-contenedor .caja .user h3{
+    color: var(--verde);
+    font-size: 2rem;
+}
+
+.opiniones .caja-contenedor .caja .user .stars i{
+    color: var(--verde);
+    font-size: 1.5rem;
+    padding: 1rem 0;
+    
+}
+
+.opiniones .caja-contenedor .caja .comentarios{
+    color: #333;
+    font-size: 1.5rem;
+    padding: 1rem;
+}
+
 
 /* ----------------------------- */
 
