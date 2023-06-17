@@ -12,15 +12,16 @@ def test(request):
 def index(request):
     modelos = ['departamentos', 'empleados']
     context = {
+        'view_name': 'inicio',
         'title_template': 'Listado de modelos',
         'lista_modelos': modelos,
     }
     return render(request, 'index.html', context)
 
-
 def departamentos(request):
     departamentos = Departamento.objects.order_by('nombre')
     context = {
+        'view_name': 'departamentos',
         'title_template': 'Listado de departamentos',
         'lista_departamentos': departamentos,
     }
@@ -33,6 +34,7 @@ def departamento(request, departamento_id):
 def empleados(request):
     empleados = Empleado.objects.order_by('nombre')
     context = {
+        'view_name': 'empleados',
         'title_template': 'Listado de empleados',
         'lista_empleados': empleados,
     }
@@ -41,6 +43,7 @@ def empleados(request):
 def empleado(request, empleado_id):
     empleado = Empleado.objects.get(pk=empleado_id)
     context = {
+        'view_name': 'empleado',
         'title_template': 'Detalles del empleado',
         'empleado': empleado,
     }
