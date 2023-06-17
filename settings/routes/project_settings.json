@@ -1,7 +1,7 @@
 {
-    "Project": "myproject",
+    "Project": "empresaDjango",
     "Apps": {
-        "app1": [
+        "appEmpresaDjango": [
             "index",
             "views1",
             "views2"
