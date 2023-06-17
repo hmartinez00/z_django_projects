@@ -2,19 +2,24 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from .models import Departamento, Empleado, Habilidad
 
+
 # Create your views here.
 
 def test(request):
-    return HttpResponse('Vista simple index.')
+    # modelos = ', '.join(apps.get_models())
+    return HttpResponse('Hola!')
 
 def index(request):
-    return HttpResponse('Vista simple index.')
+    modelos = ['departamentos', 'empleados']
+    context = {
+        'title_template': 'Listado de modelos',
+        'lista_modelos': modelos,
+    }
+    return render(request, 'index.html', context)
+
 
 def departamentos(request):
-    departamentos = Departamento.objects.order_by('nombre') #Aca es donde esta el esquema de modelo-template-views.
-    # Se usa el modelo diseñado como un objeto y se interactua con ese objeto en el
-    # archivo de vistas. Se explota aqui en este archivo, y luego se arman las respuestas Http.
-        
+    departamentos = Departamento.objects.order_by('nombre')
     context = {
         'title_template': 'Listado de departamentos',
         'lista_departamentos': departamentos,
@@ -26,10 +31,7 @@ def departamento(request, departamento_id):
     return HttpResponse(departamento)
 
 def empleados(request):
-    empleados = Empleado.objects.order_by('nombre') #Aca es donde esta el esquema de modelo-template-views.
-    # Se usa el modelo diseñado como un objeto y se interactua con ese objeto en el
-    # archivo de vistas. Se explota aqui en este archivo, y luego se arman las respuestas Http.
-        
+    empleados = Empleado.objects.order_by('nombre')
     context = {
         'title_template': 'Listado de empleados',
         'lista_empleados': empleados,

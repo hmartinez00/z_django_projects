@@ -3,7 +3,7 @@
 <ul>
     {% for dep in lista_departamentos %}
     <li>
-        {{dep.nombre}} (<a href="../departamento/{{ dep.id }}">Ver</a>)
+        {{dep.nombre}} (<a href="{% url 'departamento' dep.id %}">Ver</a>)
     </li>
     {% endfor %}
 </ul>

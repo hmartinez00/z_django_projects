@@ -1,9 +1,9 @@
 {% extends "base.html" %}
 {% block content %}
 <ul>
-    {% for dep in lista_empleados %}
+    {% for emp in lista_empleados %}
     <li>
-        {{dep.nombre}} (<a href="../empleado/{{ dep.id }}">Ver</a>)
+        {{emp.nombre}} (<a href="{% url 'empleado' emp.id %}">Ver</a>)
     </li>
     {% endfor %}
 </ul>
