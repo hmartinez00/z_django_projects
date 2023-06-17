@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+<table>
+    <tr>
+        <td>Id</td>
+        <td>{{ empleado.id }}</td>
+    </tr>
+    <tr>
+        <td>Nombre</td>
+        <td>{{ empleado.nombre }}</td>
+    </tr>
+    <tr>
+        <td>Antiguedad</td>
+        <td>{{ empleado.antiguedad }}</td>
+    </tr>
+</table>
+
+{% endblock %}
