@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
 <ul>
-    {% for dep in lista_departamentos %}
+    {% for dep in departamento_list %}
     <li>
         {{dep.nombre}} (<a href="{% url 'departamento' dep.id %}">Ver</a>)
     </li>
