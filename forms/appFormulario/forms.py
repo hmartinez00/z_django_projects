@@ -1,6 +1,6 @@
 from django import forms
 
-class EmpleadoForm(forms.Forms):
+class EmpleadoForm(forms.Form):
     nombre = forms.CharField(label = 'Nombre', max_length=100)
     apellido = forms.CharField(label = 'Apellido', max_length=100)
     edad = forms.IntegerField(label = 'Edad')

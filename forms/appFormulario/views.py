@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from .forms import EmpleadoForm
 
 # Create your views here.
 
@@ -17,3 +18,17 @@ def registrar(request):
 
     return HttpResponse(out)
     
+
+def show_empleado_form(request):
+    form = EmpleadoForm()
+    context = {'form': form}
+    return render(request, 'empleado_form.html', context)
+
+
+def post_empleado_form(request):
+    form = EmpleadoForm(request.POST)
+    if form.is_valid():
+        nombre = form.cleaned_data['nombre']
+        out = f'El nombre es: {nombre}'
+        return HttpResponse(out)
+
