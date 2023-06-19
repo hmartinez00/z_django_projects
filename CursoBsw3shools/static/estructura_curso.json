@@ -1,0 +1,64 @@
+{
+    "Tutorial_de_Bootstrap_5": [
+        "BS5 INICIO",
+        "BS5 Empezar",
+        "Contenedores BS5",
+        "BS5 Rejilla Básica",
+        "Tipografía BS5",
+        "Colores BS5",
+        "Tablas BS5",
+        "Imágenes BS5",
+        "Jumbotrón BS5",
+        "Alertas BS5",
+        "Botones BS5",
+        "Grupos de botones BS5",
+        "Insignias BS5",
+        "Barras de progreso BS5",
+        "Hilanderos BS5",
+        "Paginación BS5",
+        "Grupos de listas BS5",
+        "Tarjetas BS5",
+        "Menús desplegables BS5",
+        "BS5 Colapso",
+        "Navegadores BS5",
+        "Barra de navegación BS5",
+        "Carrusel BS5",
+        "Modalidad BS5",
+        "Información sobre herramientas BS5",
+        "Ventana emergente BS5",
+        "Tostadas BS5",
+        "BS5 Scrollspy",
+        "BS5 Offcanvas",
+        "Utilidades BS5",
+        "Flexibilidad BS5"
+    ],
+    "Bootstrap_5_formularios": [
+        "Formularios BS5",
+        "Menús selectos de BS5",
+        "Cheques y radios BS5",
+        "Gama BS5",
+        "Grupos de entrada BS5",
+        "Etiquetas flotantes BS5",
+        "Validación de formulario BS5",
+        "Sistema de rejilla BS5",
+        "BS5 Apilado/Horizontal"
+    ],
+    "Rejilla_Bootstrap_5": [
+        "Rejilla BS5 XS",
+        "Rejilla BS5 pequeña",
+        "Medio de rejilla BS5",
+        "Rejilla BS5 grande",
+        "Rejilla BS5 XL",
+        "Rejilla BS5 XXL",
+        "Ejemplos de cuadrícula BS5"
+    ],
+    "Bootstrap_5_Otros": [
+        "Plantilla básica BS5",
+        "Redactor de BS5",
+        "Ejercicios BS5",
+        "Cuestionario BS5"
+    ],
+    "Certificacion": [
+        "Certificado BS5"
+    ]
+}
