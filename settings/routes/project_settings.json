@@ -1,7 +1,7 @@
 {
-    "Project": "forms",
+    "Project": "CursoBsw3shools",
     "Apps": {
-        "appFormulario": [
+        "BootStrap5": [
             "index",
             "views1",
             "views2"
