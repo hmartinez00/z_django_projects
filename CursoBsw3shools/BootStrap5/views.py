@@ -23,8 +23,6 @@ def index(request):
     }
     return render(request, 'index.html', context)
 
-
-
 def vistas_clases(request):
     context = {}
-    return render(request, 'Tutorial_de_Bootstrap_5/bs5_empezar.html', context)
+    return render(request, 'Tutorial_de_Bootstrap_5/bs5_empezar/bs5_empezar.html', context)
