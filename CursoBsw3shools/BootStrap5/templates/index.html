@@ -2,9 +2,15 @@
 {% block content %}
     {% for modulos, clases in modules.items %}
     <ul>
-        <h3>{{ modulos }}</h2>
+        <h3>{{ modulos }}</h3>
         {% for i in clases %}
-            <li>{{ i }}</li>
+            {% if i != 'BS5 Empezar' %}
+                <li>{{ i }}</li>
+            {% else %}
+                <li>
+                    {{ i }}: link
+                </li>
+            {% endif %}
         {% endfor %}
     </ul>
     {% endfor %}

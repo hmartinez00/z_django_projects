@@ -6,7 +6,6 @@ from .models import Tutorial_de_Bootstrap_5, Bootstrap_5_formularios, Rejilla_Bo
 # Create your views here.
 
 def test(request):
-    # modelos = ', '.join(apps.get_models())
     return HttpResponse('Vista de Prueba!')
 
 def index(request):
@@ -23,3 +22,9 @@ def index(request):
         'modules'       : modules,
     }
     return render(request, 'index.html', context)
+
+
+
+def vistas_clases(request):
+    context = {}
+    return render(request, 'bs5_empezar.html', context)
