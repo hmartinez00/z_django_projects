@@ -17,8 +17,8 @@ def index(request):
         'Bootstrap_5_Otros'         : [str(i).split(',')[0].split('=')[1] for i in list(Bootstrap_5_Otros.objects.order_by('id'))       ],
         'Certificacion'             : [str(i).split(',')[0].split('=')[1] for i in list(Certificacion.objects.order_by('id'))           ],
     }
-    context     = {
-        'view_name'     : 'inicio',
+    context = {
+        'view_name'     : 'Inicio',
         'title_template': 'Listado de Clases',
         'modules'       : modules,
     }
