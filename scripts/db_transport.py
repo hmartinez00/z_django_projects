@@ -15,13 +15,13 @@ with open(ruta_archivo_json, encoding='utf-8') as archivo_json:
 
 
 tables = list(datos_json.keys())
-table = 'BootStrap5_' + tables[0]
+table = 'BootStrap5_' + tables[4]
 print(len(tables))
-values = datos_json[tables[0]]
+values = datos_json[tables[4]]
 
 
 for i in range(len(values)):
-    renglon = (str(i),values[i])
+    renglon = (values[i], 1, 'a')
     print(renglon)
 
     insert(database, table, renglon)
