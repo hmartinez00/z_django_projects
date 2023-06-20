@@ -1,11 +1,11 @@
 {% extends "base.html" %}
 {% block content %}
-<ul>
-    {{ module_name }}
-    {% for mod in class_list %}
-    <li>
-        {{ mod }}
-    </li>
+    {% for modulos, clases in modules.items %}
+    <ul>
+        {{ modulos }}
+        {% for i in clases %}
+            <li>{{ i }}</li>
+        {% endfor %}
+    </ul>
     {% endfor %}
-</ul>
 {% endblock %}
