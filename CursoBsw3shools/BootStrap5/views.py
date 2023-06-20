@@ -1,3 +1,4 @@
+import os
 from django.shortcuts import render
 from django.http import HttpResponse
 from .models import Tutorial_de_Bootstrap_5, Bootstrap_5_formularios, Rejilla_Bootstrap_5, Bootstrap_5_Otros, Certificacion
@@ -23,6 +24,10 @@ def index(request):
     }
     return render(request, 'index.html', context)
 
-def vistas_clases(request):
-    context = {}
-    return render(request, 'Tutorial_de_Bootstrap_5/bs5_empezar/bs5_empezar.html', context)
+def vistas_clases(request, modulo, clase):
+    template_name = os.path.join(modulo, clase, clase + '.html')
+    context = {
+        'modulo': modulo,
+        'clase' : clase,
+    }
+    return render(request, template_name, context)
