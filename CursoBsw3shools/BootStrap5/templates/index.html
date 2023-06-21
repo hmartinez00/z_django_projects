@@ -1,16 +1,17 @@
 {% extends "base.html" %}
+{% load custom_filters %}
 {% block content %}
     {% for modulos, clases in modules.items %}
     <ul>
         <h3>{{ modulos }}</h3>
         {% for i in clases %}
-            {% if modulos != 'Tutorial_de_Bootstrap_5' and i != 'bs5empezar' %}
+            {% if modulos != 'Tutorial_de_Bootstrap_5' and i != 'bs_5empezar' %}
                 <li>
                     {{ i }}
                 </li>
             {% else %}
                 <li>
-                    <a href="{% url 'vistas_clases' modulos i|lower|cut:' ' %}">{{ i }}</a>
+                    <a href="{% url 'vistas_clases' modulos i|lower|replace_spaces %}">{{ i }}</a>
                 </li>
             {% endif %}
         {% endfor %}
