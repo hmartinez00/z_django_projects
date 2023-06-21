@@ -1,32 +1,41 @@
+import json
+from ManageDB.sqlite_on_db import *
 import sys
-import unicodedata
-
-def remove_accents(value):
-    normalized_value = unicodedata.normalize('NFKD', value)
-    ascii_value = normalized_value.encode('ASCII', 'ignore').decode('utf-8')
-    return ascii_value
-
-def replace_spaces(value):
-    new_value = remove_accents(value)\
-        .replace(' ', '_')\
-        .lower()
-        
-    return new_value
 
 
-s = replace_spaces('ácento')
-print(s)
+sys.stdout.reconfigure(encoding='utf-8')
+
+def normalizar(string):
+    replacements = {
+        ' ': '_',
+        'á': 'a',
+        'é': 'e',
+        'í': 'i',
+        'ó': 'o',
+        'ú': 'u',
+        'Á': 'A',
+        'É': 'E',
+        'Í': 'I',
+        'Ó': 'O',
+        'Ú': 'U'
+    }
+    new_string = ''
+    for char in string:
+        if char in replacements:
+            new_string += replacements[char]
+        else:
+            new_string += char
+    return new_string
 
 
-# database = r"CursoBsw3shools\db.sqlite3"
-# ruta_archivo_json = r'CursoBsw3shools\static\estructura_curso.json'
+database = r"CursoBsw3shools\db.sqlite3"
+ruta_archivo_json = r'CursoBsw3shools\static\estructura_curso.json'
 
-# with open(ruta_archivo_json, encoding='utf-8') as archivo_json:
-#     datos_json = json.load(archivo_json)
+with open(ruta_archivo_json, encoding='utf-8') as archivo_json:
+    datos_json = json.load(archivo_json)
 
-# tables = list(datos_json.keys())
-# values = []
-# for i in datos_json[tables[0]]:
-#     values.append(replace_spaces(i))
 
-# print(tables, values)
+tables = list(dict(datos_json).keys())
+values = datos_json[tables[0]]
+
+print(tables)
