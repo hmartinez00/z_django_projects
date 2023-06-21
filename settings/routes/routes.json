@@ -17,6 +17,7 @@
             "Correr Servidor",
             "Hacer autocommit",
             "Migrar a DB",
+            "Crear plantillas",
             "prueba"
         ],
         [
@@ -28,6 +29,7 @@
             "scripts/run_server.py",
             "scripts/git_update.py",
             "scripts/db_transport.py",
+            "C:/Users/admin/Documents/0 - A Repositorios GitHub/z_django_projects/CursoBsw3shools/scripts/templates_creator.py",
             "scripts/test2.py"
         ]
     ]
