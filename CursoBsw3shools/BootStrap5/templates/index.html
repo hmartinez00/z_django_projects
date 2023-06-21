@@ -4,10 +4,15 @@
     <ul>
         <h3>{{ modulos }}</h3>
         {% for i in clases %}
-            <li>
-                {{i}}
-                <!-- <a href="{% url 'vistas_clases' modulos i|lower|cut:' ' %}">{{ i }}</a> -->
-            </li>
+            {% if modulos != 'Tutorial_de_Bootstrap_5' and i != 'bs5empezar' %}
+                <li>
+                    {{ i }}
+                </li>
+            {% else %}
+                <li>
+                    <a href="{% url 'vistas_clases' modulos i|lower|cut:' ' %}">{{ i }}</a>
+                </li>
+            {% endif %}
         {% endfor %}
     </ul>
     {% endfor %}
