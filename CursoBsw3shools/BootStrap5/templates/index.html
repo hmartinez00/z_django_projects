@@ -5,7 +5,8 @@
         <h3>{{ modulos }}</h3>
         {% for i in clases %}
             <li>
-                <a href="{% url 'vistas_clases' modulo clase %}">{{ i }}</a>
+                {{i}}
+                <!-- <a href="{% url 'vistas_clases' modulos i|lower|cut:' ' %}">{{ i }}</a> -->
             </li>
         {% endfor %}
     </ul>
