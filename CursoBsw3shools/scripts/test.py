@@ -1,25 +1,18 @@
-import os
-import sys
-import json
+from General_Utilities.option_list import option_list
+from ManageDB.sqlite_on_db import selectall_id, show_tables
 
 
-def normalizar(value):
-    str_string = str(str(value).lower())
-    replacements = {
-        ' ': '_',
-        'á': 'a',
-        'é': 'e',
-        'í': 'i',
-        'ó': 'o',
-        'ú': 'u',
-    }
-    new_value = ''
-    for char in str_string:
-        if char in replacements:
-            new_value += replacements[char]
-        else:
-            new_value += char
-    return new_value
+database = r'CursoBsw3shools\db.sqlite3'
+db_tables = show_tables(database)
 
-valor = 'BS5 Rejílla Básica'
-print(normalizar(valor))
+tables = []
+for i in db_tables:
+    if 'BootStrap5_' in i:
+        tables.append(i)
+
+tabla = option_list(tables)
+
+id = 'id'
+df = selectall_id(database, tabla, id)['content']
+for i in df:
+    print(i)
