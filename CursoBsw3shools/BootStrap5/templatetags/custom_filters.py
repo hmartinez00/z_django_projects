@@ -7,3 +7,8 @@ register = template.Library()
 def replace_spaces(string):
     new_string = unidecode.unidecode(string).replace(' ', '_').lower()
     return new_string
+
+@register.filter
+def get_number(string):
+    new_string = unidecode.unidecode(string).replace(' ', '_').lower()
+    return new_string

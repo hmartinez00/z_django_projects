@@ -1,8 +1,9 @@
 {% extends "base.html" %}
+{% load custom_filters %}
 {% block content %}
     <h1>{{ modulo }}</h1>
     <h2>{{ leccion }}</h2>
     {% for i in file_list %}
-        <li>{{ i }}</li>
+        <li>{{ i|length }}</li>
     {% endfor %}
 {% endblock %}

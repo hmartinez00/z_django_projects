@@ -11,7 +11,7 @@
                 </li>
             {% else %}
                 <li>
-                    <a href="{% url 'vistas_clases' modulos i|lower|replace_spaces %}">{{ i }}</a>
+                    <a href="{% url 'vistas_clases' modulos i|lower|replace_spaces 0 %}">{{ i }}</a>
                 </li>
             {% endif %}
         {% endfor %}

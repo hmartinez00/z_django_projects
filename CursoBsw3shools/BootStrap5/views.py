@@ -25,22 +25,16 @@ def index(request):
     }
     return render(request, 'index.html', context)
 
-def vistas_clases(request, modulo, leccion):
-    template_name   = os.path.join(modulo, leccion, leccion + '.html')
+def vistas_clases(request, modulo, leccion, num):
+    if num == 0:
+        template_name   = os.path.join(modulo, leccion, leccion + '.html')
+    else:
+        template_name   = os.path.join(modulo, leccion, f'example{num}.html')
     template_dir    = os.path.join(TEMPLATES[0]['DIRS'][0], modulo, leccion)
     file_list       = [i for i in os.listdir(template_dir) if i != leccion + '.html']
     context = {
         'modulo'    : modulo,
         'leccion'   : leccion,
         'file_list' : file_list,
-    }
-    return render(request, template_name, context)
-
-def example(request, modulo, leccion, num_id):
-    template_name = os.path.join(modulo, leccion, f'example{num_id}.html')
-    context = {
-        'modulo'    : modulo,
-        'leccion'   : leccion,
-        'num_id'    : num_id
     }
     return render(request, template_name, context)
