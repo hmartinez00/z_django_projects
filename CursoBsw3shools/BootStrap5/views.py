@@ -2,6 +2,7 @@ import os
 from django.shortcuts import render
 from django.http import HttpResponse
 from .models import Tutorial_de_Bootstrap_5, Bootstrap_5_formularios, Rejilla_Bootstrap_5, Bootstrap_5_Otros, Certificacion
+from CursoBsw3shools.settings import TEMPLATES
 
 
 # Create your views here.
@@ -26,8 +27,12 @@ def index(request):
 
 def vistas_clases(request, modulo, leccion):
     template_name = os.path.join(modulo, leccion, leccion + '.html')
+    template_dir = TEMPLATES[0]['DIRS'][0]
+    file_list = os.listdir(os.path.join(template_dir, modulo, leccion))
+    file_list = [i for i in file_list if 'example' in i]
     context = {
-        'modulo': modulo,
-        'leccion' : leccion,
+        'modulo'    : modulo,
+        'leccion'   : leccion,
+        'file_list' : file_list,
     }
     return render(request, template_name, context)
