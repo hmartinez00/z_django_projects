@@ -24,10 +24,10 @@ def index(request):
     }
     return render(request, 'index.html', context)
 
-def vistas_clases(request, modulo, clase):
-    template_name = os.path.join(modulo, clase, clase + '.html')
+def vistas_clases(request, modulo, leccion):
+    template_name = os.path.join(modulo, leccion, leccion + '.html')
     context = {
         'modulo': modulo,
-        'clase' : clase,
+        'leccion' : leccion,
     }
     return render(request, template_name, context)
