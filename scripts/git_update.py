@@ -5,6 +5,8 @@ from General_Utilities.option_list import option_list
 from Pku_module.Package_update_module import listar_paquetes
 from modules.django_rootes import *
 
+directory = os.getcwd()
+
 key = 'resources'
 path = setting_routes(key)[0]
 
@@ -15,3 +17,5 @@ os.chdir(project_path)
 opciones = os.listdir()
 project = option_list(opciones)
 auto_commit(project)
+
+os.chdir(directory)
