@@ -13,8 +13,10 @@
   <!-- <link rel="stylesheet" href="{% static 'css/styles.css' %}"> -->
 </head>
 <body>
-  <h1>{{ view_name }}</h1>
-  <h2>{{ title_template }}</h2>
+  <div class="container-fluid bg-primary text-white text-center">
+    <h1>{{ view_name }}</h1>
+    <h2>{{ title_template }}</h2>
+  </div>
   {% block content %} {% endblock %}
   <footer>    
     <a href="{% url 'index' %}">volver a inicio</a>
