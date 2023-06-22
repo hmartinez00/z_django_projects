@@ -31,5 +31,28 @@ lista = []
 for i in df:
     lista.append(unidecode.unidecode(i).replace(' ', '_').lower())
 
-print(lista)
+
+template_dir = os.path.join(app_path, 'templates')
+for i in os.listdir(template_dir):
+    if str(tabla).replace('BootStrap5_', '').lower() == i.lower():
+        for j in lista:
+            lesson_dir  = os.path.join(template_dir, i, j)
+            lesson_file = os.path.join(lesson_dir, j + '.html')
+            if not os.path.exists(lesson_dir):
+                os.makedirs(lesson_dir)
+            if not os.path.exists(lesson_file):
+                with open(lesson_file, 'w') as file:
+                    content = '''{% extends "base.html" %}
+{% load custom_filters %}
+{% block content %}
+    <h1>{{ modulo }}</h1>
+    <h2>{{ leccion }}</h2>
+    {% for i in file_list %}
+        <li>
+            <a href="{% url 'vistas_clases' modulo leccion i|extract_numbers %}">{{ i }}</a>
+        </li>
+    {% endfor %}
+{% endblock %}                   
+'''
+                    file.write(content)
 
