@@ -14,3 +14,8 @@ def extract_numbers(string):
     numbers = re.findall(r'\d+', string)
     numbers = int(numbers[0])
     return numbers
+
+@register.filter
+def remove_ext(string):
+    new_string = unidecode.unidecode(string).replace('.html', '')
+    return new_string

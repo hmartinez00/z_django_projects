@@ -5,7 +5,7 @@
     <h2>{{ leccion }}</h2>
     {% for i in file_list %}
         <li>
-            <a href="{% url 'vistas_clases' modulo leccion i|extract_numbers %}">{{ i }}</a>
+            <a href="{% url 'vistas_clases' modulo leccion i|extract_numbers %}">{{ i|extract_numbers }}</a>
         </li>
     {% endfor %}
 {% endblock %}                   
