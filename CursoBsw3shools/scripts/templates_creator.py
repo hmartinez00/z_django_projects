@@ -25,11 +25,11 @@ def normalizar(string):
             new_string += replacements[char]
         else:
             new_string += char
-    return new_string
+    return new_string.lower()
 
 
-database = r"CursoBsw3shools\db.sqlite3"
-ruta_archivo_json = r'CursoBsw3shools\static\estructura_curso.json'
+database = r"C:\Users\admin\Documents\0 - A Repositorios GitHub\z_django_projects\CursoBsw3shools\db.sqlite3"
+ruta_archivo_json = r'C:\Users\admin\Documents\0 - A Repositorios GitHub\z_django_projects\CursoBsw3shools\static\estructura_curso.json'
 
 with open(ruta_archivo_json, encoding='utf-8') as archivo_json:
     datos_json = json.load(archivo_json)
@@ -38,4 +38,6 @@ with open(ruta_archivo_json, encoding='utf-8') as archivo_json:
 tables = list(dict(datos_json).keys())
 values = datos_json[tables[0]]
 
-print(tables)
+for i in values:
+    print(normalizar(i))
+
