@@ -1,20 +1,17 @@
 import os
+from General_Utilities.control_rutas import setting_routes
 from Pku_module.Package_update_module import auto_commit
 from General_Utilities.option_list import option_list
 from Pku_module.Package_update_module import listar_paquetes
+from modules.django_rootes import *
 
-# pregunta1 = input('Desea actualizar un paquete distribuible? (S/N): ')
+key = 'resources'
+path = setting_routes(key)[0]
 
-# if pregunta1 == 's' or pregunta1 == 'S':
-#     opciones = listar_paquetes()
-#     project = option_list(opciones)
-#     auto_commit(project)
+projects_list   = get_django_projects(path)
+project_path    = select_django_project(projects_list)
 
-# else:    
-#     pregunta2 = input('Desea actualizar un proyecto? (S/N): ')
-
-#     if pregunta2 == 's' or pregunta2 == 'S':
-os.chdir('..')
+os.chdir(project_path)
 opciones = os.listdir()
 project = option_list(opciones)
 auto_commit(project)
