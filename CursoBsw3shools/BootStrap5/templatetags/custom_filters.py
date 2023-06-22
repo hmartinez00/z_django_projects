@@ -1,5 +1,6 @@
 from django import template
 import unidecode
+import re
 
 register = template.Library()
 
@@ -9,6 +10,7 @@ def replace_spaces(string):
     return new_string
 
 @register.filter
-def get_number(string):
-    new_string = unidecode.unidecode(string).replace(' ', '_').lower()
-    return new_string
+def extract_numbers(string):
+    numbers = re.findall(r'\d+', string)
+    numbers = int(numbers[0])
+    return numbers
