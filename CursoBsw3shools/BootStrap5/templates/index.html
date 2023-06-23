@@ -1,15 +1,5 @@
 {% extends "base.html" %}
 {% load custom_filters %}
 {% block content %}
-    {% for modulos, clases in modules.items %}
-    <ul>
-        <h3>{{ modulos }}</h3>
-                
-        {% for i in clases %}
-            <li>
-                <a href="{% url 'vistas_clases' modulos i|lower|replace_spaces 0 %}">{{ i }}</a>
-            </li>
-        {% endfor %}
-    </ul>
-    {% endfor %}
+  <h1>Hola!</h1>
 {% endblock %}

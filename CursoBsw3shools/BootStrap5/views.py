@@ -26,6 +26,13 @@ def index(request):
     return render(request, 'index.html', context)
 
 def vistas_clases(request, modulo, leccion, num):
+    modules = {
+        'Tutorial_de_Bootstrap_5'   : [str(i).split(',')[0].split('=')[1] for i in list(Tutorial_de_Bootstrap_5.objects.order_by('id')) ],
+        'Bootstrap_5_formularios'   : [str(i).split(',')[0].split('=')[1] for i in list(Bootstrap_5_formularios.objects.order_by('id')) ],
+        'Rejilla_Bootstrap_5'       : [str(i).split(',')[0].split('=')[1] for i in list(Rejilla_Bootstrap_5.objects.order_by('id'))     ],
+        'Bootstrap_5_Otros'         : [str(i).split(',')[0].split('=')[1] for i in list(Bootstrap_5_Otros.objects.order_by('id'))       ],
+        'Certificacion'             : [str(i).split(',')[0].split('=')[1] for i in list(Certificacion.objects.order_by('id'))           ],
+    }
     if num == 0:
         template_name   = os.path.join(modulo, leccion, leccion + '.html')
     else:
@@ -36,5 +43,6 @@ def vistas_clases(request, modulo, leccion, num):
         'modulo'    : modulo,
         'leccion'   : leccion,
         'file_list' : file_list,
+        'modules'   : modules,
     }
     return render(request, template_name, context)
