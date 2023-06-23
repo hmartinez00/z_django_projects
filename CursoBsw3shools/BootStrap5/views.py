@@ -40,6 +40,8 @@ def vistas_clases(request, modulo, leccion, num):
     template_dir    = os.path.join(TEMPLATES[0]['DIRS'][0], modulo, leccion)
     file_list       = [str(i).replace('.html', '') for i in os.listdir(template_dir) if i != leccion + '.html']
     context = {
+        'view_name'     : 'Inicio',
+        'title_template': 'Listado de Clases',
         'modulo'    : modulo,
         'leccion'   : leccion,
         'file_list' : file_list,

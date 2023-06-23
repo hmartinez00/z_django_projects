@@ -1,8 +1,8 @@
-{% extends "base.html" %}
+{% extends "index.html" %}
 {% load custom_filters %}
 {% block content %}
-    <h1>{{ modulo }}</h1>
-    <h2>{{ leccion }}</h2>
+    <h3>{{ modulo }}</h3>
+    <h4>{{ leccion }}</h4>
     {% for i in file_list %}
         <li>
             <a href="{% url 'vistas_clases' modulo leccion i|extract_numbers %}">{{ i }}</a>
