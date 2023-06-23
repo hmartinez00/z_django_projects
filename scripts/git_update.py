@@ -15,7 +15,7 @@ project_path    = select_django_project(projects_list)
 apps_list       = get_django_apps(project_path)
 app_path        = select_django_apps(apps_list)
 
-os.chdir(app_path)
+os.chdir(project_path)
 opciones = os.listdir()
 project = option_list(opciones)
 auto_commit(project)
