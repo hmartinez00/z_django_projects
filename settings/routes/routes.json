@@ -1,11 +1,11 @@
 {
     "resources": [
-        "C:/Users/Hector/Documents/0 - A Repositorios GitHub/z_django_projects/",
-        "C:/Users/admin/Documents/0 - A Repositorios GitHub/z_django_projects/"
+        "C:/Users/admin/Documents/0 - A Repositorios GitHub/z_django_projects/",
+        "C:/Users/Hector/Documents/0 - A Repositorios GitHub/z_django_projects/"
     ],
     "backup_Templates": [
-        "C:/Users/Hector/Documents/0 - A Repositorios GitHub/z_django_projects/backup_Templates/",
-        "C:/Users/admin/Documents/0 - A Repositorios GitHub/z_django_projects/backup_Templates/"
+        "C:/Users/admin/Documents/0 - A Repositorios GitHub/z_django_projects/backup_Templates/",
+        "C:/Users/Hector/Documents/0 - A Repositorios GitHub/z_django_projects/backup_Templates/"
     ],
     "exec": [
         [
@@ -18,7 +18,7 @@
             "Hacer autocommit",
             "Migrar a DB",
             "Crear plantillas",
-            "Prueba externa",
+            "Crear plantilla example",
             "prueba"
         ],
         [
@@ -31,7 +31,7 @@
             "scripts/git_update.py",
             "scripts/db_transport.py",
             "CursoBsw3shools/scripts/templates_creator.py",
-            "CursoBsw3shools/scripts/test.py",
+            "CursoBsw3shools/scripts/example_creator.py",
             "scripts/test2.py"
         ]
     ]
