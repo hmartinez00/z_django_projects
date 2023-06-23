@@ -30,8 +30,8 @@
             "scripts/run_server.py",
             "scripts/git_update.py",
             "scripts/db_transport.py",
-            "C:/Users/admin/Documents/0 - A Repositorios GitHub/z_django_projects/CursoBsw3shools/scripts/templates_creator.py",
-            "C:/Users/admin/Documents/0 - A Repositorios GitHub/z_django_projects/CursoBsw3shools/scripts/test.py",
+            "CursoBsw3shools/scripts/templates_creator.py",
+            "CursoBsw3shools/scripts/test.py",
             "scripts/test2.py"
         ]
     ]
