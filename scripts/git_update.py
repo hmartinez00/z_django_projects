@@ -12,8 +12,10 @@ path = setting_routes(key)[0]
 
 projects_list   = get_django_projects(path)
 project_path    = select_django_project(projects_list)
+apps_list       = get_django_apps(project_path)
+app_path        = select_django_apps(apps_list)
 
-os.chdir(project_path)
+os.chdir(app_path)
 opciones = os.listdir()
 project = option_list(opciones)
 auto_commit(project)
