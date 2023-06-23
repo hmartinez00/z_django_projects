@@ -11,9 +11,10 @@ file_name = os.path.join(final_dir, f'example{index}.html')
 if not os.path.exists(file_name):
     with open(file_name, 'w') as file:
         content = '''{% extends "base.html" %}
-        {% block content %}
+{% load custom_filters %}
+{% block content %}
 
-        {% endblock %}
-        '''
+{% endblock %}
+'''
         file.write(content)
 

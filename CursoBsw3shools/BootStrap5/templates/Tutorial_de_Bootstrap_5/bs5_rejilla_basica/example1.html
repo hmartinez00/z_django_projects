@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% load custom_filters %}
+{% block content %}
+
+<div class="container-fluid mt-3">
+  <h1>Tres columnas de ancho igual</h1>
+  <p>Nota: Intenta agregar un nuevo div con class="col" dentro de la clase row, esto creará cuatro columnas de ancho igual.</p>
+  <div class="row">
+    <div class="col p-3 bg-primary text-white">col p-3 bg-primary text-white</div>
+    <div class="col p-3 bg-dark text-white">col p-3 bg-dark text-white</div>
+    <div class="col p-3 bg-primary text-white">col p-3 bg-primary text-white</div>
+  </div>
+</div>
+
+<a href="https://getbootstrap.com/docs/5.2/layout/grid/">Layout - Grid</a>
+
+{% endblock %}
+        

@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load custom_filters %}
+{% block content %}
+
+  <div class="container-fluid mt-3">
+    <h1>Dos Columnas Responsivas de Distinto Tamaño</h1>
+    <p>Redimensiona la ventana del navegador para ver el efecto.</p>
+    <p>Las columnas se apilarán automáticamente una encima de la otra cuando la pantalla tenga menos de 576px de ancho.</p>
+    <div class="row">
+      <div class="col-sm-4 p-3 bg-primary text-white">.col</div>
+      <div class="col-sm-8 p-3 bg-dark text-white">.col</div>
+    </div>
+  </div>
+
+  <a href="https://getbootstrap.com/docs/5.2/layout/grid/">Layout - Grid</a>
+
+{% endblock %}
