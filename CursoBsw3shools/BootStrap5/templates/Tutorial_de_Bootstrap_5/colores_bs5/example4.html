@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load custom_filters %}
+{% block content %}
+  <div class="container mt-3">
+    <h2>Color de fondo con color de texto contrastante</h2>
+    <p class="text-bg-primary">Este texto es importante.</p>
+    <p class="text-bg-success">Este texto indica éxito.</p>
+    <p class="text-bg-info">Este texto representa alguna información.</p>
+    <p class="text-bg-warning">Este texto representa una advertencia.</p>
+    <p class="text-bg-danger">Este texto representa peligro.</p>
+    <p class="text-bg-secondary">Color de fondo secundario.</p>
+    <p class="text-bg-dark">Color de fondo gris oscuro.</p>
+    <p class="text-bg-light">Color de fondo gris claro.</p>
+  </div>
+
+  <a href="https://getbootstrap.com/docs/5.3/utilities/colors/#color">Colors</a>
+{% endblock %}

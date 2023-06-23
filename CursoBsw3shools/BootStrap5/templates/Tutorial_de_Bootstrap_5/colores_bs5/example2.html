@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% load custom_filters %}
+{% block content %}
+  <div class="container mt-3">
+    <h2>Colores de Texto con Opacidad</h2>
+    <p>Agrega un 50% de opacidad para el texto negro o blanco con las clases .text-black-50 o .text-white-50:</p>
+    <p class="text-black-50">Texto negro con 50% de opacidad en fondo blanco</p>
+    <p class="text-white-50 bg-dark">Texto blanco con 50% de opacidad en fondo negro</p>
+  </div>
+
+  <a href="https://getbootstrap.com/docs/5.2/utilities/colors/#contextual-colors">Utilities - Colors</a>
+{% endblock %}
