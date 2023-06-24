@@ -671,8 +671,9 @@ class views:
 
         if view_name!=None:
             # Seleccionamos el template del directorio de templates.
-            key = 'backup_Templates'
-            backup_Templates_path = setting_routes(key)[0]
+            key0 = 'resources'
+            key1 = 'backup_Templates'
+            backup_Templates_path = setting_routes(key0)[0] + setting_routes(key1)[0]
             list_Templates = os.listdir(backup_Templates_path)
             print('Seleccione la plantilla:')
             Template = option_list(list_Templates)
