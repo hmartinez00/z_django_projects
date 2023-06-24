@@ -17,18 +17,52 @@
  
   <div class="container-fluid">
     
-
+    <!-- Barra de Navegacion - Cabecera -->
     <div class="row">
-      <div class="col-12 bg-primary text-white text-center">
-        <h1>{{ view_name }}</h1>
-        <h2>{{ title_template }}</h2>
-      </div>
+      <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
+          <div class="container-fluid">
+            <a class="navbar-brand text-white" href="#">Navbar</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="{% url 'index' %}">Inicio</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Acerca de</a>
+                </li>
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Tutoriales
+                  </a>
+                  <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="{% url 'index' %}">Bootstrap 5</a></li>
+                    <li><a class="dropdown-item" href="#">CSS</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" href="#">Something else here</a></li>
+                  </ul>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link disabled">Disabled</a>
+                </li>
+              </ul>
+              <form class="d-flex" role="search">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">Search</button>
+              </form>
+            </div>
+          </div>
+        </nav>
     </div>
 
-    <div class="row">
-      <div class="col-3 bg-dark text-white-50">
+    <!-- Barra de Menues y Cuerpo -->
+    <div class="row pt-5">
+      <!-- Barra de Menues -->
+      <div class="col-3 bg-dark text-white-50 border border-secondary">
         {% for modulos, clases in modules.items %}
-        <ul class="nav flex-column">
+        <ul class="nav flex-column pt-3">
           <h3>{{ modulos }}</h3>           
           {% for i in clases %}
           <li class="nav-link">
@@ -38,18 +72,36 @@
         </ul>
         {% endfor %}
       </div>
+      <!-- Cuerpo -->
       <div class="col-9 bg-dark text-white-50">
         {% block content %} {% endblock %}
       </div>
     </div>
   
-    <div class="row text-bg-light">
-      <div class="col-12">
-        <footer>    
-          <a href="{% url 'index' %}">volver a inicio</a>
-        </footer>
+    <div class="row bg-black bg-gradient text-white py-4 border-top border-secondary">
+      <div class="col-6 text-center">
+        <h4>Enlaces útiles</h4>
+        <ul class="list-unstyled">
+          <li><a href="{% url 'index' %}">Inicio</a></li>
+          <li><a href="#">Acerca de</a></li>
+          <li><a href="#">Servicios</a></li>
+          <li><a href="#">Contacto</a></li>
+        </ul>
+      </div>
+      <div class="col-6">
+        <h4>Contacto</h4>
+        <p>Dirección: Calle Principal, Ciudad</p>
+        <p>Teléfono: 123-456-7890</p>
+        <p>Email: info@example.com</p>
       </div>
     </div>
+    <div class="row bg-dark text-white py-4">
+      <div class="col-12 text-center">
+        &copy; 2023 GPSoft. Todos los derechos reservados.
+      </div>
+    </div>    
+
+    
 
 
   </div>

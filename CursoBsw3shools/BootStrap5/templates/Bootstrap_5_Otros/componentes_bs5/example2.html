@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load custom_filters %}
+{% block content %}
+<footer class="bg-dark text-white py-4">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <h4>Enlaces útiles</h4>
+        <ul class="list-unstyled">
+          <li><a href="#">Inicio</a></li>
+          <li><a href="#">Acerca de</a></li>
+          <li><a href="#">Servicios</a></li>
+          <li><a href="#">Contacto</a></li>
+        </ul>
+      </div>
+      <div class="col-md-6">
+        <h4>Contacto</h4>
+        <p>Dirección: Calle Principal, Ciudad</p>
+        <p>Teléfono: 123-456-7890</p>
+        <p>Email: info@example.com</p>
+      </div>
+    </div>
+    <div class="row mt-3">
+      <div class="col-md-12 text-center">
+        &copy; 2023 Nombre de la Empresa. Todos los derechos reservados.
+      </div>
+    </div>
+  </div>
+</footer>
+{% endblock %}
