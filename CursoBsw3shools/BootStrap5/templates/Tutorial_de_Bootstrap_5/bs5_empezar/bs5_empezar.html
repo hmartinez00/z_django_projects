@@ -7,7 +7,7 @@
       <h4>{{ leccion }}</h4>
         {% for i in file_list %}
           <ul>
-            <iframe src="{% url 'vistas_clases' modulo leccion i|extract_numbers %}" title="description"></iframe>
+            <iframe height=80% width=90% src="{% url 'vistas_clases' modulo leccion i|extract_numbers %}" title="description"></iframe>
             <br>
             <a href="{% url 'vistas_clases' modulo leccion i|extract_numbers %}">{{ i }}</a>
           </ul>
