@@ -1,0 +1,22 @@
+{% extends "index.html" %}
+{% load custom_filters %}
+{% block content %}
+  <div class="container mt-3">
+    <h2>Navegación Vertical</h2>
+    <p>Utiliza la clase .flex-column para crear una navegación vertical:</p>
+    <ul class="nav flex-column">
+      <li class="nav-item">
+        <a class="nav-link" href="#">Enlace</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Enlace</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Enlace</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link disabled" href="#">Deshabilitado</a>
+      </li>
+    </ul>
+  </div>
+{% endblock %}
