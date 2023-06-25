@@ -1,5 +1,5 @@
 .columna-limitada {
-    max-height: 750px; /* Establece la altura máxima que deseas */
+    max-height: 740px; /* Establece la altura máxima que deseas */
     overflow-y: auto; /* Añade una barra de desplazamiento vertical si el contenido excede la altura máxima */
 }
   
