@@ -4,7 +4,7 @@
   <div class="row">
     <div class="col-12">
       <h3>{{ modulo }}</h3>
-      <h4>{{ leccion }}</h4>
+      <h4>{{ leccion|capfirst }}</h4>
         {% for i in file_list %}
           <ul>
             <iframe height=80% width=90% src="{% url 'vistas_clases' modulo leccion i|extract_numbers %}" title="description"></iframe>
