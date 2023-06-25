@@ -6,8 +6,8 @@ register = template.Library()
 
 @register.filter
 def replace_signs(string):
-    new_string = unidecode.unidecode(string).lower()
-    return str(new_string).replace(' ', '_')
+    new_string = unidecode.unidecode(string).replace(' ', '_').lower()
+    return new_string
 
 @register.filter
 def extract_numbers(string):
