@@ -8,6 +8,8 @@ print(
 -------------------------------------------------'''
 )
 
+
+
 # Ejercicio 1: 
 print('''
 Ejercicio 1: Verificacion de datos para pago ISLR.
@@ -101,6 +103,51 @@ for i in val_dates:
             print('\n' + val_dates[i][2])
         else:
             pass
+
+
+
+# Ejercicio 2: 
+print('''
+Ejercicio 2: Equipos de la LVBP.
+--------------------------------------------------''')
+
+    # 1. Definimos la lista
+LVBP = [
+    'Aguilas del Zulia',
+    'Bravos de Margarita',
+    'Cardenales de Lara',
+    'Caribes de Anzoategui',
+    'Leones del Caracas',
+    'Navegantes del Magallanes',
+    'Tigres de Aragua',
+    'Tiburones de La Guaira',
+]
+
+encontrado = False
+
+    # 2. Solicitamos los datos al usuario
+team = input('Introduzca su equipo favorito: ')
+
+    # 3. Validamos
+for i in LVBP:
+    if team.lower() in i.lower():
+        print(f'Ha seleccionado al glorioso equipo de: {i}!')
+        encontrado = True
+        break
+
+if not encontrado:
+    print("No te gusta la LVBP")
+
+
+
+# Ejercicio 3: 
+print('''
+Ejercicio 3: De donde vienes?
+--------------------------------------------------''')
+
+
+
+
 
 
 
