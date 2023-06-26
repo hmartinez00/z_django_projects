@@ -1,10 +1,26 @@
 import os
 
 
-diccionario = {
-    'clave1': 1,
-    'clave2': 1,
-    'clave3': 1,
+# Cintillo de presentacion
+print(
+    '''
+\nPROGRAMACION 1: TELECOMUNICACIONES. UNETI
+-------------------------------------------------'''
+)
+
+# Ejercicio 1: 
+print('\nEjercicio 1: Verificacion de datos para pago ISLR.\n')
+
+user_dates = {
+    'numero_de_hijos'   : 'a',
+    'edad'              : 'b',
+    'sueldo'            : 'c',
 }
 
-print(list(diccionario.keys())[0])
+for i in user_dates:
+    user_dates[i] = input(f'Por favor intorduzca su {i}: ')
+
+print(user_dates)
+
+# EOF
+print('\n\n')
