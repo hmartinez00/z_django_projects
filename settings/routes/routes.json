@@ -1,7 +1,7 @@
 {
     "resources": [
-        "C:/Users/Hector/Documents/0 - A Repositorios GitHub/z_django_projects/",
-        "C:/Users/admin/Documents/0 - A Repositorios GitHub/z_django_projects/"
+        "C:/Users/admin/Documents/0 - A Repositorios GitHub/z_django_projects/",
+        "C:/Users/Hector/Documents/0 - A Repositorios GitHub/z_django_projects/"
     ],
     "backup_Templates": [
         "backup_Templates/"
@@ -31,7 +31,7 @@
             "scripts/db_transport.py",
             "CursoBsw3shools/scripts/templates_creator.py",
             "CursoBsw3shools/scripts/example_creator.py",
-            "scripts/test2.py"
+            "scripts/test.py"
         ]
     ]
 }
